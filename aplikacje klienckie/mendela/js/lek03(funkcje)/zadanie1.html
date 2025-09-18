@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style></style>
+  </head>
+  <body>
+    <img class="img" src="./images.jpg" alt="" width="300" />
+    <script>
+      let img = document.querySelector(".img");
+      let width = img.width;
+
+      let flaga = true;
+      setInterval(() => {
+        if (flaga) width += 50;
+        else width -= 50;
+        console.log(width);
+        if (width >= 500 || width <= 200) flaga = !flaga;
+        img.width = width;
+      }, 100);
+    </script>
+  </body>
+</html>

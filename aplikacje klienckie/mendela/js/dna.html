@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #dna {
+        word-break: break-all;
+        width: 100vw;
+        white-space: normal;
+      }
+
+      .highlighted {
+        font-weight: bold;
+        color: green;
+      }
+
+      .yellow {
+        background-color: yellow;
+        display: inline;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      td,
+      th {
+        border: 1px solid black;
+        padding: 4px 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="dna"></div>
+    <h3>Statystyka Kodonów</h3>
+    <div id="stats"></div>
+    <script>
+      let dna = `
+            tcctagctgtgacctgtaaatatagaggctctaatatcaccctaggtatacaacgctcgt
+gatggggtttccagttagggtaccctggctcaaccctctgtctcggacggacactcatcc
+aattctatggctggacacgttctgtacaagagccccaacaccctccgagtatctcatcgg
+aactgacgggagattgtaccgaagtagggtactgcaacgcttacacagctcacctgaatc
+acaagaatagccaacacgcgacctcatgtgcccccaccattgtttctcatgtcaaatatg
+atgtcgaagcagtacccaaatgcataccaatgccgtgtgtcatgttaggttttcgcttca
+tggaagctctacaatagaacgtccgaccataatcataggtttatcgcgccgctaaaacat
+tgtacttaacctgttctaactctaatactcatgctatacaaacatgtttgcagattgcgg
+catatcggaacagagattcgactgatcctaagtactacggcgcttacctaaggcctcccc
+ttttgtccggcgccctcgtggacgctgatcttgcctttgtcggctaattgttcgcggcgt
+aagctacaaattacccgtagagagtgctgtccataccaaaaacttggatgcaccgttgca
+agtgtcatgcatttgatgaacagggtttagcctctgtccacacaactttctttcgtctag
+ggacacattaacgtgccgaagctagtttcgtctgggtctttaaggtcggtcaccacaaac
+tgagacgatgccaactgcaacctatgagctccaagtatatatatcggacaaggatctgtg
+tttcagggggcgctcgccgaatcatgcctgttcccctcattttatccagtaagattcaat
+aaggaaagcatttaccgcgtacagcatagatccaagccctttgggactagtacaactgaa
+atagccctaacactatgtaatttcctaacctgtctataagtctagttgccccttgttaag
+gggggagtctttttcagtagtcccgtgatcttgtgtaccctgtcctagccggtcaccaaa
+aaggccgtgatgcccaaagacaagttccttgaatactggaacatccgatgtgcaaaagta
+atccatgcagcgaactagcagagttgttacttgaatcatctgtggagatctttgttggat
+gtaaggcactataaggttaaaaatttcagaccaccgcgcgagtctcatcgggggtcaact
+aaatccattactatcgactaaacgcgaccgggacgtcgagttgcccggttatgcgagtcc
+cctaccatcgttgactacgtccagctccgggtgtgtgatagacggcctcaaaatgttatt
+tcttgatatcatgaaagacgctggtgtgaacccgataatcatcaggcgtgggcaaaggcg
+gcggcttccagcatggcccccccggcggaagcgtattgctagctgatcaactctaggact
+cggcgccagacccgtcgctgacatacgcccatagggggctaggtgtcctacgggtcactt
+aggtccggccaagtcgcaaccaggcgaccttacgtttgccgtaacatgtgtctgtgcctt
+tgtggctcgaggtatggacttctgtcacctctcatccggctctgggtgcttggttagatg
+cggtgtccatgttcagaattgggaaggactggtacatttcgtggcttgttggaagctgag
+gggtccaagttgcacggaccgaattcgggccacgccggctctagtggaaggtactgtttt
+ctaatctgactgtcgattgttggtgggaatcgtgcgacatctccgtgagtagcggtggtt
+gtcgcggcagtgtaatggacgaggtagtacgcgggagcatttgcgtcatgaagtcaggcc
+acacgtctgagcgccatgacagtttttatgacatgactcttagtaaaagcgatctcagga
+tacggaaccaccggcgacatc
+`;
+
+      let dna2 = "";
+
+      for (let i = 0; i < dna.length; i++) {
+        if (dna[i] != "\n") {
+          dna2 += dna[i];
+        }
+      }
+
+      let triplets = dna2.match(/.{1,3}/g);
+
+      let highlighted = triplets.map((triplet) => {
+        if (triplet.toUpperCase() == "ATG") {
+          return `<span class="highlighted">${triplet.toUpperCase()}</span>`;
+        } else if (
+          triplet.toUpperCase() == "TAA" ||
+          triplet.toUpperCase() == "TGA" ||
+          triplet.toUpperCase() == "TAG"
+        ) {
+          return `<div class="yellow">${triplet.toUpperCase()}</div>`;
+        }
+
+        return triplet.toUpperCase();
+      });
+
+      let dna3 = "";
+
+      document.getElementById("dna").innerHTML = highlighted.join(" ");
+
+      let counts = {};
+      triplets.forEach((c) => {
+        let codon = c.toUpperCase();
+        counts[codon] = (counts[codon] || 0) + 1;
+      });
+
+      // sortowanie malejąco
+      let sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+      // generowanie tabelki, co 5 nowy kolor
+      let html = "<table><tr><th>Kodon</th><th>Ilość</th></tr>";
+      sorted.forEach((entry, i) => {
+        let [codon, count] = entry;
+        if (i % 5 === 0) {
+          var color = `hsl(${Math.random() * 360},70%,80%)`;
+        }
+        html += `<tr style="background:${color}"><td>${codon}</td><td>${count}</td></tr>`;
+      });
+      html += "</table>";
+
+      document.getElementById("stats").innerHTML = html;
+    </script>
+  </body>
+</html>
