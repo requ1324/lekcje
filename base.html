@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Moja Aplikacja{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h2>Aplikacja Flask + Szablony</h2>
+        <nav>
+    <a href="/">Strona główna</a>
+</nav>
+    </header>
+<main>
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>
