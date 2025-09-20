@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Spadające tablice znaków</title>
+    <style>
+      textarea {
+        font-family: monospace;
+        font-size: 14px;
+        background: black;
+        color: #0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="screen" cols="50" rows="20" readonly></textarea>
+
+    <script>
+      const screen = document.getElementById("screen");
+      const cols = parseInt(screen.cols); // szerokość (kolumny)
+      const rows = parseInt(screen.rows); // wysokość (wiersze)
+      const chance = 0.05; // 5% szansy na znak
+      const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+      // Tworzymy pustą matrycę
+      function createEmpty() {
+        return Array.from({ length: rows }, () => " ".repeat(cols));
+      }
+
+      // Losujemy nową "tablicę spadającą"
+      function randomRow() {
+        let row = "";
+        for (let i = 0; i < cols; i++) {
+          if (Math.random() < chance) {
+            row += chars[Math.floor(Math.random() * chars.length)];
+          } else {
+            row += " ";
+          }
+        }
+        return row;
+      }
+
+      let buffer = createEmpty();
+
+      function draw() {
+        // Dodajemy nowy wiersz na górze
+        buffer.unshift(randomRow());
+        // Usuwamy ostatni wiersz (spadek)
+        buffer.pop();
+
+        // Wyświetlamy w textarea
+        screen.value = buffer.join("\n");
+      }
+
+      // Co 100ms odświeżanie
+      setInterval(draw, 100);
+    </script>
+  </body>
+</html>
