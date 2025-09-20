@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+  {% if user %}
+    <h2>Profil użytkownika:</h2>
+    <p><strong>Imię: </strong></p>{{ user.name }}
+    <p><strong>Email: </strong></p>{{ user.email }}
+    {% else %}
+    <p>Nie znaleziono użytkownika!</p>
+    {% endif %}
+{% endblock %}
