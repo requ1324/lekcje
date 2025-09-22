@@ -1,0 +1,192 @@
+------- cfg.php ----------
+<?php
+$dbname="if0_39895069_test";
+$host="sql100.infinityfree.com";
+$user = 'if0_39895069';
+$password = 'blablabla';
+$dsn = "mysql:dbname=$dbname;host=$host";
+
+$dbh = new PDO($dsn, $user, $password);
+
+---------- index.php ---------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+Hejoo tu Amelka z <img src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAgEASABIAAD/7Qs4UGhvdG9zaG9wIDMuMAA4QklNA+0KUmVzb2x1dGlvbgAAAAAQAEgAAAACAAIASAAAAAIAAjhCSU0EDRhGWCBHbG9iYWwgTGlnaHRpbmcgQW5nbGUAAAAABAAAAHg4QklNBBkSRlggR2xvYmFsIEFsdGl0dWRlAAAAAAQAAAAeOEJJTQPzC1ByaW50IEZsYWdzAAAACQAAAAAAAAAAAQA4QklNBAoOQ29weXJpZ2h0IEZsYWcAAAAAAQAAOEJJTScQFEphcGFuZXNlIFByaW50IEZsYWdzAAAAAAoAAQAAAAAAAAACOEJJTQP1F0NvbG9yIEhhbGZ0b25lIFNldHRpbmdzAAAASAAvZmYAAQBsZmYABgAAAAAAAQAvZmYAAQChmZoABgAAAAAAAQAyAAAAAQBaAAAABgAAAAAAAQA1AAAAAQAtAAAABgAAAAAAAThCSU0D+BdDb2xvciBUcmFuc2ZlciBTZXR0aW5ncwAAAHAAAP////////////////////////////8D6AAAAAD/////////////////////////////A+gAAAAA/////////////////////////////wPoAAAAAP////////////////////////////8D6AAAOEJJTQQAC0xheWVyIFN0YXRlAAAAAgABOEJJTQQCDExheWVyIEdyb3VwcwAAAAAEAAAAADhCSU0ECAZHdWlkZXMAAAAAEAAAAAEAAAJAAAACQAAAAAA4QklNBB4NVVJMIG92ZXJyaWRlcwAAAAQAAAAAOEJJTQQaBlNsaWNlcwAAAAB1AAAABgAAAAAAAAAAAAAAOAAAAFMAAAAKAFUAbgB0AGkAdABsAGUAZAAtADEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAFMAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADhCSU0EERFJQ0MgVW50YWdnZWQgRmxhZwAAAAEBADhCSU0EFBdMYXllciBJRCBHZW5lcmF0b3IgQmFzZQAAAAQAAAACOEJJTQQMFU5ldyBXaW5kb3dzIFRodW1ibmFpbAAAB1wAAAABAAAAUwAAADgAAAD8AAA3IAAAB0AAGAAB/9j/4AAQSkZJRgABAgEASABI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'/>!!! ąłó<pre>
+<?php
+include("cfg.php"); 
+$dbh->exec("set names utf8");
+
+$sth=$dbh->prepare("SELECT kraj.flaga as id_kraj, zbior.nominal, zbior.nr_kat, zbior.id_stop, zbior.rok from kraj, zbior where kraj.id = zbior.id_kraj");
+//$sth->bindValue("id",$id,PDO::PARAM_INT);
+$sth->execute();
+$all=$sth->fetchAll();
+print_r($all);
+$txt="<table border='1'>";
+for($i=0; $i<count($all);$i++){
+    $txt.="<tr><form method='post'>
+    <td><img src='./gfx/".$all[$i]['id_kraj']."'/></td>
+    <td>".$all[$i]['nominal']."</td>
+    <td>".$all[$i]['nr_kat']."</td>
+    <td>".$all[$i]['id_stop']."</td>
+    <td>".$all[$i]['rok']."</td>
+    <td><input type='hidden' name='id' value='$i'><input type='submit' name='del' value='X'/></td></form></tr>";
+}
+$txt.="</table>";
+echo $txt;
+
+print_r($_POST);
+
+$dbh = null;
+?>
+    
+</body>
+</html>
+
+
+------ zuploaduj flagi do folderu gfx --------
+
+------ dump- bazy -------
+-- phpMyAdmin SQL Dump
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: sql100.infinityfree.com
+-- Czas generowania: 22 Wrz 2025, 05:37
+-- Wersja serwera: 10.6.22-MariaDB
+-- Wersja PHP: 7.2.22
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Baza danych: `if0_39895069_test`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `kraj`
+--
+
+CREATE TABLE `kraj` (
+  `id` int(11) NOT NULL,
+  `nazwa` varchar(10) NOT NULL,
+  `flaga` varchar(14) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Zrzut danych tabeli `kraj`
+--
+
+INSERT INTO `kraj` (`id`, `nazwa`, `flaga`) VALUES
+(1, 'Albania', 'Albania.jpg'),
+(2, 'Barbados', 'Barbados.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `stop`
+--
+
+CREATE TABLE `stop` (
+  `id` int(11) NOT NULL,
+  `nazwa` varchar(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Zrzut danych tabeli `stop`
+--
+
+INSERT INTO `stop` (`id`, `nazwa`) VALUES
+(1, 'gold'),
+(2, 'silver');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `zbior`
+--
+
+CREATE TABLE `zbior` (
+  `id` int(11) NOT NULL,
+  `id_kraj` int(11) NOT NULL,
+  `nominal` varchar(20) NOT NULL,
+  `nr_kat` varchar(10) NOT NULL,
+  `id_stop` int(11) NOT NULL,
+  `rok` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_polish_ci;
+
+--
+-- Zrzut danych tabeli `zbior`
+--
+
+INSERT INTO `zbior` (`id`, `id_kraj`, `nominal`, `nr_kat`, `id_stop`, `rok`) VALUES
+(1, 1, 'aaaa', 'cc', 1, 2010),
+(2, 1, 'bbbbb', 'dd', 2, 2000),
+(3, 2, 'dfdf', 'df', 1, 2002),
+(4, 2, 'sdsd', 'sds', 2, 1999);
+
+--
+-- Indeksy dla zrzutów tabel
+--
+
+--
+-- Indeksy dla tabeli `kraj`
+--
+ALTER TABLE `kraj`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeksy dla tabeli `stop`
+--
+ALTER TABLE `stop`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeksy dla tabeli `zbior`
+--
+ALTER TABLE `zbior`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_kraj` (`id_kraj`),
+  ADD KEY `id_stop` (`id_stop`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT dla tabeli `kraj`
+--
+ALTER TABLE `kraj`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT dla tabeli `stop`
+--
+ALTER TABLE `stop`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT dla tabeli `zbior`
+--
+ALTER TABLE `zbior`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
