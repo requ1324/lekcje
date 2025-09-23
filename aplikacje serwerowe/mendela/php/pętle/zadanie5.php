@@ -6,8 +6,9 @@
     <title>Document</title>
 </head>
 <body>
+    <?php
     
-    <form action="" class="zad 5"></form>
-
+        echo "Serwer działa";
+    ?>
 </body>
 </html>
