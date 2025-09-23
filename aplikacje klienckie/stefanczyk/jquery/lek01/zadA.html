@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 400px;
+        height: 400px;
+        background: red;
+      }
+    </style>
+    <script src="jquery.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#button").on("click", () => {
+          let isConfirmed = confirm("potwierdź lub anuluj");
+          let width = $("#div").width();
+          let height = $("#div").height();
+          if (isConfirmed) {
+            $("#div")
+              .css("width", width * 2)
+              .css("height", height * 2);
+          } else {
+            $("#div")
+              .css("width", width / 3)
+              .css("height", height / 3);
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="div"></div>
+    <button id="button">confirm</button>
+  </body>
+</html>
