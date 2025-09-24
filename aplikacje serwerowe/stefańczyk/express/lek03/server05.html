@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: cornflowerblue;
+      }
+
+      .color {
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px 2px black;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        background: grey;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>04 - range, fetch, no form, inputs, select</h1>
+      R<input type="range" name="rangeR" id="rangeR" max="255" /> G<input
+        type="range"
+        name="rangeG"
+        id="rangeG"
+        max="255"
+      />
+      B<input type="range" name="rangeB" id="rangeB" max="255" /> A<input
+        type="range"
+        name="rangeA"
+        id="rangeA"
+        max="1"
+        step="0.01"
+      />
+      <div class="color"></div>
+    </div>
+    <script>
+      function updateColor() {
+        let rangeR = document.getElementById("rangeR").value;
+        let rangeG = document.getElementById("rangeG").value;
+        let rangeB = document.getElementById("rangeB").value;
+        let rangeA = document.getElementById("rangeA").value;
+
+        const data = JSON.stringify({
+          rangeR,
+          rangeG,
+          rangeB,
+          rangeA,
+        });
+
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: data,
+        };
+
+        fetch("/test", options)
+          .then((response) => response.json())
+          .then(
+            (dataFromServer) =>
+              (document.querySelector(
+                ".color"
+              ).style.background = `rgba(${dataFromServer.rangeR}, ${dataFromServer.rangeG}, ${dataFromServer.rangeB}, ${dataFromServer.rangeA})`)
+          )
+          .catch((error) => console.log(error));
+      }
+
+      document.getElementById("rangeR").addEventListener("input", updateColor);
+      document.getElementById("rangeG").addEventListener("input", updateColor);
+      document.getElementById("rangeB").addEventListener("input", updateColor);
+      document.getElementById("rangeA").addEventListener("input", updateColor);
+    </script>
+  </body>
+</html>
