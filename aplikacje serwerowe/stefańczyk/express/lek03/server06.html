@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #leftBox,
+      #rightBox {
+        width: 400px;
+        height: 400px;
+        margin: 20px;
+        position: relative;
+      }
+
+      #leftBox {
+        background: rgb(53, 53, 153);
+      }
+
+      #rightBox {
+        background: rgb(46, 42, 42);
+      }
+
+      .color {
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px 2px black;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        background: grey;
+      }
+
+      .newDiv {
+        width: 60px;
+        height: 60px;
+        background: red;
+        position: absolute;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>06 - fetch - click</h1>
+    <div class="container">
+      <div id="leftBox"></div>
+      <div id="rightBox"></div>
+    </div>
+    <script>
+      const box = document.getElementById("leftBox");
+
+      box.addEventListener("click", function (e) {
+        const rect = box.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const newDiv = document.createElement("div");
+        newDiv.classList.add("newDiv");
+
+        newDiv.style.left = x - 30 + "px";
+        newDiv.style.top = y - 30 + "px";
+        newDiv.innerHTML = `${parseInt(x)}, ${parseInt(y)}`;
+
+        box.appendChild(newDiv);
+
+        const data = JSON.stringify({
+          x,
+          y,
+        });
+
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: data,
+        };
+
+        fetch("/test", options)
+          .then((response) => response.json())
+          .then((dataFromServer) => {
+            const endTime = Date.now();
+            const delay = endTime - dataFromServer.timestamp;
+            const newDiv2 = document.createElement("div");
+            newDiv2.classList.add("newDiv");
+
+            newDiv2.style.left = dataFromServer.x - 30 + "px";
+            newDiv2.style.top = dataFromServer.y - 30 + "px";
+            newDiv2.innerHTML = delay;
+            document.getElementById("rightBox").appendChild(newDiv2);
+          })
+          .catch((error) => console.log(error));
+      });
+    </script>
+  </body>
+</html>
