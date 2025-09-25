@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .grid {
+        display: none;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+      }
+
+      .img {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="start">
+      <img src="img/czolowa.png" usemap="#image-map" />
+      <map name="image-map">
+        <area
+          class="area"
+          target=""
+          alt=""
+          title=""
+          href="#"
+          coords="44,42,335,64,73,150"
+          shape="poly"
+        />
+        <area
+          class="area"
+          target=""
+          alt=""
+          title=""
+          href="#"
+          coords="85,221,340,113,363,234"
+          shape="poly"
+        />
+        <area
+          class="area"
+          target=""
+          alt=""
+          title=""
+          href="#"
+          coords="97,271,370,302,116,380"
+          shape="poly"
+        />
+      </map>
+    </div>
+    <div class="grid"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
