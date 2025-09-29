@@ -1,113 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="jquery.js"></script>
     <style>
-        #btn {
-            background: cornflowerblue;
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+      #btn {
+        background: cornflowerblue;
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: 0.2s;
+      }
 
-        #btn:hover {
-            transition: .2s;
-            background: rgb(74, 111, 179);
-        }
+      #btn:hover {
+        transition: 0.2s;
+        background: rgb(74, 111, 179);
+      }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
 
-        .main {
-            height: 800px;
-            width: 500px;
-            background: cornflowerblue;
-            margin-top: 40px;
-            border-radius: 30px;
-            display: flex;
-            justify-content: center;
-            position: relative;
-        }
+      .main {
+        height: 800px;
+        width: 500px;
+        background: cornflowerblue;
+        margin-top: 40px;
+        border-radius: 30px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
 
-        tr,
-        table,
-        td {
-            text-align: center;
-        }
+      tr,
+      table,
+      td {
+        text-align: center;
+      }
 
-        #total {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-        }
+      table {
+        height: 60%;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td {
+        border-bottom: 1px solid black;
+      }
+
+      #total {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <button id="btn">Generuj Tabelke</button>
     <div class="main">
-        <table id="table"></table>
-        <span id="total"></span>
+      <table id="table"></table>
+      <span id="total"></span>
     </div>
     <script>
+      $(document).ready(function () {
+        const lps = ["lp", "cena", "produkt"];
+        const ceny = ["5,60", "3,23", "7,45", "10,00", "3,20"];
+        const produkty = ["chleb", "mąka", "masło", "kefir", "dżem"];
 
-        $(document).ready(function () {
-            const lps = ["lp", "cena", "produkt"]
-            const ceny = ["5,60", "3,23", "7,45", "10,00", "3,20"]
-            const produkty = ["chleb", "mąka", "masło", "kefir", "dżem"]
+        let total = 0.0;
 
-            let total = 0.0;
+        $("#btn").on("click", () => {
+          $("#table").empty();
+          $("#total").empty();
+          total = 0;
+          let tr1 = $("<tr>");
+          for (let i = 0; i < lps.length; i++) {
+            let td = $("<td>").html(lps[i]);
+            $(tr1).append(td);
+          }
+          $("#table").append(tr1);
 
-            $("#btn").on("click", () => {
-                let tr1 = $("<tr>");
-                for (let i = 0; i < lps.length; i++) {
-                    let td = $("<td>").html(lps[i]);
-                    $(tr1).append(td);
-                }
-                $("#table").append(tr1);
+          for (let j = 0; j < ceny.length; j++) {
+            let tr = $("<tr>");
 
-                for (let j = 0; j < ceny.length; j++) {
-                    let tr = $("<tr>");
+            $("#table").append(tr);
 
-                    $("#table").append(tr);
+            let td1 = $("<td>").html(j + 1);
+            let td2 = $("<td>").html(produkty[j]);
+            let td3 = $("<td>").html(ceny[j]);
+            tr.append(td1);
+            tr.append(td2);
+            tr.append(td3);
+          }
 
-                    let td1 = $("<td>").html(j + 1);
-                    let td2 = $("<td>").html(produkty[j]);
-                    let td3 = $("<td>").html(ceny[j]);
-                    tr.append(td1);
-                    tr.append(td2);
-                    tr.append(td3);
+          let ceny2 = [];
+          ceny.forEach((cena) => {
+            let cena2 = cena.replace(",", ".");
+            ceny2.push(parseFloat(cena2));
+          });
+          console.log(ceny2);
 
-
-                }
-
-                let ceny2 = []
-                ceny.forEach(cena => {
-                    let cena2 = cena.replace(",", ".");
-                    ceny2.push(parseFloat(cena2));
-                })
-                console.log(ceny2);
-
-                for (let i = 0; i < ceny2.length; i++) {
-                    total = total + ceny2[i];
-                }
-                console.log(total);
-                $("#total").text(total);
-            })
-        })
+          for (let i = 0; i < ceny2.length; i++) {
+            total = total + ceny2[i];
+          }
+          console.log(total);
+          $("#total").text(`SUMA: ${total}`);
+        });
+      });
     </script>
-</body>
-
+  </body>
 </html>
