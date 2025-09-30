@@ -19,7 +19,7 @@
 
       .slider-container {
         width: 200px;
-        margin: 20px 0;
+        margin: 60px 0;
       }
 
       .slider-track {
@@ -46,30 +46,18 @@
         cursor: pointer;
       }
 
-      .value-display {
-        margin-top: 10px;
-        font-size: 18px;
-        font-weight: bold;
-      }
-
-      .container {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-      }
-
       table {
-        width: 60%;
+        width: 100%;
         border-collapse: collapse;
         text-align: center;
       }
       td {
-        border-bottom: 2px solid black;
+        margin: 20px;
+        border: 2px solid black;
+        padding: 10px;
       }
       tr {
-        border-bottom: 2px solid black;
+        margin: 20px;
       }
     </style>
   </head>
@@ -77,6 +65,7 @@
     <div class="container">
       <button id="btn">Generuj</button>
     </div>
+
     <script>
       $(document).ready(function () {
         let isDragging = false;
@@ -89,8 +78,9 @@
         ];
 
         function updateSlider(trackId, e) {
-          let x = e.clientX - $(`#` + trackId).offset().left;
-          let width = $(`#` + trackId).width();
+          let track = $("#" + trackId);
+          let x = e.clientX - track.offset().left;
+          let width = track.width();
           let percent = (x / width) * 100;
 
           percent = Math.max(0, Math.min(100, percent));
@@ -117,37 +107,48 @@
 
             td1.text(sliders[i].name);
 
-            let track = $("<div>").addClass("slider-track");
+            let trackId = "track" + i;
+            let fillId = "fill" + i;
+            let thumbId = "thumb" + i;
+            let valId = "val" + i;
 
-            let thumb = $("<div>").addClass("slider-thumb");
+            let track = $("<div>")
+              .addClass("slider-track")
+              .attr("id", trackId)
+              .css("background", sliders[i].color);
+            let fill = $("<div>")
+              .addClass("slider-fill")
+              .attr("id", fillId)
+              .css("width", sliders[i].value + "%")
+              .css("background", sliders[i].color);
+            let thumb = $("<div>")
+              .addClass("slider-thumb")
+              .attr("id", thumbId)
+              .css("left", sliders[i].value + "%");
 
-            let fill = $("<div>").addClass("slider-fill");
-
-            track.append(thumb);
-            track.append(fill);
+            track.append(fill).append(thumb);
             td2.append(track);
 
-            td3.text(sliders[i].value);
-            tr.append(td1);
-            tr.append(td2);
-            tr.append(td3);
+            td3.attr("id", valId).text(sliders[i].value);
+            tr.append(td1).append(td2).append(td3);
 
             table.append(tr);
           }
 
           $(".container").append(table);
-        });
 
-        $(".slider-thumb").on("mousedown", function (e) {
-          currentSlider = $(this).parent().attr("id");
-          isDragging = true;
-        });
+          // Po wygenerowaniu, podpinamy eventy
+          $(".slider-thumb").on("mousedown", function () {
+            currentSlider = $(this).parent().attr("id");
+            isDragging = true;
+          });
 
-        $(".slider-track").on("mousedown", function (e) {
-          if (!$(e.target).hasClass("slider-thumb")) {
-            currentSlider = $(this).attr("id");
-            updateSlider(currentSlider, e);
-          }
+          $(".slider-track").on("mousedown", function (e) {
+            if (!$(e.target).hasClass("slider-thumb")) {
+              currentSlider = $(this).attr("id");
+              updateSlider(currentSlider, e);
+            }
+          });
         });
 
         $(document).on("mousemove", function (e) {
@@ -155,6 +156,7 @@
             updateSlider(currentSlider, e);
           }
         });
+
         $(document).on("mouseup", function () {
           isDragging = false;
           currentSlider = null;
