@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #divL {
+        background: rgb(43, 43, 169);
+        height: 100%;
+        width: 50%;
+      }
+
+      #divR {
+        background: rgb(171, 47, 47);
+        height: 100%;
+        width: 50%;
+      }
+
+      #suwak {
+        height: 100%;
+        width: 10px;
+        background: rgb(34, 34, 34);
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="divL"></div>
+    <div id="suwak"></div>
+    <div id="divR"></div>
+
+    <script>
+      $(document).ready(function () {
+        let isDragging = false;
+
+        $("#suwak").on("mousedown", function (e) {
+          isDragging = true;
+        });
+
+        $(document).on("mousemove", function (e) {
+          if (isDragging) {
+            let leftPercent = (e.clientX / $(window).width()) * 100;
+
+            $("#divL").css("width", leftPercent + "%");
+            $("#divR").css("width", 100 - leftPercent + "%");
+          }
+        });
+
+        $(document).on("mouseup", function () {
+          isDragging = false;
+        });
+      });
+    </script>
+  </body>
+</html>

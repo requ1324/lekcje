@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Range Slider</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 50px;
+        font-family: Arial, sans-serif;
+      }
+
+      .slider-container {
+        width: 400px;
+        margin: 20px 0;
+      }
+
+      .slider-track {
+        width: 100%;
+        height: 10px;
+        background: #ddd;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .slider-fill {
+        height: 100%;
+        background: rgb(43, 43, 169);
+        width: 50%;
+      }
+
+      .slider-thumb {
+        width: 20px;
+        height: 20px;
+        background: rgb(34, 34, 34);
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        cursor: pointer;
+      }
+
+      .value-display {
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Custom Range Slider</h2>
+
+    <div class="slider-container">
+      <div class="slider-track" id="track">
+        <div class="slider-fill" id="fill"></div>
+        <div class="slider-thumb" id="thumb"></div>
+      </div>
+      <div class="value-display">Wartość: <span id="value">50</span></div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        let isDragging = false;
+
+        function updateSlider(e) {
+          let trackOffset = $("#track").offset().left;
+          let trackWidth = $("#track").width();
+
+          let mouseX = e.clientX - trackOffset;
+          let percent = (mouseX / trackWidth) * 100;
+
+          percent = Math.max(0, Math.min(100, percent));
+
+          $("#fill").css("width", percent + "%");
+          $("#thumb").css("left", percent + "%");
+          $("#value").text(Math.round(percent));
+        }
+
+        $("#thumb").on("mousedown", function (e) {
+          isDragging = true;
+          e.preventDefault();
+        });
+
+        $("#track").on("mousedown", function (e) {
+          if (!$(e.target).is("#thumb")) {
+            updateSlider(e);
+          }
+        });
+
+        $(document).on("mousemove", function (e) {
+          if (isDragging) {
+            updateSlider(e);
+          }
+        });
+
+        $(document).on("mouseup", function () {
+          isDragging = false;
+        });
+      });
+    </script>
+  </body>
+</html>
