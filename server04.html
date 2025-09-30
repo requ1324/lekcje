@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: cornflowerblue;
+            padding: 30px;
+            font-size: 1.5rem;
+        }
+
+        #button {
+            background: rgb(255, 255, 255);
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: cornflowerblue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>04-FORM - upload, image display</h1>
+
+        <input type="file" id="file" name="file" multiple accept="image/*">
+        <div id="button">Upload</div>
+        <img src="" id="img" alt="">
+    </div>
+    <script>
+
+        document.getElementById("button").addEventListener("click", function () {
+            const fd = new FormData();
+
+            fd.append("file", document.getElementById("file").files[0]);
+
+            const body = fd;
+
+            fetch("/handleForm", { method: "post", body })
+                .then(response => response.json())
+                .then(data => document.getElementById("img").src = `../upload/${data}`)
+                .catch(error => console.log(error))
+
+        })
+
+
+    </script>
+</body>
+
+</html>

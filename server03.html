@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: cornflowerblue;
+            padding: 30px;
+            font-size: 1.5rem;
+        }
+
+        #button {
+            background: red;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <h1>01-FORM - upload</h1>
+
+    Zdjęcie:<input type="file" id="file" name="file" multiple accept="image/*">
+    <div id="button">Upload</div>
+    <div id="content">content</div>
+    <script>
+
+        document.getElementById("button").addEventListener("click", function () {
+            const fd = new FormData();
+
+            fd.append("file", document.getElementById("file").files[0]);
+
+            const body = fd;
+
+            fetch("/handleForm", { method: "post", body })
+                .then(response => response.json())
+                .then(data => document.getElementById("content").innerHTML = JSON.stringify(data, null, 5))
+                .catch(error => console.log(error))
+
+        })
+
+
+    </script>
+</body>
+
+</html>
