@@ -89,9 +89,15 @@
           let thumbId = trackId.replace("track", "thumb");
           let valueId = trackId.replace("track", "val");
 
+          let index = parseInt(trackId.replace("track", "")); // który slider zmieniamy
+          sliders[index].value = percent; // aktualizuj tablicę
+
           $("#" + fillId).css("width", percent + "%");
           $("#" + thumbId).css("left", percent + "%");
           $("#" + valueId).text(Math.round(percent));
+          sliders[trackId];
+
+          console.log(sliders[0].value);
 
           return percent;
         }
@@ -114,6 +120,7 @@
 
             let track = $("<div>")
               .addClass("slider-track")
+
               .attr("id", trackId)
               .css("background", sliders[i].color);
             let fill = $("<div>")
@@ -135,7 +142,32 @@
             table.append(tr);
           }
 
+          function updateAverage() {
+            let sum = 0;
+            for (let i = 0; i < sliders.length; i++) {
+              sum += sliders[i].value;
+            }
+            let avg = sum / sliders.length;
+
+            $("#avgFill").css("width", avg + "%");
+            $("#avgThumb").css("left", avg + "%");
+          }
+
           $(".container").append(table);
+          let track = $("<div>")
+            .addClass("slider-track")
+            .attr("id", "avgTrack");
+          let fill = $("<div>").addClass("slider-fill").attr("id", "avgFill");
+          let thumb = $("<div>")
+            .addClass("slider-thumb")
+            .attr("id", "avgThumb");
+
+          track.append(fill).append(thumb);
+          $(".container").append("<h3>Średnia</h3>");
+          $(".container").append(track);
+
+          // ustaw od razu początkową średnią
+          updateAverage();
 
           // Po wygenerowaniu, podpinamy eventy
           $(".slider-thumb").on("mousedown", function () {
