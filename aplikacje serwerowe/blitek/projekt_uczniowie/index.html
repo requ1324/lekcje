@@ -1,0 +1,20 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+    <div class="container mt-4">
+        <h2>List użytkowników</h2>
+        {% if users %}
+            <ul class="list-group">
+                {% for user in users %}
+                <li class="list-group-item">
+                    {{ user.first_name }} - {{ user.last_name }} - {{ user.class_name }}
+                    <a href="/del_user/{{ user.id }}" class="btn btn-sm btn-danger float-end">usuń</a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="alert alert-danger mt-5">Brak użytkowników</div>
+        {% endif %}
+        <a href="/add_student" class="btn btn-info mt-3">Dodaj użytkownika</a>
+    </div>
+{% endblock %}
