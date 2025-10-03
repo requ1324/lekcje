@@ -74,7 +74,7 @@ def dashboard():
     if 'user' not in session:
         flash("Musisz się zalogować", "warning")
         return redirect(url_for('login'))
-    return render_template("dashboard.html", title="Dashboard", user=session['user'])
+    return render_template("dashboard.html", title="Dashboard", name=session['user'])
 
 @app.route("/logout")
 def logout():
