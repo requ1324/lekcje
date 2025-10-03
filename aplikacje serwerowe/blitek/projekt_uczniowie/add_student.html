@@ -1,0 +1,24 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Dodaj ucznia</h2>
+        <form method="post">
+            {{ add_form.hidden_tag() }}
+            <div class="form-group">
+                {{ add_form.imie.label(class="form-label") }}
+                {{ add_form.imie(class="form-control") }}
+            </div>
+            <div class="form-group mt-3">
+                {{ add_form.nazwisko.label(class="form-label") }}
+                {{ add_form.nazwisko(class="form-control") }}
+            </div>
+            <div class="form-group mt-3">
+                {{ add_form.klasa.label(class="form-label") }}
+                {{ add_form.klasa(class="form-control") }}
+            </div>
+            {{ add_form.submit(class="btn btn-sm btn-info mt-3") }}
+        </form>
+    </div>
+{% endblock %}
