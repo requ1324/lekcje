@@ -2,35 +2,31 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const path = require("path");
-const formidable = require('formidable');
 
+const hbs = require('express-handlebars');
+
+app.set('views', path.join(__dirname, 'views'));
+app.engine('hbs', hbs({ defaultLayout: 'main.hbs' }));
+app.set('view engine', 'hbs');
+
+
+const context = {
+    subject: "ćwiczenie 2 - podstawowy context",
+    content: "to jest lorem ipsum",
+    footer: "to jest stopka na mojej stronie"
+}
 
 app.use(express.urlencoded({
     extended: true
 }));
 
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "/static/pages/server02.html"));
+    res.render('index03.hbs', context);
 
 })
 
-app.post("/handleForm", function (req, res) {
-    let form = formidable({});
 
-    form.multiples = true;
-    form.keepExtensions = true;
 
-    form.uploadDir = __dirname + "/static/upload/";
-
-    form.parse(req, function (err, fields, files) {
-        console.log("Przesyłam dane z formularza");
-        console.log(fields);
-        console.log("przesłany plik");
-        console.log(files);
-        res.send(JSON.stringify([{ date: fields.date, text: fields.text },
-        [files]], null, 5));
-    })
-})
 
 
 app.listen(PORT, function () {

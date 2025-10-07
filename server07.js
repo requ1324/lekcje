@@ -10,19 +10,19 @@ app.engine('hbs', hbs({ defaultLayout: 'main.hbs' }));
 app.set('view engine', 'hbs');
 
 
+let context = require("./data/data.json")
+
+
 app.use(express.urlencoded({
     extended: true
 }));
 
-app.get("/login", function (req, res) {
-    res.render('login.hbs');
+app.get("/", function (req, res) {
+    res.render('index07.hbs', context);
 
 })
 
-app.get("/index", function (req, res) {
-    res.render('index.hbs');
 
-})
 
 
 

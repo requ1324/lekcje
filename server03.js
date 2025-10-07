@@ -2,36 +2,35 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const path = require("path");
-const formidable = require('formidable');
 
+const hbs = require('express-handlebars');
+
+app.set('views', path.join(__dirname, 'views'));
+app.engine('hbs', hbs({ defaultLayout: 'main.hbs' }));
+app.set('view engine', 'hbs');
+
+
+const context = {
+    subject: "ćwiczenie 3 - dane z tablicy obiektów",
+    books: [
+        { title: "Lalka", author: "B Prus", lang: "PL" },
+        { title: "Hamlet", author: "W Szekspir", lang: "ENG" },
+        { title: "Pan Wołodyjowski", author: "H Sienkiewicz", lang: "PL" },
+        { title: "Homo Deus", author: "Yuval Noah Harari", lang: "CZ" }
+    ]
+}
 
 app.use(express.urlencoded({
     extended: true
 }));
 
-app.use(express.json());
-
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "/static/pages/server03.html"));
+    res.render('index03.hbs', context);
 
 })
 
-app.post("/handleForm", function (req, res) {
-    let form = formidable({});
 
-    form.multiples = true;
-    form.keepExtensions = true;
 
-    form.uploadDir = __dirname + "/static/upload/";
-
-    form.parse(req, function (err, fields, files) {
-        console.log("Przesyłam dane z formularza");
-        console.log(fields);
-        console.log("przesłany plik");
-        console.log(files);
-        res.json(JSON.stringify([{pliki: files}]));
-    })
-})
 
 
 app.listen(PORT, function () {
