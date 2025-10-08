@@ -1,63 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-      .grid {
-        display: none;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(4, 1fr);
-        width: 800px;
-        height: 800px;
-      }
+    <link rel="stylesheet" href="/css/style.css">
+</head>
 
-      h1 {
-        font-size: 3rem;
-      }
+<body>
+    <h1>test</h1>
+    <div class="container"></div>
+    <script>
+        const options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+        fetch("/handle", options)
+            .then(response => response.json())
+            .then(data => data.lessons.forEach(lesson => {
+                i = data.lessons.indexOf(lesson);
+                let h2 = document.createElement("h2");
+                h2.innerHTML = data.folders[i];
+                document.querySelector('.container').append(h2);
+                lesson.forEach(file => {
 
-      .img {
-        width: 200px;
-        height: 200px;
-      }
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-    </style>
-  </head>
-  <body>
-    <h1 class="h1"></h1>
-    <div class="start">
-      <img src="img/czolowa.png" width="800" usemap="#image-map" />
-      <map class="map" name="image-map">
-        <area
-          class="area"
-          coords="88,84,670,128,146,300"
-          shape="poly"
-          href="#"
-          onclick="startGame(30)"
-        />
-        <area
-          class="area"
-          coords="170,442,680,226,726,468"
-          shape="poly"
-          href="#"
-          onclick="startGame(60)"
-        />
-        <area
-          class="area"
-          coords="194,542,740,604,232,760"
-          shape="poly"
-          href="#"
-          onclick="startGame(90)"
-        />
-      </map>
-    </div>
-    <div class="grid"></div>
-    <script src="script.js"></script>
-  </body>
+                    let a = document.createElement("a");
+                    a.href = "/static/cwiczenia/" + data.folders[i] + "/" + file;
+                    a.innerHTML = file;
+
+                    document.querySelector('.container').append(a);
+
+                })
+
+            }))
+            .catch(error => console.log(error));
+
+
+    </script>
+</body>
+
 </html>
