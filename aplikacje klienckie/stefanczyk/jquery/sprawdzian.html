@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="lek03/jquery.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+      }
+      table {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+
+      .slider-container {
+        width: 400px;
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+      }
+
+      tr {
+        border: 1px solid black;
+      }
+
+      td {
+        border: 1px solid black;
+      }
+
+      .track {
+        height: 30px;
+        width: 300px;
+        background: rgb(54, 49, 49);
+      }
+
+      .fill {
+        width: 80%;
+        height: 100%;
+        background: red;
+        position: relative;
+      }
+
+      .thumb {
+        position: absolute;
+        right: 0px;
+        border-radius: 50%;
+        background: rgb(255, 255, 255);
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="table"></table>
+
+    <script>
+      $(document).ready(function () {
+        let isDragging = false;
+        let currentSlider = null;
+
+        let sliders = [
+          { name: "red", color: "red", value: 50 },
+          { name: "blue", color: "blue", value: 70 },
+          { name: "green", color: "green", value: 90 },
+        ];
+
+        for (let i = 0; i < sliders.length; i++) {
+          let tr = $("<tr>");
+          let td1 = $("<td>").html(sliders[i].name);
+          let td2 = $("<td>").addClass("slider-container");
+
+          let trackId = `track${i}`;
+          let fillId = `fill${i}`;
+          let thumbId = `thumb${i}`;
+          let valId = `val${i}`;
+          let td3 = $("<td>").html(sliders[i].value).attr("id", valId);
+          let track = $("<div>").addClass("track").attr("id", trackId);
+          let fill = $("<div>")
+            .addClass("fill")
+            .css("background", sliders[i].color)
+            .css("width", `${sliders[i].value}%`)
+            .attr("id", fillId);
+          let thumb = $("<div>")
+            .addClass("thumb")
+            .html(sliders[i].value)
+            .attr("id", thumbId);
+
+          fill.append(thumb);
+          track.append(fill);
+          td2.append(track);
+          tr.append(td1);
+          tr.append(td2);
+          tr.append(td3);
+          $("#table").append(tr);
+        }
+
+        function updateSlider(trackId, e) {
+          let fillId = trackId.replace("track", "fill");
+          let thumbId = trackId.replace("track", "thumb");
+          let valId = trackId.replace("track", "val");
+
+          let track = $(`#${trackId}`);
+          let width = track.width();
+          let max = ($(`#${fillId}`).width() / width) * 100;
+          let x = e.clientX - track.offset().left;
+          let percent = (x / width) * 100;
+          percent = Math.max(0, Math.min(max, percent));
+          x = Math.max(0, Math.min($(`#${fillId}`).width(), x));
+
+          $(`#${thumbId}`).css("left", `${x}px`).html(Math.round(percent));
+          $(`#${valId}`).html(Math.round(percent));
+          console.log(x, percent);
+        }
+
+        $(".thumb").on("mousedown", function (e) {
+          isDragging = true;
+          currentSlider = $(this).parent().parent().attr("id");
+        });
+
+        $(document).on("mousemove", function (e) {
+          if (isDragging && currentSlider) {
+            updateSlider(currentSlider, e);
+          }
+        });
+
+        $(document).on("mouseup", function (e) {
+          isDragging = false;
+          currentSlider = null;
+        });
+      });
+    </script>
+  </body>
+</html>
