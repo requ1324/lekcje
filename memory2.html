@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .grid {
+        display: none;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        width: 800px;
+        height: 800px;
+      }
+
+      h1 {
+        font-size: 3rem;
+      }
+
+      .img {
+        width: 200px;
+        height: 200px;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .timeBox {
+        height: 30px;
+        width: 400px;
+        border: 2px solid black;
+        margin: 40px 0;
+        text-align: center;
+        position: relative;
+      }
+      .filler {
+        height: 100%;
+        background: rgb(143, 141, 141);
+        width: 100%;
+      }
+
+      .timeSpan {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="timeBox">
+      <div class="filler"></div>
+    </div>
+
+    <div class="start">
+      <img src="img/czolowa.png" width="800" usemap="#image-map" />
+      <map class="map" name="image-map">
+        <area
+          class="area"
+          coords="88,84,670,128,146,300"
+          shape="poly"
+          href="#"
+          onclick="startGame(30)"
+        />
+        <area
+          class="area"
+          coords="170,442,680,226,726,468"
+          shape="poly"
+          href="#"
+          onclick="startGame(60)"
+        />
+        <area
+          class="area"
+          coords="194,542,740,604,232,760"
+          shape="poly"
+          href="#"
+          onclick="startGame(90)"
+        />
+      </map>
+    </div>
+    <div class="grid"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
