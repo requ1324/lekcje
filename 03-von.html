@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        div {
+            margin: 10px;
+        }
+
+        .Element {
+            border: 2px solid black;
+            padding: 20px;
+        }
+
+        .checked {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item in items" class="item" v-bind:class="{'checked': item.checked}">
+                <span>{{item.text}}</span>
+                <input type="checkbox" v-model="item.checked">
+            </li>
+        </ul>
+        <input @change="onChange" v-model="inputVal" type="text">
+        <button @click="addItem">Dodaj</button>
+    </div>
+    <script>
+        Vue.createApp({
+
+            data() {
+                return {
+                    items: [
+                        { text: "element 1", checked: true },
+                        { text: "element 2", checked: false },
+                        { text: "element 3", checked: false },
+                    ],
+                    inputVal: "",
+                    active: false
+                }
+            }, methods: {
+                addItem(e) {
+                    this.items.push({ text: this.inputVal, checked: false })
+                    this.inputVal = "";
+                },
+                onChange(e) {
+                    this.inputVal = e.target.value;
+                }
+
+            }
+        }).mount("#app")
+
+    </script>
+</body>
+
+</html>

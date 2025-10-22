@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        div {
+            margin: 10px;
+        }
+
+        .Element {
+            border: 2px solid black;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="onClick" v-model="btnVal">{{btnVal}}</button>
+        <div class="Element" v-show="show">element</div>
+    </div>
+    <script>
+        Vue.createApp({
+
+            data() {
+                return {
+                    btnVal: "ukryj",
+                    show: true,
+                }
+            }, methods: {
+                onClick(e) {
+                    if (this.show) {
+                        this.btnVal = "Pokaż";
+                    } else {
+                        this.btnVal = "Ukryj";
+                    }
+                    this.show = !this.show;
+                },
+
+
+            }
+        }).mount("#app")
+
+    </script>
+</body>
+
+</html>

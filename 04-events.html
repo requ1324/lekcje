@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        div {
+            margin: 10px;
+        }
+
+        .Element {
+            border: 2px solid black;
+            padding: 20px;
+        }
+
+        .checked {
+            color: red;
+        }
+
+        #container {
+            display: flex;
+
+            align-items: center;
+            flex-wrap: wrap;
+            width: 400px;
+            height: 400px;
+        }
+
+        .box {
+            width: 40px;
+            height: 40px;
+            color: black;
+            background: rgb(210, 209, 209);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+            border-radius: 10px;
+            transition: 0.1s;
+            cursor: pointer;
+        }
+
+        .box:hover {
+            background: rgb(152, 152, 152);
+            transition: 0.1s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <select>
+            <option v-for="item in flatArray" :value="item">
+                {{ item }}
+            </option>
+        </select>
+        <div id="container">
+            <div class="box" v-for="item in array.flat(Infinity)" :key="item">{{item}}</div>
+        </div>
+    </div>
+    <script>
+        Vue.createApp({
+
+            data() {
+                return {
+                    array: [
+                        [1, 2, 3, 3, 3],
+                        [4, 4, 4, 7, 1],
+                        [2, 3, 3, 2, 1],
+                        [5, 5, 6, 4, 3],
+                        [1, 5, 1, 2, 5]
+                    ],
+
+
+                }
+            }, methods: {
+                onSelect(e) {
+                    return array.flat(Infinity).filter(item => item == e.target.value);
+                }
+
+            },
+            computed: {
+                flatArray() {
+                    const flattened = this.array.flat(Infinity);
+                    return [...new Set(flattened)].sort((a, b) => a - b);
+                }
+
+            }
+
+        }).mount("#app")
+
+    </script>
+</body>
+
+</html>

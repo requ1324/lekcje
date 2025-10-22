@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        div {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>01. Events - simple</h1>
+
+        <div @click="onClick">Click Me!</div>
+        <div>
+            <h3>cw 02 - value z selecta</h3>
+            <select v-model="select" @change="onChange">
+                <option value="option 1">option 1</option>
+                <option value="option 2">option 2</option>
+                <option value="option 3">option 3</option>
+                <option value="option 4">option 4</option>
+
+            </select>
+            {{select}}
+        </div>
+        <div>
+            <h3>cw 03 - value z inputa</h3>
+            <input @input="onInput" v-model="cw3" type="range" min="0" max="100"> {{cw3}}
+        </div>
+        <div>
+            <h3>cw 04 - value z checkboxa</h3>
+            <input type="checkbox" @click="onCheckBox" v-model="cw4"> {{cw4}}
+        </div>
+        <div>
+            <h3>cw 05 - klik buttona</h3>
+            <button @click="onButtonClick" v-model="clicks">Kliknij mnie</button> {{clicks}}
+        </div>
+        <div>
+            <h3>cw 06 - klik buttona</h3>
+            <button @click="onButton2Click" v-model="potega">Liczy potege</button>{{potega}}
+        </div>
+    </div>
+    <script>
+        Vue.createApp({
+
+            data() {
+                return {
+                    select: "",
+                    cw3: "",
+                    cw4: false,
+                    clicks: 0,
+                    potega: 0
+                }
+            }, methods: {
+                onClick(e) {
+                    alert("Kliknieto");
+                },
+                onChange(e) {
+                    alert(e.target.value);
+                },
+                onInput(e) {
+                    console.log(e.target.value);
+                },
+                onCheckBox(e) {
+                    console.log(e.target.checked);
+                },
+                onButtonClick(e) {
+                    this.clicks++;
+                },
+                onButton2Click(e) {
+                    this.potega = 2 ** this.clicks;
+                }
+
+            }
+        }).mount("#app")
+
+    </script>
+</body>
+
+</html>

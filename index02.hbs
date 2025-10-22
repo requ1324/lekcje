@@ -1,0 +1,19 @@
+<h1>{{subject}}</h1>
+
+
+<form method="get">
+
+    <input name="login" type="text" placeholder="login">
+    <input name="password" type="text" placeholder="password">
+    <button type="submit">Zapisz</button>
+</form>
+
+<table>
+    {{#each users}}
+    <tr>
+        <td>{{index}}</td>
+        <td>{{login}}</td>
+        <td>{{password}}</td>
+    </tr>
+    {{/each}}
+</table>

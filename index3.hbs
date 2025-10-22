@@ -1,0 +1,14 @@
+<h1>{{subject}}</h1>
+<form method="get">
+    <table>
+        {{#each items}}
+        <tr>
+            <td>{{index}}</td>
+            <td>{{name}}</td>
+            <td>{{price}}</td>
+            <td><input type="checkbox" name="ids" value="{{_id}}"></td>
+        </tr>
+        {{/each}}
+    </table>
+    <button type="submit">Usuń</button>
+</form>
