@@ -1,0 +1,105 @@
+body {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.nav {
+    background: cornflowerblue;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.list-container {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.list-item {
+    display: inline-block;
+    margin: 10px;
+}
+
+.list-item>a {
+    text-decoration: none;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    color: black;
+    text-align: center;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.list-item>a:hover {
+    background: rgb(193, 192, 192);
+    transition: 0.2s;
+}
+
+form {
+    background: white;
+    font-size: 1.5rem;
+    box-shadow: 0 0 10px 2px black;
+    border-radius: 10px;
+    display: flex;
+    width: 500px;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    margin-left: 20px;
+    padding: 10px;
+}
+
+form>div {
+    margin: 10px;
+}
+
+h2 {
+    margin-left: 20px;
+    color: rgb(192, 58, 58);
+}
+
+form>button {
+    background: rgb(68, 158, 68);
+    color: white;
+    font-size: 1.5rem;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+form>span {
+    background: lightgreen;
+    text-align: center;
+    padding: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    margin-left: 20px;
+}
+
+tr,
+td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.mainTr {
+    color: red;
+}
+
+.info {
+    background: rgb(19, 108, 203);
+    padding: 5px;
+    text-align: center;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
