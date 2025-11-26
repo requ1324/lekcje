@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wieże Hanoi</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+
+      #game-board {
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
+        max-width: 900px;
+        margin-bottom: 30px;
+      }
+
+      .tower {
+        width: 30%;
+        height: 300px;
+        background-color: #eee;
+        border: 2px solid #333;
+        border-bottom: none;
+
+        /* Ustawienie słupka */
+        position: relative;
+        display: flex;
+        flex-direction: column-reverse; /* Stosy rosną od dołu do góry */
+        align-items: center;
+        justify-content: flex-start; /* Diski na dole */
+        padding-top: 10px;
+        cursor: pointer;
+      }
+
+      /* Linia bazowa słupka */
+      .tower::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 15px;
+        background-color: #333;
+      }
+
+      /* Centralny palik */
+      .tower::before {
+        content: "";
+        position: absolute;
+        bottom: 15px;
+        width: 8px;
+        height: calc(100% - 15px);
+        background-color: #555;
+      }
+
+      /* Styl wybranej wieży */
+      .tower.selected {
+        background-color: #c8e6c9;
+        box-shadow: 0 0 10px #4caf50;
+      }
+
+      .disk {
+        height: 30px;
+        margin-bottom: 2px;
+        background-color: #007bff;
+        border: 1px solid #0056b3;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+        z-index: 10;
+        transition: all 0.2s ease-in-out;
+        box-sizing: border-box;
+        border-radius: 5px;
+      }
+
+      .disk-1 {
+        width: 60px;
+        background-color: #2196f3;
+      }
+      .disk-2 {
+        width: 90px;
+        background-color: #4caf50;
+      }
+      .disk-3 {
+        width: 120px;
+        background-color: #ff9800;
+      }
+
+      .disk-label {
+        position: absolute;
+        top: -20px;
+        font-weight: bold;
+      }
+
+      #message {
+        margin-top: 20px;
+        font-size: 1.5em;
+        color: darkred;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Wieże Hanoi (3 dyski)</h1>
+    <div id="message"></div>
+
+    <div id="game-board">
+      <div id="A" class="tower">
+        <span class="disk-label">Wieża A (Źródłowa)</span>
+      </div>
+      <div id="B" class="tower">
+        <span class="disk-label">Wieża B</span>
+      </div>
+      <div id="C" class="tower">
+        <span class="disk-label">Wieża C (Docelowa)</span>
+      </div>
+    </div>
+
+    <button onclick="startGame()">Restart Gry</button>
+
+    <script>
+      // Data structure representing the towers (stack logic: last element is the top disk)
+      let towers = {};
+      let selectedTowerId = null; // Przechowuje ID wieży (A, B, C) klikniętej jako źródło
+
+      const WIN_TOWER = "C";
+      const NUM_DISKS = 3;
+
+      // Inicjalizacja gry i stanu
+      function startGame() {
+        // Wymaganie: na wieży A leżą dyski 3, 2, 1 (1 = najmniejszy, ostatni w array to góra)
+        towers = {
+          A: [3, 2, 1],
+          B: [],
+          C: [],
+        };
+        console.log(towers["A"]);
+        selectedTowerId = null;
+        document.getElementById("message").textContent = "";
+        renderTowers();
+      }
+
+      // Rysowanie dysków na podstawie stanu tablicy 'towers'
+      function renderTowers() {
+        ["A", "B", "C"].forEach((id) => {
+          const towerElement = document.getElementById(id);
+          // Usuń wszystkie stare dyski (oprócz etykiety)
+          towerElement
+            .querySelectorAll(".disk")
+            .forEach((disk) => disk.remove());
+          console.log(id);
+          // Sprawdź, czy wieża jest wybrana i dodaj/usuń klasę 'selected'
+          if (id === selectedTowerId) {
+            towerElement.classList.add("selected");
+          } else {
+            towerElement.classList.remove("selected");
+          }
+
+          // Rysowanie nowych dysków
+          towers[id].forEach((diskSize) => {
+            const disk = document.createElement("div");
+            disk.classList.add("disk", `disk-${diskSize}`);
+            disk.textContent = diskSize; // Numeracja kolejnych kroków ścieżki (w tym przypadku numer dysku)
+            towerElement.appendChild(disk);
+          });
+        });
+      }
+
+      // Główna logika gry - obsługa kliknięcia wieży
+      function handleTowerClick(towerId) {
+        const towerElement = document.getElementById(towerId);
+
+        if (selectedTowerId === null) {
+          // Krok 1: Wybrano wieżę źródłową
+
+          // Wymaganie: można przenieść tylko ostatni element (musi istnieć)
+          if (towers[towerId].length === 0) {
+            document.getElementById("message").textContent =
+              "Wieża pusta. Wybierz inną wieżę.";
+            return;
+          }
+
+          selectedTowerId = towerId;
+          document.getElementById(
+            "message"
+          ).textContent = `Wybrano wieżę ${towerId}. Kliknij wieżę docelową.`;
+          renderTowers(); // Podświetl wybraną wieżę
+        } else {
+          // Krok 2: Wybrano wieżę docelową
+
+          const sourceId = selectedTowerId;
+          const destId = towerId;
+
+          // Anulowanie wyboru, jeśli kliknięto tę samą wieżę
+          if (sourceId === destId) {
+            selectedTowerId = null;
+            document.getElementById("message").textContent = "Anulowano wybór.";
+            renderTowers();
+            return;
+          }
+
+          const sourceDisks = towers[sourceId];
+          const destDisks = towers[destId];
+
+          // Wymaganie: można przenieść tylko ostatni element wieży
+          const diskToMove = sourceDisks[sourceDisks.length - 1];
+
+          // Wymaganie: nie wolno położyć większego dysku na mniejszy
+          const topDestDisk = destDisks[destDisks.length - 1];
+
+          if (topDestDisk !== undefined && diskToMove > topDestDisk) {
+            document.getElementById(
+              "message"
+            ).textContent = `Błąd: Nie można położyć dysku ${diskToMove} na mniejszy dysk ${topDestDisk}.`;
+            // Reset wyboru po błędnym ruchu
+            selectedTowerId = null;
+            renderTowers();
+            return;
+          }
+
+          // Poprawny ruch
+          sourceDisks.pop(); // Zdejmij z wieży źródłowej
+          destDisks.push(diskToMove); // Połóż na wieży docelowej
+
+          selectedTowerId = null;
+          document.getElementById(
+            "message"
+          ).textContent = `Przeniesiono dysk ${diskToMove} z ${sourceId} do ${destId}.`;
+          renderTowers();
+
+          // Sprawdź warunek wygranej
+          checkWin();
+        }
+      }
+
+      // Sprawdzenie warunku wygranej
+      function checkWin() {
+        // Wymaganie: gdy cała wieża znajdzie się na C, wyświetl komunikat
+        if (towers[WIN_TOWER].length === NUM_DISKS) {
+          document.getElementById("message").textContent =
+            "🎉 GRATULACJE! WYGRAŁEŚ! 🎉";
+          // Usuń event listenery, aby zablokować dalsze ruchy
+          document
+            .querySelectorAll(".tower")
+            .forEach((t) => (t.onclick = null));
+        }
+      }
+
+      // Dodanie obsługi zdarzeń po załadowaniu skryptu
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("A").onclick = () => handleTowerClick("A");
+        document.getElementById("B").onclick = () => handleTowerClick("B");
+        document.getElementById("C").onclick = () => handleTowerClick("C");
+
+        startGame(); // Rozpocznij grę po załadowaniu
+      });
+    </script>
+  </body>
+</html>
