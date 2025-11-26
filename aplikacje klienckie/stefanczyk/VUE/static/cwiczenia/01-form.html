@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        form {
+            background: rgb(202, 199, 199);
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>01-Form</h1>
+        <form action="/test" method="post" @reset="reset" @submit="submit">
+            <input type="text">
+            <button type="reset">reset</button>
+            <button type="submit">submit</button>
+            <div><input id="check" type="checkbox" v-model="checked"> <label for="check">blokada zdarzeń
+                    formularza</label></div>
+        </form>
+    </div>
+    <script>
+        Vue.createApp({
+
+            data() {
+                return {
+                    checked: false
+                }
+            }, methods: {
+                reset(e) {
+                    if (this.checked) {
+                        e.preventDefault();
+                    }
+                },
+                submit(e) {
+                    if (this.checked) {
+                        e.preventDefault();
+                    }
+                }
+
+            }
+        }).mount("#app")
+
+    </script>
+</body>
+
+</html>

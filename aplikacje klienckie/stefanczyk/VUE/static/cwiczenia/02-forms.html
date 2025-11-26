@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        form {
+            background: rgb(202, 199, 199);
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 50%;
+        }
+
+        form>div {
+            margin: 10px;
+        }
+
+        .box1 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>02-Forms, v-model, computed</h1>
+        <form action="/test" method="post">
+            <div class="box1">
+                <h3>Uzupełnij dane</h3>
+                <input type="text" v-model="imie" placeholder="Imię i nazwisko">
+                <input type="text" v-model="wiek" placeholder="Wiek">
+                <input type="text" v-model="zawod" placeholder="Zawód">
+                <input type="text" v-model='wynagrodzenie' placeholder="Wynagrodzenie">
+            </div>
+            <div class="box2">
+                <div>
+
+                    <span v-model="imie">Długość: {{imie.length}}</span>
+                </div>
+                <div>
+
+                    <span v-model="wiek">Długość: {{wiek.length}}</span>
+                </div>
+                <div>
+
+                    <span v-model="zawod">Długośc: {{zawod.length}}</span>
+                </div>
+                <div>
+
+                    <span v-model="wynagrodzenie">Długość: {{wynagrodzenie.length}}</span>
+                </div>
+            </div>
+            <div class="box3">
+                <div>
+                    <span>Imię i nazwisko:</span>
+                    <span v-model="imie">{{imie}}</span>
+                </div>
+                <div>
+                    <span>Wiek:</span>
+                    <span v-model="wiek">{{wiek}}</span>
+                </div>
+                <div>
+                    <span>Zawód:</span>
+                    <span v-model="zawod">{{zawod}}</span>
+                </div>
+                <div>
+                    <span>Wynagrodzenie:</span>
+                    <span v-model="wynagrodzenie">{{wynagrodzenie}}</span>
+                </div>
+            </div>
+            <input type="submit" :disabled="!isReady" value="Submit">
+        </form>
+    </div>
+    <script>
+        Vue.createApp({
+
+            data() {
+                return {
+                    imie: "",
+                    wiek: "",
+                    zawod: "",
+                    wynagrodzenie: ""
+                }
+            }, methods: {
+
+
+
+            },
+            computed: {
+                isReady() {
+                    if (this.imie.length != 0 && this.wiek != 0 && this.zawod != 0 && this.wynagrodzenie != 0) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+        }).mount("#app")
+
+    </script>
+</body>
+
+</html>

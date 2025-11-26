@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        form {
+            background: rgb(202, 199, 199);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: start;
+            width: 30%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>06-Form</h1>
+        <h3>get json data from server</h3>
+        <form action="/test" method="post">
+            <h2>Dodaj do koszyka</h2>
+            <div class="box1">
+                <h3>Produkty:</h3>
+            </div>
+            <div class="box2">
+                <h3>Sposób dostawy: </h3>
+            </div>
+            <div class="box3">
+                <h3>Metoda płatności: </h3>
+            </div>
+        </form>
+    </div>
+    <script>
+        Vue.createApp({
+
+            data() {
+                return {
+                    dostawa: "",
+                    checked: false,
+                    mysz: "",
+                    laptop: "",
+                    pc: ""
+                }
+            }, methods: {
+
+
+            },
+            computed: {
+                isReady() {
+                    console.log(this.dostawa)
+                    if (this.dostawa != "" && this.checked === true && (this.mysz != "" || this.pc != "" || this.laptop != "")) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+        }).mount("#app")
+
+    </script>
+</body>
+
+</html>

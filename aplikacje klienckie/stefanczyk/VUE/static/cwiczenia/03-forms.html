@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        form {
+            background: rgb(202, 199, 199);
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>03-Form</h1>
+        <h3>koszyk: form-checkbox, radio, select -> v-model</h3>
+        <form action="/test" method="post">
+            <div class="box1">
+                <h2>Akcesoria</h2>
+                <div><input type="checkbox" id="mysz" v-model="mysz">
+                    <label for="mysz">Myszka</label>
+                </div>
+                <div><input type="checkbox" id="laptop" v-model="laptop">
+                    <label for="laptop">Laptop</label>
+                </div>
+                <div><input type="checkbox" id="pc" v-model="pc">
+                    <label for="pc">Komputer</label>
+                </div>
+            </div>
+            <div class="box2">
+                <h2>Forma odbioru</h2>
+                <div>
+                    <input type="radio" name="radio" id="kurier" v-model="dostawa" value="kurier">
+                    <label for="kurier">Kurier</label>
+                </div>
+                <div>
+                    <input type="radio" name="radio" id="poczta" v-model="dostawa" value="poczta">
+                    <label for="poczta">Poczta</label>
+                </div>
+                <div>
+                    <input type="radio" name="radio" id="osobiscie" v-model="dostawa" value="osobiscie">
+                    <label for="osobiscie">Osobiście</label>
+                </div>
+
+                <select name="" id="" v-model="dostawa">
+                    <option value="kurier">Kurier</option>
+                    <option value="poczta">Poczta</option>
+                    <option value="osobiscie">Osobiście</option>
+                </select>
+
+                <span v-model="dostawa">Sposób dostawy: {{dostawa}}</span>
+            </div>
+            <div class="box3">
+                <h2>Potwierdzenie</h2>
+                <div><input type="checkbox" id="checkbox" v-model="checked"><label for="checkbox">Mam 18 lat</label>
+                </div>
+                <span v-model="checked">{{checked}}</span>
+                <input type="submit" :disabled="!isReady" value="Wyślij">
+            </div>
+        </form>
+    </div>
+    <script>
+        Vue.createApp({
+
+            data() {
+                return {
+                    dostawa: "",
+                    checked: false,
+                    mysz: "",
+                    laptop: "",
+                    pc: ""
+                }
+            }, methods: {
+
+
+            },
+            computed: {
+                isReady() {
+                    console.log(this.dostawa)
+                    if (this.dostawa != "" && this.checked === true && (this.mysz != "" || this.pc != "" || this.laptop != "")) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+        }).mount("#app")
+
+    </script>
+</body>
+
+</html>
