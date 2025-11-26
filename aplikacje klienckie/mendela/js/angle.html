@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .box {
+        width: 50px;
+        height: 50px;
+        background: cornflowerblue;
+        border-radius: 5px;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box"></div>
+      <div>
+        <button class="start">Start</button>
+        <button class="stop">Stop</button>
+        <input id="checkbox" type="checkbox" />
+        <label for="checkbox"> ma się obracać w nieskończoność</label>
+        <input type="number" class="input" placeholder="podaj kąt" />
+      </div>
+    </div>
+
+    <script>
+      let start = document.querySelector(".start");
+      let stop = document.querySelector(".stop");
+
+      let box = document.querySelector(".box");
+      let checkbox = document.querySelector("#checkbox");
+      let input = document.querySelector(".input");
+
+      start.addEventListener("click", function () {
+        let angle = 0;
+        let interval;
+        if (checkbox.checked) {
+          interval = setInterval(() => {
+            console.log(angle);
+            angle += parseInt(input.value);
+            box.style.transform = `rotate(${angle}deg)`;
+          }, 100);
+        } else {
+          interval = setInterval(() => {
+            console.log(angle);
+            if (angle >= 360) {
+              clearInterval(interval);
+              return;
+            }
+            console.log(Math.min(1, 2, 4, 5));
+            angle += parseInt(input.value);
+
+            box.style.transform = `rotate(${angle}deg)`;
+          }, 100);
+        }
+
+        stop.addEventListener("click", function () {
+          clearInterval(interval);
+        });
+      });
+    </script>
+  </body>
+</html>
