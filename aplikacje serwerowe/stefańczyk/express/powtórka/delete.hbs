@@ -1,0 +1,36 @@
+<h2>{{subject}}</h2>
+<form method="post">
+  <button formaction="/handleAllDelete">Delete All Cars</button>
+
+</form>
+<span>{{info}}</span>
+<form action="/handleSelected" method="post">
+  <button type="submit">Delete Selected Cars</button>
+  <table>
+    <tr class="mainTr">
+      <td>_id</td>
+      <td>model</td>
+      <td>ubezpieczony</td>
+      <td>benzyna</td>
+      <td>uszkodzony</td>
+      <td>naped4x4</td>
+    </tr>
+    {{#each items}}
+      <tr>
+        <td>{{_id}}</td>
+        <td>{{model}}</td>
+        <td>{{ubezpieczony}}</td>
+        <td>{{benzyna}}</td>
+        <td>{{uszkodzony}}</td>
+        <td>{{naped4x4}}</td>
+        <td>
+          <form method="post" action="/handleDelete">
+            <button type="submit" id="{{_id}}" class="delete">DELETE</button>
+
+            <input type="hidden" name="id" value="{{_id}}" />
+          </form>
+          <input type="checkbox" name="deleteIds" value="{{_id}}" /></td>
+      </tr>
+    {{/each}}
+  </table>
+</form>
