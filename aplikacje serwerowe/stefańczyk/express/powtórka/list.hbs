@@ -1,0 +1,31 @@
+<h2>{{subject}}</h2>
+<table>
+  <tr class="mainTr">
+    <td>_id</td>
+    <td>model</td>
+    <td>ubezpieczony</td>
+    <td>benzyna</td>
+    <td>uszkodzony</td>
+    <td>naped4x4</td>
+  </tr>
+  {{#each items}}
+    <tr>
+      <td>{{_id}}</td>
+      <td>{{model}}</td>
+      <td>{{ubezpieczony}}</td>
+      <td>{{benzyna}}</td>
+      <td>{{uszkodzony}}</td>
+      <td>{{naped4x4}}</td>
+      <td><button id={{_id}} class="info">INFO</button></td>
+    </tr>
+  {{/each}}
+</table>
+
+<script>
+  const items =
+  {{{itemsJson}}}; const buttons = document.querySelectorAll(".info");
+  buttons.forEach((button) => { button.addEventListener("click", function () {
+  const id = this.id; const item = items.find((item) => item._id == id); if
+  (item){ alert(JSON.stringify(item, null, 2)); }else{ alert("item not found");
+  } }); });
+</script>
