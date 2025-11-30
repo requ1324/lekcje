@@ -1,0 +1,52 @@
+<h2>{{subject}}</h2>
+
+<form class="searchForm" action="/handleSearch" method="post">
+    <div>
+        <div>
+         <label for="ubezpieczony">ubezpieczony</label><input type="radio" id="ubezpieczony" name="radio" value="ubezpieczony">
+        </div>
+        <div>
+         <label for="benzyna">benzyna</label><input type="radio" id="benzyna" name="radio" value="benzyna">
+        </div>
+        <div>
+         <label for="uszkodzony">uszkodzony</label><input type="radio" id="uszkodzony" name="radio" value="uszkodzony">
+        </div>
+        <div>
+         <label for="naped4x4">naped4x4</label><input type="radio" id="naped4x4" name="radio" value="naped4x4">
+        </div>
+    </div>
+    <div>
+         <div>
+         <label for="tak">tak</label><input type="radio" id="tak" name="radio2" value="TAK">
+        </div>
+         <div>
+         <label for="nie">nie</label><input type="radio" id="nie" name="radio2" value="NIE">
+        </div>
+         <div>
+         <label for="brak">brak danych</label><input type="radio" id="brak" name="radio2" value="brak">
+        </div>
+    </div>
+    <button type="submit">Search</button>
+</form>
+
+  
+  <table>
+    <tr class="mainTr">
+      <td>_id</td>
+      <td>model</td>
+      <td>ubezpieczony</td>
+      <td>benzyna</td>
+      <td>uszkodzony</td>
+      <td>naped4x4</td>
+    </tr>
+    {{#each items}}
+      <tr>
+        <td>{{_id}}</td>
+        <td>{{model}}</td>
+        <td>{{ubezpieczony}}</td>
+        <td>{{benzyna}}</td>
+        <td>{{uszkodzony}}</td>
+        <td>{{naped4x4}}</td>
+      </tr>
+        {{/each}}
+    </table>
