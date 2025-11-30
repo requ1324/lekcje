@@ -1,0 +1,87 @@
+<h2>{{subject}}</h2>
+
+<span>{{info}}</span>
+
+<table id="table">
+  <tr class="mainTr">
+    <td>_id</td>
+    <td>model</td>
+    <td>ubezpieczony</td>
+    <td>benzyna</td>
+    <td>uszkodzony</td>
+    <td>naped4x4</td>
+  </tr>
+  {{#each items}}
+    <tr data-id="{{_id}}">
+      <td>{{_id}}</td>
+      <td class="td">{{model}}</td>
+      <td class="td">{{ubezpieczony}}</td>
+      <td class="td">{{benzyna}}</td>
+      <td class="td">{{uszkodzony}}</td>
+      <td class="td">{{naped4x4}}</td>
+      <td><button class="editBtn">Edit</button></td>
+    </tr>
+  {{/each}}
+</table>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+      const buttons = document.querySelectorAll('.editBtn');
+        buttons.forEach(button => {
+          button.addEventListener('click', function(e){
+          const tr = e.target.closest('tr');
+
+          const _id = tr.dataset.id;
+          console.log('Row ID:', _id);
+          const cells = tr.querySelectorAll('.td');
+          if (button.textContent === "Edit"){
+            button.textContent = "Save";
+            cells[0].innerHTML = `<input type="text" value="${cells[0].textContent}">`;
+            cells[1].innerHTML = `<select><option ${cells[1].textContent === "TAK" ? "selected" : ""} value="TAK">TAK</option><option ${cells[1].textContent === "NIE" ? "selected" : ""} value="NIE">NIE</option></select>`;
+            cells[2].innerHTML = `<select><option ${cells[2].textContent === "TAK" ? "selected" : ""} value="TAK">TAK</option><option ${cells[2].textContent === "NIE" ? "selected" : ""} value="NIE">NIE</option></select>`;
+            cells[3].innerHTML = `<select><option ${cells[3].textContent === "TAK" ? "selected" : ""} value="TAK">TAK</option><option ${cells[3].textContent === "NIE" ? "selected" : ""} value="NIE">NIE</option></select>`;
+            cells[4].innerHTML = `<select><option ${cells[4].textContent === "TAK" ? "selected" : ""} value="TAK">TAK</option><option ${cells[4].textContent === "NIE" ? "selected" : ""} value="NIE">NIE</option></select>`;
+          }else{
+            button.textContent = "Edit";
+            const model = cells[0].querySelector('input').value;
+            const ubezpieczony = cells[1].querySelector('select').value;
+            const benzyna = cells[2].querySelector('select').value;
+            const uszkodzony = cells[3].querySelector('select').value;
+            const naped4x4 = cells[4].querySelector('select').value;
+            cells[0].innerHTML = model;
+            cells[1].innerHTML = ubezpieczony;
+            cells[2].innerHTML = benzyna;
+            cells[3].innerHTML = uszkodzony;
+            cells[4].innerHTML = naped4x4;
+
+          const data = {
+              _id: _id,
+              model: model,
+              ubezpieczony: ubezpieczony,
+              benzyna: benzyna,
+              uszkodzony: uszkodzony,
+              naped4x4: naped4x4,
+            };
+            fetch("/handleEdit", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body:JSON.stringify(data),
+            }).then(response => {
+              if(response.ok){
+                location.relaod();
+              }else{
+                response.text().then(text => {
+                 console.error("Server error:", text);
+    });
+              }
+            }).catch(error => {
+              console.log("Error: " + error);
+            })
+          }
+        })
+        })
+        
+    })
+</script>
