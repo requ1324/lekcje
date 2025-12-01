@@ -1,0 +1,94 @@
+body {
+  background-color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  color: rgb(51, 51, 51);
+}
+
+.container {
+  background-color: #e6e6e6;
+  padding: 1.2em;
+  border-radius: 0.4em;
+  width: fit-content;
+}
+
+table {
+  margin-top: 1em;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: rgb(15, 183, 235);
+  padding: 1em;
+}
+
+tr {
+  background-color: rgb(241, 241, 241);
+}
+
+td {
+  padding: 0.6em 1.2em;
+  border-radius: 0.2em;
+}
+
+input[type="submit"],
+button,
+a:not(.normal) {
+  background-color: blue;
+  color: white;
+  font-size: large;
+  padding: 0.3em 1em;
+  border-radius: 0.5em;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+label {
+  margin: 0 0.5em;
+}
+
+h2 {
+  color: cadetblue;
+}
+
+p {
+  font-size: large;
+}
+
+.item-con {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.item {
+  padding: 1em;
+  border: 1px solid gray;
+  width: fit-content;
+  border-radius: 0.5em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  flex-direction: column;
+  font-size: large;
+}
+
+.item > span:first-of-type {
+  color: blue;
+}
+
+p.opinion span {
+  color: red;
+}
+
+form {
+  font-size: larger;
+}
+
+form input {
+  padding: 0.2em;
+}

@@ -1,0 +1,26 @@
+<h1>Dodaj opinie: {{title}}</h1>
+
+<form action="/newOpinion" method="post">
+  <input type="hidden" name="id" value="{{id}}" />
+
+  <label>
+    Nazwa:
+    <input required type="text" name="name" />
+  </label><br />
+  <label>
+    Content:
+    <input required type="text" name="content" />
+  </label><br />
+  <label>
+    Ocena:
+    <select name="stars">
+      <option value="1">1 Gwiazdka</option>
+      <option value="2">2 Gwiazdki</option>
+      <option value="3">3 Gwiazdki</option>
+      <option value="4">4 Gwiazdki</option>
+      <option value="5">5 Gwiazdek</option>
+    </select>
+  </label><br />
+
+  <input type="submit" value="Dodaj" />
+</form>

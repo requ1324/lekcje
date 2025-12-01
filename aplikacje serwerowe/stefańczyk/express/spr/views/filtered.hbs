@@ -1,0 +1,27 @@
+<h1>Filtrowanie: {{filter}}</h1>
+<hr />
+
+<div class="item-con">
+  {{#each items}}
+
+    <div class="item">
+      <a class="normal" href="/info?id={{@key}}">
+        {{this.title}}
+      </a>
+      <span>
+        {{this.category}}
+      </span>
+      <span>
+        {{this.avg}}
+      </span>
+      <span>
+        Price:
+        {{this.price}}
+        zÅ‚
+      </span>
+    </div>
+
+  {{/each}}
+</div>
+
+<a href="/">BACK</a>

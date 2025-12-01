@@ -1,0 +1,146 @@
+{
+  "products": [
+    {
+      "title": "Szara bluza z kapturem",
+      "slogan": "Najlepsza bluza z kapturem, jakÄ… oferujemy",
+      "description": "Nawet jeÅ›li nie mieszkasz w kolonii nudystÃ³w, zdarzajÄ… siÄ™ chwile, gdy czujesz chÅ‚Ã³d i potrzebujesz zaÅ‚oÅ¼yÄ‡ coÅ› ciepÅ‚ego. Na te momenty nie ma nic lepszego niÅ¼ ta stylowa bluza Fantastic z kapturem. Wykonana w 100% z baweÅ‚ny, nadajÄ…ca siÄ™ do prania w pralce, ta bluza o Å›redniej gramaturze to wszystko, czego potrzebujesz, aby czuÄ‡ siÄ™ komfortowo, gdy temperatura spada. A poniewaÅ¼ moÅ¼liwoÅ›Ä‡ przenoszenia niezbÄ™dnych rzeczy jest waÅ¼na, bluza ma dwie pojemne kieszenie typu kangur, aby nic, czego potrzebujesz, nigdy siÄ™ nie zgubiÅ‚o.",
+      "stars": 0,
+      "category": "OdzieÅ¼",
+      "img_url": "/img/products/hoodie.jpg",
+      "price": 29.9,
+      "reviews": []
+    },
+    {
+      "title": "Kubek do kawy",
+      "slogan": "Utrzymaj swojÄ… kawÄ™ gorÄ…cÄ…!",
+      "description": "Kubek to rodzaj naczynia uÅ¼ywanego do picia gorÄ…cych napojÃ³w, takich jak kawa, herbata, gorÄ…ca czekolada lub zupa. Kubki zazwyczaj majÄ… uchwyty i mieszczÄ… wiÄ™kszÄ… iloÅ›Ä‡ pÅ‚ynu niÅ¼ inne rodzaje filiÅ¼anek. Zazwyczaj kubek mieÅ›ci okoÅ‚o 350 ml pÅ‚ynu; dwa razy wiÄ™cej niÅ¼ filiÅ¼anka do herbaty. Kubek jest mniej formalnym naczyniem i zwykle nie jest uÅ¼ywany w formalnych nakryciach stoÅ‚owych, gdzie preferowana jest filiÅ¼anka do herbaty lub kawy.",
+      "stars": 0,
+      "category": "Kuchnia",
+      "img_url": "/img/products/mug.jpg",
+      "price": 12.5,
+      "reviews": [
+        {
+          "name": "Kasia",
+          "comment": "Bardzo solidny, polecam!",
+          "stars": 5,
+          "date": 1456067725049
+        },
+        {
+          "name": "Marek",
+          "comment": "TrochÄ™ za maÅ‚y.",
+          "stars": 3,
+          "date": 1456067725050
+        }
+      ]
+    },
+    {
+      "title": "PiÅ‚eczka antystresowa",
+      "slogan": "Wyciskaj stres!",
+      "description": "W momencie, gdy Å¼ycie dorzuca ci wiÄ™cej na juÅ¼ przepeÅ‚niony talerz i zaczynasz czuÄ‡ siÄ™ beznadziejnie przytÅ‚oczony, weÅº piÅ‚eczkÄ™ antystresowÄ… do rÄ™ki i Å›ciskaj tak mocno, jak tylko potrafisz. WeÅº gÅ‚Ä™boki oddech i pozwÃ³l napiÄ™ciu odejÅ›Ä‡. Powtarzaj w razie potrzeby. Wszystko bÄ™dzie dobrze! Posiadanie czegoÅ› maÅ‚ego, przenoÅ›nego i pod rÄ™kÄ… jest niezbÄ™dne do radzenia sobie ze stresem.",
+      "stars": 0,
+      "category": "GadÅ¼ety",
+      "img_url": "/img/products/stress-ball.jpg",
+      "price": 5.0,
+      "reviews": []
+    },
+    {
+      "title": "Kurtka sportowa",
+      "slogan": "Ruszaj na tor w dobrym stylu!",
+      "description": "Wykonana z ultra-miÄ™kkiej czesanej baweÅ‚ny, ta niezbÄ™dna kurtka ma sportowe kontrastowe wykoÅ„czenia i charakterystyczny haftowany liÅ›Ä‡ Fantastic.",
+      "stars": 0,
+      "category": "OdzieÅ¼",
+      "img_url": "/img/products/track-jacket.jpg",
+      "price": 45.0,
+      "reviews": [
+        {
+          "name": "Shannon",
+          "comment": "To jest takie ciepÅ‚e i wygodne.",
+          "stars": 2,
+          "date": 1455800194995
+        },
+        {
+          "name": "Bob",
+          "comment": "Uwielbiam to.",
+          "stars": 5,
+          "date": 1455804800769
+        },
+        {
+          "name": "Jorge",
+          "comment": "BrÄ…zowy. Jest brÄ…zowy.",
+          "stars": 4,
+          "date": 1455804825509
+        }
+      ]
+    },
+    {
+      "title": "Damski T-shirt",
+      "slogan": "Stylowa koszulka Fantastic",
+      "description": "Wykonana z ultra-miÄ™kkiej czesanej baweÅ‚ny, ta niezbÄ™dna koszulka ma sportowe kontrastowe wykoÅ„czenia i charakterystyczny liÅ›Ä‡ Fantastic.",
+      "stars": 0,
+      "category": "OdzieÅ¼",
+      "img_url": "/img/products/white-fantastic.jpg",
+      "price": 45.0,
+      "reviews": []
+    },
+    {
+      "title": "BrÄ…zowa torba-worek",
+      "slogan": "Trzymaj tutaj dodatkowe rzeczy",
+      "description": "PozwÃ³l swojemu stylowi mÃ³wiÄ‡ sam za siebie dziÄ™ki tej szykownej brÄ…zowej torbie typu worek. WyposaÅ¼ona w nylonowÄ… powÅ‚okÄ™ zewnÄ™trznÄ… z jednolitym kontrastowym wykoÅ„czeniem, w kolorze brÄ…zowym, z logo Fantastic.",
+      "stars": 0,
+      "category": "GadÅ¼ety",
+      "img_url": "/img/products/brown-bag.jpg",
+      "price": 50,
+      "reviews": []
+    },
+    {
+      "title": "Kubek termiczny",
+      "slogan": "Zabierz kawÄ™ na wynos",
+      "description": "Termiczny kubek podrÃ³Å¼ny Fantastic zostaÅ‚ sprytnie zaprojektowany, aby utrzymaÄ‡ temperaturÄ™ i sprawdziÄ‡ siÄ™ w kaÅ¼dych warunkach. PodwÃ³jna Å›cianka utrzyma gorÄ…ce lub zimne napoje przez wiele godzin, a przesuwana blokada pokrywy pomaga zminimalizowaÄ‡ rozlania.",
+      "stars": 0,
+      "category": "Kuchnia",
+      "img_url": "/img/products/brown-tumbler.jpg",
+      "price": 90,
+      "reviews": []
+    },
+    {
+      "title": "DÅ‚ugopis (zielony)",
+      "slogan": "Jedyny dÅ‚ugopis, jakiego kiedykolwiek bÄ™dziesz potrzebowaÄ‡",
+      "description": "Wymazywanie i wielokrotne poprawianie bez uszkadzania dokumentÃ³w. KoÅ„cÃ³wka igÅ‚owa tworzy wyraÅºne, precyzyjne linie, a termoczuÅ‚a formuÅ‚a tuszu Å¼elowego znika pod wpÅ‚ywem tarcia gumki.",
+      "stars": 0,
+      "category": "Biuro",
+      "img_url": "/img/products/green-pen.jpg",
+      "price": 2.0,
+      "reviews": []
+    },
+    {
+      "title": "DÅ‚ugopis (czarny)",
+      "slogan": "Jedyny dÅ‚ugopis, jakiego kiedykolwiek bÄ™dziesz potrzebowaÄ‡",
+      "description": "Wymazywanie i wielokrotne poprawianie bez uszkadzania dokumentÃ³w. KoÅ„cÃ³wka igÅ‚owa tworzy wyraÅºne, precyzyjne linie, a termoczuÅ‚a formuÅ‚a tuszu Å¼elowego znika pod wpÅ‚ywem tarcia gumki.",
+      "stars": 0,
+      "category": "Biuro",
+      "img_url": "/img/products/pen.jpg",
+      "price": 2.0,
+      "reviews": []
+    },
+    {
+      "title": "Zielony T-shirt",
+      "slogan": "Koszulka spoÅ‚ecznoÅ›ci Fantastic",
+      "description": "Wykonana z ultra-miÄ™kkiej czesanej baweÅ‚ny, ta niezbÄ™dna koszulka ma sportowe kontrastowe wykoÅ„czenia i charakterystyczny liÅ›Ä‡ Fantastic.",
+      "stars": 0,
+      "category": "OdzieÅ¼",
+      "img_url": "/img/products/green-tshirt.jpg",
+      "price": 20.0,
+      "reviews": []
+    },
+    {
+      "title": "Fantastic - The Definitive Guide",
+      "slogan": "2. Edycja",
+      "description": "ZarzÄ…dzaj fantastycznÄ… iloÅ›ciÄ… danych zebranych za poÅ›rednictwem aplikacji internetowej za pomocÄ… Fantastic. Ten autorytatywny wstÄ™p â€” napisany przez kluczowego wspÃ³Å‚twÃ³rcÄ™ projektu â€” pokazuje liczne zalety korzystania z baz danych zorientowanych na dokumenty i demonstruje, jak ten niezawodny system o wysokiej wydajnoÅ›ci pozwala na niemal nieskoÅ„czonÄ… skalowalnoÅ›Ä‡ poziomÄ….",
+      "stars": 0,
+      "category": "KsiÄ…Å¼ki",
+      "img_url": "/img/products/guide-book.jpg",
+      "price": 20.0,
+      "reviews": []
+    }
+  ]
+}

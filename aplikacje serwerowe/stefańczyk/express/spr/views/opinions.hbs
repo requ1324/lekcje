@@ -1,0 +1,24 @@
+<h1>Opinie: {{title}}</h1>
+
+{{#if hasOpinions}}
+
+  <h2>Åšrednia opinii: {{avg}}</h2>
+  <br />
+
+  {{#each opinions}}
+
+    <p class="opinion">
+      Name:
+      <span>{{this.name}}</span>, Comment:
+      <span>{{this.comment}}</span>, Stars:
+      <span>{{this.stars}}</span>, Date:
+      <span>{{parseDate this.date}}</span>
+    </p>
+
+  {{/each}}
+
+{{else}}
+  <span>Brak opinii</span>
+{{/if}}
+
+<a href="/">Back</a>

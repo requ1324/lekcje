@@ -1,0 +1,31 @@
+<div class="container">
+    <form action="/filter" method="post">
+    <label>
+        <input type="radio" name="cat" value="all">All Categories
+    </label>
+        {{#each categories}}
+
+            <label>
+                <input type="radio" name="cat" value="{{this}}">
+                {{this}}
+            </label>
+        {{/each}}
+        <input type="submit" value="Filter">
+    </form>
+</div>
+
+<table>
+    <thead>
+        <th>CATEGORY</th>
+        <th>TITLE</th>
+        <th>AVG</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </thead>
+    <tbody>
+        {{#each items}}
+        {{> row}}
+        {{/each}}
+    </tbody>
+</table>
