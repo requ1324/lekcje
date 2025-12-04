@@ -13,7 +13,24 @@
     <?php 
         if(isset($_POST['sent'])){
             $sentence = $_POST['sent'];
-            $words = explode(" ", $sentence);
+            $words = [];
+            $word = "";
+            for ($i = 0; $i < strlen($sentence); $i++){
+                
+                if ($sentence[$i] == " "){
+                    if ($word != ""){ 
+                        array_push($words, $word);
+                         $word = "";
+                        }
+                   
+                }else{
+                    $word = $word . $sentence[$i];
+                }
+            }
+            if ($word != "") {
+                    array_push($words, $word);
+                }
+
             $newSent = [];
             for($i = 0; $i < count($words); $i++){
                 if (strlen($words[$i]) % 2 == 0){
