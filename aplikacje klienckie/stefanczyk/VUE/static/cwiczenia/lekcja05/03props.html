@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ćwiczenie A</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #d6d4d4;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px dotted black;
+      }
+
+      #app {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+    </style>
+  </head>
+  <body>
+    <template id="component-a">
+      <div class="box">
+        <h1>Moja wizytówka</h1>
+        <span>Imię: {{ this.firstName ? this.firstName : "nie podano" }}</span>
+        <span
+          >Nazwisko: {{ this.lastName ? this.lastName : "nie podano" }}</span
+        >
+        <span>Wiek: {{ this.age ? this.age : "nie podano" }}</span>
+        <span>Zawód: {{ this.job ? this.job : "nie podano" }}</span>
+        <pre>{{JSON.stringify(this.$props, null, 5)}}</pre>
+      </div>
+    </template>
+    <div id="app">
+      <component-a
+        first-name="Jan"
+        last-name="Kowalski"
+        age="30"
+        job="Programista"
+      ></component-a>
+      <component-a first-name="Adam" last-name="Nowak" age="20"></component-a>
+      <component-a
+        first-name="Marek"
+        last-name="Zielony"
+        age="40"
+        job="Nauczyciel"
+      ></component-a>
+    </div>
+
+    <script>
+      const ComponentA = {
+        template: "#component-a",
+        data() {},
+        props: ["firstName", "lastName", "age", "job"],
+      };
+
+      Vue.createApp({
+        data() {
+          return {
+            title: "1 - dyrektywy w VUE",
+          };
+        },
+        components: {
+          "component-a": ComponentA,
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

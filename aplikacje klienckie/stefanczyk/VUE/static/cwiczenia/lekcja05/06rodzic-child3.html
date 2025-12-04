@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ćwiczenie A</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #d6d4d4;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px dotted black;
+      }
+
+      #app {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+    </style>
+  </head>
+  <body>
+    <template id="component-a">
+      <div class="box">
+        <h1>child component</h1>
+        <span>Data from parent: {{this.propX}} </span>
+        <h2>Child data: {{x}}</h2>
+        <pre>{{JSON.stringify(this.$props, null, 5)}}</pre>
+        <button @click="changeX">Zwieksz liczbe</button>
+      </div>
+    </template>
+    <div id="app">
+      <component-a v-for="digit in digits" v-bind:prop-x="digit"></component-a>
+    </div>
+
+    <script>
+      const ComponentA = {
+        template: "#component-a",
+        data() {
+          return { x: this.propX };
+        },
+        methods: {
+          changeX() {
+            this.x++;
+          },
+        },
+        props: ["propX"],
+      };
+
+      Vue.createApp({
+        data() {
+          return {
+            digits: [4, 16, 256],
+          };
+        },
+        methods: {},
+        components: {
+          "component-a": ComponentA,
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

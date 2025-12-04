@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        padding: 50px;
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        flex-wrap: wrap;
+      }
+
+      canvas {
+        border: 1px solid black;
+        margin-right: 30px;
+      }
+
+      #canvas2 {
+        border: 1px solid black;
+      }
+
+      #canvas3 {
+        border: 1px solid black;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <canvas id="canvas2"></canvas>
+    <canvas id="canvas3"></canvas>
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = 500;
+      canvas.height = 500;
+
+      const interval = setInterval(() => {
+        const x = Math.random() * 500;
+        const y = Math.random() * 500;
+        const color =
+          "rgb(" +
+          Math.floor(Math.random() * 256) +
+          "," +
+          Math.floor(Math.random() * 256) +
+          "," +
+          Math.floor(Math.random() * 256) +
+          ")";
+
+        ctx.beginPath();
+        ctx.moveTo(250, 250);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }, 10);
+
+      const canvas2 = document.getElementById("canvas2");
+      const ctx2 = canvas2.getContext("2d");
+      canvas2.width = 500;
+      canvas2.height = 500;
+
+      let mouseX = 250;
+      let mouseY = 250;
+
+      canvas2.addEventListener("mouseover", function (e) {
+        canvas2.addEventListener("mousemove", (e) => {
+          const rect = canvas2.getBoundingClientRect();
+          mouseX = e.clientX - rect.left;
+          mouseY = e.clientY - rect.top;
+        });
+
+        const interval = setInterval(() => {
+          ctx2.globalAlpha = 0.2;
+          const radius = 40;
+          const startAngle = Math.random() * 2 * Math.PI;
+          const endAngle = startAngle + Math.PI / 4;
+          const thickness = Math.random() * 5 + 1;
+
+          ctx2.beginPath();
+          ctx2.arc(mouseX, mouseY, radius, startAngle, endAngle);
+          ctx2.lineWidth = thickness;
+          ctx2.strokeStyle = "purple";
+          ctx2.stroke();
+        }, 10);
+
+        canvas2.addEventListener("mouseout", function (e) {
+          clearInterval(interval);
+        });
+      });
+
+      const canvas3 = document.getElementById("canvas3");
+      const ctx3 = canvas3.getContext("2d");
+      canvas3.width = 500;
+      canvas3.height = 500;
+
+      const imageSources = ["./dolar.webp", "./dolar.webp", "./dolar.webp"];
+      const images = [];
+      let imagesLoaded = 0;
+
+      imageSources.forEach((src) => {
+        const img = new Image();
+        img.onload = () => {
+          imagesLoaded++;
+          if (imagesLoaded === imageSources.length) {
+            initObjects();
+          }
+        };
+        img.src = src;
+        images.push(img);
+      });
+
+      const objects = [];
+
+      function initObjects() {
+        for (let i = 0; i < 3; i++) {
+          const obj = {
+            x: Math.random() * 400 + 50,
+            y: Math.random() * 400 + 50,
+            speed: [1, 2, 3][Math.floor(Math.random() * 3)],
+            direction: Math.floor(Math.random() * 4),
+            image: images[Math.floor(Math.random() * 3)],
+          };
+
+          const angles = [
+            Math.PI / 4,
+            (3 * Math.PI) / 4,
+            -Math.PI / 4,
+            (-3 * Math.PI) / 4,
+          ];
+          obj.dx = Math.cos(angles[obj.direction]) * obj.speed;
+          obj.dy = Math.sin(angles[obj.direction]) * obj.speed;
+          objects.push(obj);
+        }
+        animate();
+      }
+
+      function checkCollision() {
+        for (let i = 0; i < objects.length; i++) {
+          for (let j = i + 1; j < objects.length; j++) {
+            if (
+              Math.abs(objects[i].x - objects[j].x) < 20 &&
+              Math.abs(objects[i].y - objects[j].y) < 20
+            ) {
+              objects[i].dx = -objects[i].dx;
+              objects[i].dy = -objects[i].dy;
+              objects[j].dx = -objects[j].dx;
+              objects[j].dy = -objects[j].dy;
+            }
+          }
+        }
+      }
+
+      function animate() {
+        ctx3.clearRect(0, 0, 500, 500);
+        objects.forEach((obj) => {
+          obj.x += obj.dx;
+          obj.y += obj.dy;
+
+          if (obj.x <= 0 || obj.x >= 450) obj.dx = -obj.dx;
+          if (obj.y <= 0 || obj.y >= 450) obj.dy = -obj.dy;
+          ctx3.drawImage(obj.image, obj.x, obj.y, 50, 50);
+        });
+        checkCollision();
+        requestAnimationFrame(animate);
+      }
+    </script>
+  </body>
+</html>

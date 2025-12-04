@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ćwiczenie A</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <component-a></component-a>
+    </div>
+
+    <script>
+      const ComponentA = {
+        template: `<h1>Component A</h1>`,
+      };
+
+      Vue.createApp({
+        data() {
+          return {
+            title: "1 - dyrektywy w VUE",
+          };
+        },
+        components: {
+          "component-a": ComponentA,
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

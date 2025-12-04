@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ćwiczenie A</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #d6d4d4;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px dotted black;
+      }
+
+      .app {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <template id="preview-comp">
+      <div class="box">
+        <h1>Preview Component</h1>
+        <pre>{{JSON.stringify(this.$props, null, 5)}}</pre>
+      </div>
+    </template>
+    <template id="display-comp">
+      <div class="box">
+        <h1>Display Component</h1>
+        <span>{{this.firstName}}</span>
+        <span>{{this.lastName}}</span>
+        <span>{{this.age}}</span>
+        <span>{{this.image}}</span>
+      </div>
+    </template>
+    <div id="app">
+      <input type="text" v-model="firstName" />
+      <input type="text" v-model="lastName" />
+      <select name="" id="" v-model="age">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+      </select>
+      <select name="" v-model="image" id="">
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+      </select>
+      <button @click="addUser">Dodaj usera</button>
+      <preview-comp
+        v-bind:first-name="firstName"
+        v-bind:last-name="lastName"
+        v-bind:age="age"
+        v-bind:image="image"
+      ></preview-comp>
+      <div class="app">
+        <display-comp
+          v-for="user in users"
+          v-bind:first-name="user.firstName"
+          v-bind:last-name="user.lastName"
+          v-bind:age="user.age"
+          v-bind:image="user.image"
+        ></display-comp>
+      </div>
+    </div>
+
+    <script>
+      const previewComp = {
+        template: "#preview-comp",
+        data() {},
+        methods: {},
+        props: ["firstName", "lastName", "age", "image"],
+      };
+      const displayComp = {
+        template: "#display-comp",
+        data() {},
+        methods: {},
+        props: ["firstName", "lastName", "age", "image"],
+      };
+      Vue.createApp({
+        data() {
+          return {
+            users: [],
+            firstName: "",
+            lastName: "",
+            age: "",
+            image: "",
+          };
+        },
+        methods: {
+          addUser: function () {
+            this.users.push({
+              firstName: this.firstName,
+              lastName: this.lastName,
+              age: this.age,
+              image: this.image,
+            });
+          },
+        },
+        components: {
+          "preview-comp": previewComp,
+          "display-comp": displayComp,
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

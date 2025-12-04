@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ćwiczenie A</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #d6d4d4;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px dotted black;
+      }
+
+      #app {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+    </style>
+  </head>
+  <body>
+    <template id="component-a">
+      <div class="box">
+        <h1>{{this.header}}</h1>
+
+        <span> {{this.name}} </span>
+        <span> {{this.age}} </span>
+        <pre>{{JSON.stringify(this.$props, null, 5)}}</pre>
+      </div>
+    </template>
+    <div id="app">
+      <button @click="changeData">Zmień dane</button>
+      <component-a
+        v-bind:header="header"
+        v-bind:name="name"
+        v-bind:age="age"
+      ></component-a>
+      <component-a
+        v-bind:header="header"
+        v-bind:name="name"
+        v-bind:age="age"
+      ></component-a>
+      <component-a
+        v-bind:header="header"
+        v-bind:name="name"
+        v-bind:age="age"
+      ></component-a>
+    </div>
+
+    <script>
+      const ComponentA = {
+        template: "#component-a",
+        data() {},
+        props: ["header", "name", "age"],
+      };
+
+      Vue.createApp({
+        data() {
+          return {
+            header: "default Header",
+            name: "default Name",
+            age: "defualt Age",
+          };
+        },
+        methods: {
+          changeData() {
+            this.header = "Moja Wizytówka";
+            this.name = "Jan";
+            this.age = "30";
+          },
+        },
+        components: {
+          "component-a": ComponentA,
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
