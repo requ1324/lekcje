@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: en_GB\n"
+
+msgid "polski"
+msgstr "Polish"
+
+msgid "angielski"
+msgstr "English"
+
+msgid "niemiecki"
+msgstr "German"
+
+msgid "hiszpański"
+msgstr "Spanish"
+
+msgid "Dodaj plan"
+msgstr "Add plan"
+
+msgid "Tytuł"
+msgstr "Title"
+
+msgid "Opis"
+msgstr "Description"
+
+msgid "Godzina"
+msgstr "Time"
+
+msgid "Dodaj"
+msgstr "Add"
+
+msgid "Anuluj i wróć do kalendarza"
+msgstr "Cancel and return to calendar"
+
+msgid "Plany na dzień"
+msgstr "Plans for day"
+
+msgid "Nie masz planów na dziś"
+msgstr "You have no plans for today"
+
+msgid "Brak planów na ten dzień"
+msgstr "No plans for this day"

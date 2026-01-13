@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arkanoid</title>
+    <style>
+      body {
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #000;
+      }
+
+      .container {
+        height: 700px;
+        width: 600px;
+        border: 3px solid #fff;
+        position: relative;
+      }
+
+      #boxContainer {
+        display: flex;
+        flex-wrap: wrap;
+        position: absolute;
+        top: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+      }
+
+      .box {
+        box-sizing: border-box;
+        width: 50px;
+        height: 25px;
+        border: 2px solid black;
+      }
+
+      #platform {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 20px;
+        background-color: #8d8a8a;
+      }
+
+      .ball {
+        position: absolute;
+        bottom: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 20px;
+        background-color: #ffffff;
+        border-radius: 50%;
+      }
+
+      .gift {
+        box-sizing: border-box;
+        width: 50px;
+        height: 25px;
+        border: 2px solid black;
+        background-color: rgb(244, 27, 255);
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="ball"></div>
+      <div id="platform"></div>
+      <div id="boxContainer"></div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

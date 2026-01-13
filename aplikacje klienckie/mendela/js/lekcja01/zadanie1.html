@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <h1><strong>Witaj JavaScript</strong></h1>
+
+  <div id="task1">Liczby z zakresu &lt;-111;111&gt; </div>
+
+  <div id="task2">Co trzecia liczba malejąco z zakresu (0;50&gt;</div>
+
+  <div id="task3">Liczby malejąco z zakresu &lt;10;50&gt; \ (20;40)</div>
+
+
+
+  <script>
+    // Liczby z zakresu <-111;111> jedna pod drugą
+    let task1 = '';
+    for (let i = -111; i <= 111; i++) {
+      task1 += i + '\n';
+    }
+    document.getElementById('task1').innerHTML += "<pre>" + task1 + "</pre>";
+
+    // Co trzecia liczba malejąco z zakresu (0;50>
+    let task2 = '';
+    for (let i = 50; i > 0; i -= 3) {
+      task2 += i + ' ';
+    }
+    document.getElementById('task2').textContent += task2.trim();
+    // Liczby malejąco z zakresu <10;50> \ (20;40)
+    let task3 = '';
+    for (let i = 50; i >= 10; i--) {
+      if (!(i > 20 && i < 40)) {
+        task3 += i + ' ';
+      }
+    }
+    document.getElementById('task3').textContent += task3.trim();
+  </script>
+</body>
+</html>

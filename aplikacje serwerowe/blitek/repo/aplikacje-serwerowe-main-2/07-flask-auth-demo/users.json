@@ -1,0 +1,10 @@
+[
+    {
+        "email": "lukasz@poczta.pl",
+        "password": "12345"
+    },
+    {
+        "email": "michal@poczta.pl",
+        "password": "scrypt:32768:8:1$4uhRG6WdL1V2lGyF$d08b703c8e578976abafb6e0abd636b62c55d69392b68b38c42584db82b41c884da0919e31cf7ba687d1adf0bb010975f76639bd1ed47a7aca4d0aa780117c65"
+    }
+]

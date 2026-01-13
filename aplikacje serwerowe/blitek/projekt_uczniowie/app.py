@@ -1,46 +1,43 @@
-from flask import Flask, render_template, redirect, url_for
-
+from flask import Flask, render_template, redirect, url_for, session, flash
 from flask_bs4 import Bootstrap
-
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms.fields.simple import PasswordField
 from wtforms.validators import DataRequired
+from wtforms import StringField, SubmitField
 import secrets
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = secrets.token_urlsafe(32)
 bootstrap = Bootstrap(app)
 
-app.config['SECRET_KEY'] = secrets.token_urlsafe(32)
+VALID_USER = 'admin'
+VALID_PASS = 'admin123'
 
-users = []
-userId = 1
+class LoginForm(FlaskForm):
+    login = StringField('Login',validators=[DataRequired()], render_kw={"placeholder": "Podaj login"})
+    password = PasswordField('Haslo',validators=[DataRequired()], render_kw={"placeholder": "Podaj haslo"})
+    submit = SubmitField('Login')
 
-class StudentForm(FlaskForm):
-    imie= StringField('Imie', validators=[DataRequired()], render_kw={"placeholder": "Imie"})
-    nazwisko = StringField('Nazwisko', validators=[DataRequired()], render_kw={"placeholder": "Nazwisko"})
-    klasa = StringField('Klasa', validators=[DataRequired()], render_kw={"placeholder": "Klasa"})
-    submit = SubmitField('Dodaj')
+@app.route("/", methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.login.data == VALID_USER and form.password.data == VALID_PASS:
+            session['user'] = form.login.data
+            flash('Zalogowano pomyslnie', 'success')
 
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Nieprawidlowe dane', 'danger')
+    return render_template("login.html", title="Login", login_form=form)
 
-@app.route('/add_student', methods=['GET', 'POST'])
-def add_student():
-    add_form = StudentForm()
-    if add_form.validate_on_submit():
-        users.append({'id': userId, 'first_name': add_form.imie.data, 'last_name': add_form.nazwisko.data, 'class_name': add_form.klasa.data})
-        return redirect(url_for('index'))
-    return render_template('add_student.html', title="Dodaj Ucznia", add_form=add_form)
+@app.route("/dashboard", methods=["GET", "POST"])
+def dashboard():
+    return render_template("dashboard.html", title="Dashboard")
 
-@app.route('/del_user/<int:id>')
-def del_user(id):
-    for i, d in enumerate(users):
-        if d['id'] == id:
-            del users[i]
-            return redirect(url_for('index'))
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    return redirect(url_for('login'))
 
-
-@app.route('/')
-def index():
-    return render_template("index.html", title="Uczniowie", users=users)
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)

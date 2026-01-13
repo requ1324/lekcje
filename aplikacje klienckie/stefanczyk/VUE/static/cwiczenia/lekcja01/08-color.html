@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ćwiczenie A</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>08- color, range</h1>
+      <div
+        class="box"
+        :style="{background: bgColor, fontSize: fontSize + 'px', color: txtColor}"
+      >
+        element
+      </div>
+      <input type="color" v-model="bgColor" />
+      <input type="color" v-model="txtColor" />
+      <input type="range" v-model="fontSize" />
+    </div>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            fontSize: 16,
+            bgColor: "#ffffff",
+            txtColor: "#000000",
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

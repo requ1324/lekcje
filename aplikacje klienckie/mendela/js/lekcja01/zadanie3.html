@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h3>3. Pobierz liczbę i wypisz wyniki (a–i)</h3>
+
+    <section>
+        <h4>a)</h4>
+        <pre id="task-a"></pre>
+    </section>
+
+    <section>
+        <h4>b)</h4>
+        <pre id="task-b"></pre>
+    </section>
+
+    <section>
+        <h4>c)</h4>
+        <pre id="task-c"></pre>
+    </section>
+
+    <section>
+        <h4>d)</h4>
+        <pre id="task-d"></pre>
+    </section>
+
+    <section>
+        <h4>e)</h4>
+        <pre id="task-e"></pre>
+    </section>
+
+    <section>
+        <h4>f) silnia</h4>
+        <pre id="task-f"></pre>
+    </section>
+
+    <section>
+        <h4>g) suma nieparzystych</h4>
+        <pre id="task-g"></pre>
+    </section>
+
+    <section>
+        <h4>h) liczba pierwsza?</h4>
+        <pre id="task-h"></pre>
+    </section>
+
+    <section>
+        <h4>i) tabliczka mnożenia</h4>
+        <div id="task-i"></div>
+    </section>
+    <script>
+        const n = prompt("Podaj liczbę dodatnią: ");
+        // a)
+        for (let i = 1; i <= n; i++) {
+            document.getElementById("task-a").textContent += "X";
+        }
+        // b)
+        let horizontal = "X".repeat(n) + "\n";
+        let string = horizontal;
+        console.log(string);
+        for (let i = 2; i<n; i++){
+            string += "X" + " ".repeat(n-2) + "X\n";
+        }
+        string += "X".repeat(n);
+        console.log(string);
+        document.getElementById("task-b").textContent = string;
+
+        // c)
+        let stringC = horizontal;
+        for (let i = n-2; i >= 1; i--){
+            stringC += "X" + " ".repeat(i-1) + "X\n";
+        }
+        stringC += "X";
+        console.log(stringC);
+        document.getElementById("task-c").textContent = stringC;
+
+        // d)
+        let stringD = "";
+        
+        for (let i = 1; i <= n; i++){
+            let string2 = ""
+            for (let j = 1; j <= i; j++){
+                string2 += j;
+                
+            }
+            stringD += string2 + "\n";
+            
+        }
+        console.log(stringD);
+        document.getElementById("task-d").textContent = stringD;   
+
+        // e)
+        let stringE = "";
+        for (let i = 1; i<=n; i++){
+            let string2 = "";
+            for (let j = i; j >= 1; j--){
+                string2 += j;
+            }
+            stringE += " ".repeat(n-i) + string2 + "\n";
+        }
+        document.getElementById("task-e").textContent = stringE;
+
+        // f) silnia
+        const silnia = (num) => {
+            if (num ===0 || num ===1) return 1;
+            return num * silnia(num - 1);
+        }
+        document.getElementById("task-f").textContent = silnia(n);
+
+        // g) suma nieparzystych
+        let suma = 0;
+        for (let i = 1; i <= n; i++){
+            if (i % 2 !== 0){
+                suma += i;
+            }
+        }
+        document.getElementById("task-g").textContent = suma;
+
+        // h) czy pierwsza
+        const isPrime = (num) =>  {
+            if (num <= 1) return false;
+            let tab = [];
+            for (let i = 1; i <= num; i++){
+                if (num % i === 0){
+                    tab.push(i);
+                }
+                
+            }
+            if (tab.length === 2){
+                return `${num} jest liczbą pierwszą`;
+            } else {
+                return `${num} nie jest liczbą pierwszą`;
+        }
+        }
+        document.getElementById("task-h").textContent = isPrime(n);
+        alert(isPrime(n));
+
+        // i) tabliczka mnożenia
+        const table = document.createElement('table');
+        
+        const headerRow = document.createElement('tr');
+   
+     
+        for (let i = 0; i <= n; i++){
+            const td = document.createElement('td');
+            if (i === 0){
+                td.textContent = " ";
+            } else {
+                td.textContent = i;
+                td.style.fontWeight = 'bold';
+            }
+            
+            headerRow.appendChild(td);
+        }
+        
+        table.appendChild(headerRow);
+        
+        for(let i = 1; i <=n; i++){
+            
+        
+            const tr = document.createElement('tr');
+            const td1 = document.createElement('td');
+                td1.textContent = i;
+                td1.style.fontWeight = 'bold';
+                tr.appendChild(td1);
+            for (let j = 1; j <=n; j++){
+               
+                const td = document.createElement('td');
+                td.textContent = i * j;
+                if (i === j){
+                    td.style.background = 'cornflowerblue';
+                }
+                tr.appendChild(td);
+            }
+        
+            table.appendChild(tr);
+        }
+        document.getElementById('task-i').appendChild(table);
+    </script>   
+</body>
+</html>

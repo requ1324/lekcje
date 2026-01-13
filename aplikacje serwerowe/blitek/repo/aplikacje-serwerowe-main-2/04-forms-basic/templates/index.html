@@ -1,0 +1,32 @@
+{% extends "bootstrap/base.html" %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Dodaj użytkownika</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label class="form-label">Imię</label>
+                <input type="text" class="form-control" name="name" placeholder="Wpisz imię" required>
+            </div>
+            <div class="form-group mt-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" placeholder="Wpisz email" required>
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary mt-3">Dodaj</button>
+        </form>
+
+        {% if users %}
+            <h3 class="mt-5">Lista użytkowników</h3>
+            <ul class="list-group">
+                {% for user in users %}
+                    <li class="list-group-item">
+                        {{ user.name }} - {{ user.email }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="alert alert-danger mt-5">Brak użytkowników</div>
+        {% endif %}
+    </div>
+{% endblock %}

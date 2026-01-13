@@ -21,21 +21,21 @@
 
     <script>
       const cow = document.getElementById("cow");
-
-      let angle = 0; // kąt startowy
-      const radius = 150; // promień "koniczyny"
-      const centerX = 400; // środek X
-      const centerY = 300; // środek Y
+      
+      let angle = 0; 
+      const radius = 150; 
+      const centerX = 400; 
+      const centerY = 300; 
 
       function animate() {
-        // równania czterolistnej koniczyny
+        
         const x = centerX + Math.cos(angle) * radius * Math.cos(2 * angle);
         const y = centerY + Math.sin(angle) * radius * Math.cos(2 * angle);
 
         cow.style.left = x + "px";
         cow.style.top = y + "px";
 
-        angle += 0.02; // im mniejsza wartość, tym wolniej
+        angle += 0.02; 
 
         requestAnimationFrame(animate);
       }

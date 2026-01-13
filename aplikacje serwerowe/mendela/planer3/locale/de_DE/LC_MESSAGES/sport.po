@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: de_DE\n"
+
+msgid "polski"
+msgstr "Polnisch"
+
+msgid "angielski"
+msgstr "Englisch"
+
+msgid "niemiecki"
+msgstr "Deutsch"
+
+msgid "hiszpański"
+msgstr "Spanisch"
+
+msgid "Dodaj plan"
+msgstr "Plan hinzufügen"
+
+msgid "Tytuł"
+msgstr "Titel"
+
+msgid "Opis"
+msgstr "Beschreibung"
+
+msgid "Godzina"
+msgstr "Uhrzeit"
+
+msgid "Dodaj"
+msgstr "Hinzufügen"
+
+msgid "Anuluj i wróć do kalendarza"
+msgstr "Abbrechen und zum Kalender zurückkehren"
+
+msgid "Plany na dzień"
+msgstr "Pläne für den Tag"
+
+msgid "Nie masz planów na dziś"
+msgstr "Sie haben heute keine Pläne"
+
+msgid "Brak planów na ten dzień"
+msgstr "Keine Pläne für diesen Tag"

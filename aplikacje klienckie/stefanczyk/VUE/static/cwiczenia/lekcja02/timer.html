@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <button @click="start">Start</button>
+      <button @click="pause">Pauza</button>
+      <span class="timer">{{time}}</span>
+      <h1>{{text()}}</h1>
+    </div>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            ms: 0,
+            time: 0,
+            isRunning: false,
+          };
+        },
+        methods: {
+          start() {
+            console.log("start timera");
+            if (this.isRunning) return;
+            let interval = setInterval(() => {
+              this.ms++;
+              this.time = (this.ms / 100).toFixed(2);
+            }, 10);
+
+            this.isRunning = true;
+            this.interval = interval;
+          },
+          pause() {
+            console.log("pauza timera");
+            clearInterval(this.interval);
+            this.isRunning = false;
+          },
+          text() {
+            if (this.isRunning) {
+              return "Focus time!";
+            } else {
+              return "Take a brake!";
+            }
+          },
+          check() {
+            if (this.time >= 1000) {
+              clearInterval(this.interval);
+              this.isRunning = false;
+            }
+          },
+        },
+        computed: {},
+      }).mount("#app");
+    </script>
+  </body>
+</html>

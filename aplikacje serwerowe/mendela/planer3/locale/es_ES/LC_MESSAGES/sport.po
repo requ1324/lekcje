@@ -1,0 +1,43 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: es_ES\n"
+
+msgid "polski"
+msgstr "Polaco"
+
+msgid "angielski"
+msgstr "Inglés"
+
+msgid "niemiecki"
+msgstr "Alemán"
+
+msgid "hiszpański"
+msgstr "Español"
+
+msgid "Dodaj plan"
+msgstr "Añadir plan"
+
+msgid "Tytuł"
+msgstr "Título"
+
+msgid "Opis"
+msgstr "Descripción"
+
+msgid "Godzina"
+msgstr "Hora"
+
+msgid "Dodaj"
+msgstr "Añadir"
+
+msgid "Anuluj i wróć do kalendarza"
+msgstr "Cancelar y volver al calendario"
+
+msgid "Plany na dzień"
+msgstr "Planes del día"
+
+msgid "Nie masz planów na dziś"
+msgstr "No tienes planes para hoy"
+
+msgid "Brak planów na ten dzień"
+msgstr "No hay planes para este día"

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dratewka</title>
+    <style>
+      @font-face {
+        font-family: f;
+        src: url("./Dratewka/fonts/PressStart2P.ttf");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #262525;
+        font-family: f, monospace;
+        color: rgb(219, 219, 219);
+      }
+      .container {
+        border: 2px solid #25ac25;
+        box-shadow: 0 0 10px 1px #25ac25;
+        width: 800px;
+        padding: 50px;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+      }
+      img {
+        margin: 20px 20px 20px 0;
+        width: 400px;
+        display: block;
+      }
+      input {
+        margin-top: 10px;
+        background: none;
+        border: none;
+        outline: none;
+        color: rgb(219, 219, 219);
+        font-size: 1.2rem;
+        font-family: inherit;
+      }
+      span {
+        margin-top: 10px;
+      }
+      .kompas {
+        width: 200px;
+        position: absolute;
+        top: -100px;
+        right: 0px;
+      }
+
+      .box {
+        margin-right: 90px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+      }
+
+      .box2 {
+        position: relative;
+      }
+
+      .N {
+        position: absolute;
+        top: -100px;
+        right: 105px;
+      }
+
+      .S {
+        position: absolute;
+        top: 120px;
+        right: 105px;
+      }
+      .E {
+        position: absolute;
+        top: 5px;
+        right: 0px;
+      }
+      .W {
+        position: absolute;
+        top: 5px;
+        right: 210px;
+      }
+
+      #img {
+        border: 5px solid #25ac25;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">
+        <span id="desc"></span>
+        <img id="img" alt="" />
+        <span id="dir"></span>
+        <span id="item"></span>
+        <span id="take"></span>
+        <span id="info"></span>
+        <span id="going"></span>
+        <div>What now? <input id="inp" autofocus /></div>
+      </div>
+      <div class="box2">
+        <span class="N">N</span>
+        <span class="S">S</span>
+        <span class="E">E</span>
+        <span class="W">W</span>
+        <img class="kompas" src="./kompas.png" alt="" />
+      </div>
+    </div>
+    <script>
+      class Lokacja {
+        constructor(color, img, desc, dirs, gossip, items) {
+          this.color = color;
+          this.img = img;
+          this.desc = desc;
+          this.dirs = dirs.split(",");
+          this.gossip = gossip || null;
+          this.items = items || null;
+        }
+      }
+
+      class Item {
+        constructor(id, flag, name) {
+          this.id = id;
+          this.flag = flag;
+          this.name = name;
+        }
+      }
+
+      const map = [
+        [
+          new Lokacja(
+            "#ebd340",
+            "11.gif",
+            "You are inside a brimstone mine",
+            "E"
+          ),
+          new Lokacja(
+            "#595d57",
+            "12.gif",
+            "You are at the entrance to the mine",
+            "W,E"
+          ),
+          new Lokacja("#75edf3", "13.gif", "A hill", "W,E,S", null, [
+            new Item("a STONE", 1, "STONE"),
+          ]),
+          new Lokacja("#cae633", "14.gif", "Some bushes", "W,E"),
+          new Lokacja("#dccc3d", "15.gif", "An old deserted hut", "W,E", null, [
+            new Item("a BUCKET", 1, "BUCKET"),
+          ]),
+          new Lokacja("#a7f53f", "16.gif", "The edge of a forest", "W,E"),
+          new Lokacja("#8cfd63", "17.gif", "A dark forest", "W,S", null, [
+            new Item("MUSHROOMS", 1, "MUSHROOMS"),
+          ]),
+        ],
+        [
+          new Lokacja("#ffbe63", "21.gif", "A man nearby making tar", "E,S"),
+          new Lokacja("#ffbe63", "22.gif", "A timber yard", "E,W,S"),
+          new Lokacja(
+            "#a7f53f",
+            "23.gif",
+            "You are by a roadside shrine",
+            "N,E,W,S",
+            null,
+            [new Item("a KEY", 1, "KEY")]
+          ),
+          new Lokacja("#d4e524", "24.gif", "You are by a small chapel", "E,W"),
+          new Lokacja(
+            "#a7f53f",
+            "25.gif",
+            "You are on a road leading to a wood",
+            "E,W,S"
+          ),
+          new Lokacja("#a7f53f", "26 i 65.gif", "You are in a forest", "E,W"),
+          new Lokacja(
+            "#8cfd63",
+            "27 i 67.gif",
+            "You are in a deep forest",
+            "W,N",
+            null,
+            [new Item("BERRIES", 1, "BERRIES")]
+          ),
+        ],
+        [
+          new Lokacja(
+            "#7ae8fc",
+            "31.gif",
+            "You are by the Vistula River",
+            "N,E"
+          ),
+          new Lokacja(
+            "#8cd6ff",
+            "32.gif",
+            "You are by the Vistula River",
+            "N,W",
+            null,
+            [new Item("a FISH", 1, "FISH")]
+          ),
+          new Lokacja(
+            "#6cb5f2",
+            "33.gif",
+            "You are on a bridge over river",
+            "N,S"
+          ),
+          new Lokacja("#ffbd75", "34.gif", "You are by the old tavern", "E"),
+          new Lokacja(
+            "#ffbe63",
+            "35.gif",
+            "You are at the town's end",
+            "N,W,S"
+          ),
+          new Lokacja("#ffbc66", "36.gif", "You are in a butcher's shop", "S"),
+          new Lokacja("#ffbc66", "37.gif", "You are in a cooper's house", "S"),
+        ],
+        [
+          new Lokacja("#ffb08d", "41.gif", "You are in the Wawel Castle", "E"),
+          new Lokacja(
+            "#c6cdc1",
+            "42.gif",
+            "You are inside a dragon's cave",
+            "E,W"
+          ),
+          new Lokacja(
+            "#ffb08d",
+            "43.gif",
+            "A perfect place to set a trap",
+            "N,W"
+          ),
+          new Lokacja(
+            "#ffbe63",
+            "44.gif",
+            "You are by the water mill",
+            "E",
+            null,
+            [new Item("a BAG", 1, "BAG")]
+          ),
+          new Lokacja(
+            "#ffbe63",
+            "45.gif",
+            "You are at a main crossroad",
+            "N,E,W,S"
+          ),
+          new Lokacja("#ffbe63", "46.gif", "You are on a town street", "N,E,W"),
+          new Lokacja(
+            "#ffbe63",
+            "47.gif",
+            "You are in a frontyard of your house",
+            "N,W,S"
+          ),
+        ],
+        [
+          0,
+          0,
+          0,
+          new Lokacja("#6cb5f2", "54.gif", "You are by a swift stream", "E"),
+          new Lokacja(
+            "#ffbe63",
+            "55.gif",
+            "You are on a street leading forest",
+            "N,W,S",
+            null,
+            [new Item("a KNIFE", 1, "KNIFE")]
+          ),
+          new Lokacja(
+            "#ffbe63",
+            "56.gif",
+            "You are in a woodcutter's backyard",
+            "S"
+          ),
+          new Lokacja(
+            "#fec261",
+            "57.gif",
+            "You are in a shoemaker's house",
+            "N"
+          ),
+        ],
+        [
+          0,
+          0,
+          0,
+          new Lokacja(
+            "#fec261",
+            "64.gif",
+            "You are in a bleak funeral house",
+            "E",
+            null,
+            [new Item("a SPADE", 1, "SPADE")]
+          ),
+          new Lokacja("#a7f53f", "26 i 65.gif", "You are in a forest", "N,E,W"),
+          new Lokacja(
+            "#a7f53f",
+            "66.gif",
+            "You are at the edge of a forest",
+            "N,E,W"
+          ),
+          new Lokacja(
+            "#8cfd63",
+            "27 i 67.gif",
+            "You are in a deep forest",
+            "W"
+          ),
+        ],
+      ];
+
+      let bag = [];
+
+      let row = 3,
+        col = 6;
+      const $ = (s) => document.querySelector(s);
+      const take = (item) => {
+        console.log(item);
+        if (!item) return;
+        if (bag.length == 0) {
+          bag.push(item);
+          $("#info").textContent = `You have taken ${item}`;
+        } else {
+          $("#info").textContent = `You can't carry more than one item!`;
+        }
+        update();
+      };
+
+      const update = (value, oldLoc) => {
+        const loc = map[row][col];
+
+        setTimeout(() => {
+          $("#img").src = `Dratewka/img/${loc.img}`;
+          $("#img").style.background = loc.color;
+          if (loc.items) {
+            let itemsText = loc.items.map((item) => item.name).join(", ");
+            $("#item").textContent = `You can see: ${itemsText}`;
+            $("#take").textContent = `TAKE ${itemsText} or T ${itemsText}`;
+          } else {
+            $("#item").textContent = "You can see: NOTHING";
+          }
+
+          $(".N").style.opacity = loc.dirs.includes("N") ? 1 : 0.2;
+          $(".S").style.opacity = loc.dirs.includes("S") ? 1 : 0.2;
+          $(".E").style.opacity = loc.dirs.includes("E") ? 1 : 0.2;
+          $(".W").style.opacity = loc.dirs.includes("W") ? 1 : 0.2;
+        }, 900);
+        setTimeout(() => {
+          $("#desc").textContent = loc.desc;
+        }, 700);
+
+        setTimeout(() => {
+          $("#dir").textContent = `You can go: ${loc.dirs.join(", ")}`;
+        }, 1100);
+
+        if (oldLoc) {
+          let text =
+            value == "N"
+              ? "NORTH"
+              : value == "S"
+              ? "SOUTH"
+              : value == "E"
+              ? "EAST"
+              : "WEST";
+          if (!oldLoc.dirs.includes(value)) {
+            $("#going").textContent = `You can't go that way!`;
+          } else {
+            $("#going").textContent = `You are going ${text} ...`;
+          }
+        }
+
+        setTimeout(() => {
+          $("#going").textContent = "";
+        }, 700);
+      };
+
+      update();
+      $("#inp").onkeydown = (e) => {
+        if (e.key !== "Enter") return;
+        const value = e.target.value.toUpperCase().trim();
+        let currentLoc = map[row][col];
+
+        if (value[0] == "T") {
+          console.log(value);
+          console.log(value[0]);
+          let itemName = value.slice(2).trim();
+          let itemIndex = currentLoc.items
+            ? currentLoc.items.findIndex(
+                (item) => item.name.toUpperCase() === itemName
+              )
+            : -1;
+          let item = currentLoc.items[itemIndex];
+          console.log(item);
+          take(item ? item.name : null);
+
+          currentLoc.items.splice(itemIndex, 1);
+
+          return (e.target.value = "");
+        }
+
+        if (!currentLoc.dirs.includes(value)) {
+          update(value, currentLoc);
+          return (e.target.value = "");
+        }
+
+        const [newR, newC] =
+          value === "N"
+            ? [row - 1, col]
+            : value === "S"
+            ? [row + 1, col]
+            : value === "E"
+            ? [row, col + 1]
+            : [row, col - 1];
+        if (newR < 0 || newR > 5 || newC < 0 || newC > 6 || !map[newR][newC])
+          return (e.target.value = "");
+        row = newR;
+        col = newC;
+        update(value, currentLoc);
+        e.target.value = "";
+      };
+    </script>
+  </body>
+</html>

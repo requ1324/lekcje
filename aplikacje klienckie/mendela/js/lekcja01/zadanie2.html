@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <script>
+    // Liczby parzyste z przedziału: <-30;40) \ (5;14)
+    console.log('Liczby parzyste z przedziału: <-30;40) \\ (5;14)');
+    for (let i = -30; i < 40; i++) {
+      if (i % 2 === 0 && !(i > 5 && i < 14)) {
+        console.log(i);
+      }
+    }
+
+    // Liczby nieparzyste z przedziału: <-20;40) \ (3;12)
+    console.log('Liczby nieparzyste z przedziału: <-20;40) \\ (3;12)');
+    for (let i = -20; i < 40; i++) {
+      if (i % 2 !== 0 && !(i > 3 && i < 12)) {
+        console.log(i);
+      }
+    }
+
+    // Liczby podzielne przez 3 z przedziału: <-100;41) \ (-50;12)
+    console.log('Liczby podzielne przez 3 z przedziału: <-100;41) \\ (-50;12)');
+    for (let i = -100; i < 41; i++) {
+      if (i % 3 === 0 && !(i > -50 && i < 12)) {
+        console.log(i);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Lista użytkowników:</h2>
+        <ul class="list-group">
+            {% for user in users %}
+                <li class="list-group-item">
+                    <a href="/user/{{ user.id }}">{{ user.name }}</a>
+                    <span class="float-end"> {{ user.email }} </span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
