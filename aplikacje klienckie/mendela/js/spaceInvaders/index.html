@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Invaders</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: black;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      .container {
+        position: relative;
+        width: 700px;
+        height: 800px;
+        border: 2px solid white;
+        overflow: hidden;
+      }
+
+      #ludzik {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 50px;
+        background-color: white;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+      }
+
+      .pocisk {
+        position: absolute;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5px;
+        height: 20px;
+        background-color: red;
+      }
+
+      #enemiesContainer {
+        position: absolute;
+        top: 50px;
+        left: 0px;
+      }
+
+      .enemy {
+        width: 30px;
+        height: 30px;
+        background-color: green;
+        border: 2px solid white;
+        display: inline-block;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="enemiesContainer"></div>
+      <div id="ludzik"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="gameLogic.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="game">
+      <h1>Radzieckie Jajeczka</h1>
+      <div id="gameBoard">
+        <div id="gameInfo">
+          <div id="score">0000</div>
+          <div id="gameHearts">❤️❤️❤️</div>
+        </div>
+        <div id="mainGameContent">
+          <div id="leftTopShelf" class="shelf"></div>
+          <div id="leftBottomShelf" class="shelf"></div>
+          <div id="rightTopShelf" class="shelf"></div>
+          <div id="rightBottomShelf" class="shelf"></div>
+          <div id="wolfParts">
+            <div id="wolfTopRight">
+              <img class="wolf" src="img/Wilk.png" />
+              <img id="basketTopRight" src="img/koszykgora.png" />
+            </div>
+
+            <div id="wolfBottomRight">
+              <img class="wolf" src="img/Wilk.png" />
+              <img id="basketBottomRight" src="img/koszykdol.png" />
+            </div>
+
+            <div id="wolfTopLeft">
+              <img class="wolf" src="img/Wilk.png" />
+              <img id="basketTopLeft" src="img/koszykgora.png" />
+            </div>
+
+            <div id="wolfBottomLeft">
+              <img class="wolf" src="img/Wilk.png" />
+              <img id="basketBottomLeft" src="img/koszykdol.png" />
+            </div>
+          </div>
+          <div id="eggs"></div>
+        </div>
+      </div>
+      <div id="moveButtons">
+        <div class="row">
+          <button id="arrowUpLeft">↖</button>
+          <button id="arrowUpRight">↗</button>
+        </div>
+        <div class="row">
+          <button id="arrowBottomLeft">↙</button>
+          <button id="arrowBottomRight">↘</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

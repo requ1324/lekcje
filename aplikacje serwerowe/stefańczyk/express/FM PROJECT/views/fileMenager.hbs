@@ -1,50 +1,66 @@
 <h1>{{title}}</h1>
-<div class='container'>
-  <div class='main1'>
-    <div class='box1'>
-      <button id='newFolder'>new folder</button>
-      <button id='newFile'>new file</button>
+<div class="container">
+  {{root}}
+  <div class="main1">
+    <div class="box1">
+      <button id="newFolder">new folder</button>
+      <button id="newFile">new file</button>
     </div>
-    <div class='box2'>
-      <form action='' method='get'>
-        <input type='file' />
-        <button type='submit'>upload</button>
+    <div class="box2">
+      <form action="/upload" method="get">
+        <input type="file" multiple name="upload" />
+        <button type="submit">upload</button>
       </form>
     </div>
   </div>
-  <div class='main2'>
-    <div class='folders'>
+  <div class="main2">
+    <div class="folders">
+      folders
+      <br />
       {{#each folders}}
-        <div class='folder'>{{this}}
-          <a href='/deleteFolder?name={{this}}'>X</a>
+        <div class="folder">{{this}}
+          <a href="/deleteFolder?name={{this}}">X</a>
         </div>
         <br />
       {{/each}}
     </div>
-    <div class='files'>files</div>
+    <div class="files">files
+      <br />
+      {{#each files}}
+        <div class="file">{{this}}
+          <a href="/deleteFile?name={{this}}">X</a>
+        </div>
+        <br />
+      {{/each}}
+    </div>
   </div>
 </div>
 
 <script>
-  let isShow = false; const newFolderBtn = document.getElementById('newFolder'); const newFileBtn =
-  document.getElementById('newFile'); newFolderBtn.addEventListener('click', () => { if (isShow)
-  return; isShow = true; const div = document.createElement("div"); const form =
-  document.createElement("form"); form.method = "post"; form.action = "/addFolder";
-  div.appendChild(form); const input = document.createElement("input"); input.type = "text";
-  input.placeholder = "folder name"; input.name = 'folderName'; form.appendChild(input); const
-  submit = document.createElement("button"); submit.type = "submit"; submit.innerText = "create
-  folder"; form.appendChild(submit); const cancel = document.createElement("button"); cancel.type =
-  "button"; cancel.innerText = "cancel"; cancel.addEventListener('click', () => {
+  let isShow = false; const newFolderBtn = document.getElementById('newFolder');
+  const newFileBtn = document.getElementById('newFile');
+  newFolderBtn.addEventListener('click', () => { if (isShow) return; isShow =
+  true; const div = document.createElement("div"); const form =
+  document.createElement("form"); form.classList.add("folderForm"); form.method
+  = "post"; form.action = "/addFolder"; div.appendChild(form); const input =
+  document.createElement("input"); input.type = "text"; input.placeholder =
+  "folder name"; input.name = 'folderName'; form.appendChild(input); const
+  submit = document.createElement("button"); submit.type = "submit";
+  submit.innerText = "create folder"; form.appendChild(submit); const cancel =
+  document.createElement("button"); cancel.type = "button"; cancel.innerText =
+  "cancel"; cancel.addEventListener('click', () => {
+  document.body.removeChild(div); isShow = false; }); form.appendChild(cancel);
+  document.body.appendChild(div); }); newFileBtn.addEventListener('click', () =>
+  { if (isShow) return; isShow = true; const div =
+  document.createElement("div"); const form = document.createElement("form");
+  form.classList.add("fileForm"); form.method = "post"; form.action =
+  "/addFile"; div.appendChild(form); const input =
+  document.createElement("input"); input.type = "text"; input.placeholder =
+  "file name"; input.name = 'fileName'; form.appendChild(input); const submit =
+  document.createElement("button"); submit.type = "submit"; submit.innerText =
+  "create file"; form.appendChild(submit); const cancel =
+  document.createElement("button"); cancel.type = "button"; cancel.innerText =
+  "cancel"; cancel.addEventListener('click', () => {
   document.body.removeChild(div); isShow = false; }); form.appendChild(cancel);
   document.body.appendChild(div); });
-
-  newFileBtn.addEventListener('click', () => { if (isShow) return; isShow = true; const div =
-  document.createElement("div"); const form = document.createElement("form"); form.method = "post";
-  form.action = "/addFile"; div.appendChild(form); const input = document.createElement("input");
-  input.type = "text"; input.placeholder = "file name"; input.name = 'fileName';
-  form.appendChild(input); const submit = document.createElement("button"); submit.type = "submit";
-  submit.innerText = "create file"; form.appendChild(submit); const cancel =
-  document.createElement("button"); cancel.type = "button"; cancel.innerText = "cancel";
-  cancel.addEventListener('click', () => { document.body.removeChild(div); isShow = false; });
-  form.appendChild(cancel); document.body.appendChild(div); });
 </script>

@@ -5,7 +5,6 @@ body {
   height: 100vh;
   width: 100%;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .container {
@@ -71,7 +70,8 @@ button:hover {
   transition: 0.2s;
 }
 
-.folder {
+.folder,
+.file {
   padding: 10px;
   text-align: center;
   background: white;
@@ -83,4 +83,16 @@ a {
   text-decoration: none;
   color: rgb(255, 0, 0);
   font-weight: bold;
+}
+
+.folderForm,
+.fileForm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.905);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 1px rgb(16, 152, 255);
 }
