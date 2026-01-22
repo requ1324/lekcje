@@ -3,6 +3,7 @@ const ludzik = document.getElementById("ludzik");
 
 let gameStarted = false;
 let direction;
+let canShoot = true;
 
 document.addEventListener("keydown", (event) => {
   gameStarted = true;
@@ -11,8 +12,9 @@ document.addEventListener("keydown", (event) => {
     direction = "right";
   } else if (key === "ArrowLeft") {
     direction = "left";
-  } */ if (key === " ") {
+  } */ if (key === " " && canShoot) {
     shoot();
+    canShoot = false;
   }
 });
 
@@ -30,6 +32,7 @@ container.addEventListener("mousemove", (event) => {
 
 document.addEventListener("keyup", (event) => {
   if (event.key === "ArrowLeft" || event.key === "ArrowRight") direction = null;
+  if (event.key === " ") canShoot = true;
 });
 
 function moveLudzik() {
@@ -136,6 +139,7 @@ function moveEnemies() {
   if (!gameOver) {
     checkLose();
   }
+  w;
 }
 
 let enemiesInterval = setInterval(moveEnemies, 100);
@@ -157,6 +161,7 @@ function checkLose() {
       clearInterval(enemiesInterval);
       clearInterval(ludzikInterval);
       alert("game over");
+      window.location.reload();
     }
   });
 }

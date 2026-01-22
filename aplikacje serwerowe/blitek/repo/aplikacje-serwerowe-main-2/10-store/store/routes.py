@@ -101,3 +101,35 @@ def add_product():
 
         flash('Produkt został dodany pomyślnie.', 'success')
         return redirect(url_for('store.index'))
+
+@store_bp.route('/edit-product/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_product(id):
+    product = db.session.get(Inventory, id)
+    if not product:
+        flash('Nie znaleziono produktu.', 'danger')
+        return redirect(url_for('store.index'))
+
+    if request.method == 'POST':
+        product.symbol = request.form.get('symbol')
+        product.name = request.form.get('name')
+        product.category = request.form.get('category')
+        product.brand = request.form.get('brand')
+        product.model = request.form.get('model')
+        product.quantity = request.form.get('quantity', type=int)
+        product.weight_kg = request.form.get('weight_kg', type=float)
+        product.price_pln = request.form.get('price_pln', type=float)
+        product.inventory_value_pln = product.quantity * product.price_pln if product.quantity and product.price_pln else 0
+
+        db.session.commit()
+        flash(f'Produkt {product.name} został zaktualizowany.', 'success')
+        return redirect(url_for('store.index'))
+
+@store_bp.route('/delete-product/<int:id>', methods=['POST'])
+@login_required
+def delete_product(id):
+    product = db.session.get(Inventory, id)
+    db.session.delete(product)
+    db.session.commit()
+    flash(f'Produkt {product.name} został usunięty.', 'success')
+    return redirect(url_for('store.index'))

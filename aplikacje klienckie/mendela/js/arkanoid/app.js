@@ -6,8 +6,8 @@ let containerBound = container.getBoundingClientRect();
 let direction;
 let gameStarted = false;
 
-let ballDx = 6;
-let ballDy = 10;
+let ballDx = 7;
+let ballDy = 7;
 
 let chance = 0.5;
 
@@ -76,8 +76,8 @@ function moveBalls() {
     let currentBottom = parseInt(ball.style.bottom) || 0;
     let currentLeft = parseInt(ball.style.left) || 0;
 
-    let dx = parseInt(ball.dataset.dx) || 6;
-    let dy = parseInt(ball.dataset.dy) || 10;
+    let dx = parseInt(ball.dataset.dx) || 7;
+    let dy = parseInt(ball.dataset.dy) || 7;
 
     ball.style.bottom = currentBottom + dy + "px";
     ball.style.left = currentLeft + dx + "px";
@@ -158,8 +158,8 @@ function checkCollision() {
       ) {
         container.removeChild(gift);
         let newBall = document.createElement("div");
-        let newBallDx = 6;
-        let newBallDy = 10;
+        let newBallDx = 7;
+        let newBallDy = 7;
         newBall.setAttribute("data-dx", newBallDx);
         newBall.setAttribute("data-dy", newBallDy);
         newBall.classList.add("ball");

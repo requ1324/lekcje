@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "car_name": "Isuzu",
+    "car_type": "Rodeo",
+    "car_year": 2003,
+    "image": "https://robohash.org/ipsumblanditiisquis.png?size=200x200&set=set1",
+    "color_image": "http://dummyimage.com/228x224.png/dddddd/000000",
+    "hex_color": "#237701",
+    "damaged": true
+  },
+  {
+    "id": 2,
+    "car_name": "Honda",
+    "car_type": "Prelude",
+    "car_year": 1986,
+    "image": "https://robohash.org/quoexpeditaconsequatur.png?size=200x200&set=set1",
+    "color_image": "http://dummyimage.com/157x121.png/5fa2dd/ffffff",
+    "hex_color": "#f7f23d",
+    "damaged": false
+  },
+  {
+    "id": 3,
+    "car_name": "Mercedes-Benz",
+    "car_type": "Sprinter 2500",
+    "car_year": 2012,
+    "image": "https://robohash.org/suntassumendadolores.png?size=200x200&set=set1",
+    "color_image": "http://dummyimage.com/159x186.png/5fa2dd/ffffff",
+    "hex_color": "#721ac8",
+    "damaged": false
+  },
+  {
+    "id": 4,
+    "car_name": "Acura",
+    "car_type": "RSX",
+    "car_year": 2004,
+    "image": "https://robohash.org/utaodit.png?size=200x200&set=set1",
+    "color_image": "http://dummyimage.com/242x160.png/5fa2dd/ffffff",
+    "hex_color": "#dcbeb7",
+    "damaged": true
+  },
+  {
+    "id": 5,
+    "car_name": "Land Rover",
+    "car_type": "Range Rover Sport",
+    "car_year": 2010,
+    "image": "https://robohash.org/deseruntrepellatquia.png?size=200x200&set=set1",
+    "color_image": "http://dummyimage.com/196x180.png/5fa2dd/ffffff",
+    "hex_color": "#3e29b2",
+    "damaged": false
+  }
+]

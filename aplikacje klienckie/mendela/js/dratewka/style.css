@@ -1,0 +1,92 @@
+@font-face {
+  font-family: f;
+  src: url("./Dratewka/fonts/PressStart2P.ttf");
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #262525;
+  font-family: f, monospace;
+  color: rgb(219, 219, 219);
+}
+.container {
+  border: 2px solid #25ac25;
+  box-shadow: 0 0 10px 1px #25ac25;
+  width: 800px;
+  padding: 50px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+img {
+  margin: 20px 20px 20px 0;
+  width: 400px;
+  display: block;
+}
+input {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  outline: none;
+  color: rgb(219, 219, 219);
+  font-size: 1.2rem;
+  font-family: inherit;
+}
+span {
+  margin-top: 10px;
+}
+.kompas {
+  width: 200px;
+  position: absolute;
+  top: -100px;
+  right: 0px;
+}
+
+.box {
+  margin-right: 90px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+
+.box2 {
+  position: relative;
+}
+
+.N {
+  position: absolute;
+  top: -100px;
+  right: 105px;
+}
+
+.S {
+  position: absolute;
+  top: 120px;
+  right: 105px;
+}
+.E {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+}
+.W {
+  position: absolute;
+  top: 5px;
+  right: 210px;
+}
+
+#img {
+  border: 5px solid #25ac25;
+}

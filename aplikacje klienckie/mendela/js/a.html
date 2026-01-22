@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #a {
+        width: 400px;
+        height: 400px;
+        border: 2px solid black;
+        position: relative;
+      }
+      #b {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        background: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="a">
+      <div id="b"></div>
+    </div>
+    <script>
+      let a = document.getElementById("a");
+      let b = document.getElementById("b");
+      b.style.top = 100 + "px";
+      a.addEventListener("mousemove", (e) => {
+        let x = e.clientX - a.offsetLeft - b.offsetWidth / 2;
+        if (x > 20 && x < 360) {
+          b.style.left = x + "px";
+        }
+      });
+    </script>
+  </body>
+</html>

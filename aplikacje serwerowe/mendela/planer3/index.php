@@ -61,7 +61,7 @@ try {
 } catch (PDOException $e) {
 		die('Błąd połączenia: ' . $e->getMessage());
 }
-
+	
 $pdo->exec(
 		'CREATE TABLE IF NOT EXISTS tasks3 (
 				id INT AUTO_INCREMENT PRIMARY KEY,

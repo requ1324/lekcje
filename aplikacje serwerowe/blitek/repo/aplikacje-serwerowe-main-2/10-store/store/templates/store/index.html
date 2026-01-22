@@ -81,7 +81,7 @@
                                 <td class="text-end">
                                     <a href="" class="text-primary" data-bs-toggle="modal" data-bs-target="#info-product-modal-{{ record.id }}"><i class="bi bi-card-text"></i></a>
                                     <a href="" class="text-warning" data-bs-toggle="modal" data-bs-target="#edit-product-modal-{{ record.id }}"><i class="bi bi-pencil-square"></i></a>
-                                    <a href="" class="text-danger"><i class="bi bi-trash3"></i></a>
+                                    <a href="" class="text-danger" data-bs-toggle="modal" data-bs-target="#delete-product-modal-{{ record.id }}"><i class="bi bi-trash3"></i></a>
                                 </td>
                             </tr>
                     {% endfor %}
@@ -149,7 +149,7 @@
                                 <td class="text-end">
                                     <a href="" class="text-primary" data-bs-toggle="modal" data-bs-target="#info-product-modal-{{ record.id }}"><i class="bi bi-card-text"></i></a>
                                     <a href="" class="text-warning" data-bs-toggle="modal" data-bs-target="#edit-product-modal-{{ record.id }}"><i class="bi bi-pencil-square"></i></a>
-                                    <a href="" class="text-danger"><i class="bi bi-trash3"></i></a>
+                                    <a href="" class="text-danger" data-bs-toggle="modal" data-bs-target="#delete-product-modal-{{ record.id }}"><i class="bi bi-trash3"></i></a>
                                 </td>
                             </tr>
                     {% endfor %}
@@ -329,7 +329,7 @@
         <div class="modal fade" id="edit-product-modal-{{ record.id }}" tabindex="-1" aria-labelledby="edit-product-modal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="#" method="POST">
+                    <form action="{{ url_for('store.edit_product', id=record.id) }}" method="POST">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Edycja produktu</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -379,5 +379,32 @@
         </div>
     {% endfor %}
     <!-- modal do edytowania produktów -->
+
+    <!-- modal do usuwania danych -->
+    {% for record in records %}
+    <div class="modal fade" id="delete-product-modal-{{record.id}}" tabindex="-1" aria-labelledby="delete-product-modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ url_for("store.delete_product", id=record.id) }}" method="POST">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="exampleModalLabel">Potwierdzenie usunięcia</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Czy na pewno chcesz usunąć produkt:
+                        <strong>{{ record.name }}</strong> ({{ record.brand }})?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Anuluj</button>
+                        <form action="{{ url_for("store.delete_product", id=record.id) }}" method="POST">
+                            <button type="submit" class="btn btn-danger">Usuń</button>
+                        </form>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <!-- modal do usuwania danych -->
 
 {% endblock %}
