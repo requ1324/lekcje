@@ -364,6 +364,20 @@ app.post("/api/editor-config", (req, res) => {
   });
 });
 
+app.get("/login", (req, res) => {
+  res.render("login.hbs", { title: "Login page" });
+});
+app.get("/logout", (req, res) => {
+  res.render("login.hbs", { title: "Logout page" });
+});
+
+app.get("/register", (req, res) => {
+  res.render("login.hbs", { title: "Register page" });
+});
+app.get("/error", (req, res) => {
+  res.render("login.hbs", { title: "Error page" });
+});
+
 app.listen(PORT, () => {
   console.log(`Serwer działa na porcie ${PORT}`);
 });

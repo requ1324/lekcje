@@ -655,3 +655,30 @@ h1::before {
   font-size: 14px;
   cursor: pointer;
 }
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  width: 20%;
+  color: black;
+}
+
+.loginBtn {
+  padding: 5px 15px;
+  border: none;
+  outline: none;
+  background: #1e293b;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.loginBtn:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+}
