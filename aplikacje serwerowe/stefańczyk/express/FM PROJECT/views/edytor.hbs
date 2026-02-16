@@ -1,0 +1,35 @@
+<div class="editor-header">
+  <h2>📄 {{fileName}}</h2>
+  <a href="/" class="back-btn">⬅ Wróć</a>
+</div>
+
+<form method="post" action="/saveFile" class="editor-form">
+  <input type="hidden" name="fileName" value="{{fileName}}" />
+  <div class="editor-settings">
+    <label>
+      🎨 Tło:
+      <input type="color" id="bgColor" />
+    </label>
+
+    <label>
+      🔠 Czcionka:
+      <input type="number" id="fontSize" min="10" max="40" />
+    </label>
+
+    <button type="button" id="saveSettings">💾 Zapisz ustawienia</button>
+  </div>
+  <div class="editor-wrapper">
+    <div class="line-numbers" id="lineNumbers"></div>
+
+    <textarea
+      class="editor-textarea"
+      id="editor"
+      name="lines"
+      spellcheck="false"
+    >{{#each lines}}{{content}}{{#unless @last}}{{/unless}}{{/each}}</textarea>
+  </div>
+
+  <script src="/editor.js"></script>
+
+  <button type="submit" class="btn-save">💾 Zapisz</button>
+</form>

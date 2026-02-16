@@ -5,15 +5,16 @@
       <span class="breadcrumb-item">
         <span>🏠</span>
         {{#each root}}
-          <a href="/move?path=/{{this.path}}">{{this.name}}</a>/
+          <a
+            style="color:white;"
+            href="/move?path=/{{this.path}}"
+          >{{this.name}}</a>/
+
         {{/each}}
       </span>
     </div>
   </div>
-</div>
-
-<div class="container">
-  <div class="toolbar">
+  <div class="nav">
     <button class="btn btn-primary" id="newFolder">
       <span>📁</span>
       <span>Nowy folder</span>
@@ -32,62 +33,79 @@
       </label>
     </form>
   </div>
+</div>
+<div id="fileFormContainer" style="display:none">
+  <form action="/addFile" method="post" class="fileForm">
+    <input placeholder="type file name" type="text" name="fileName" />
+    <select name="fileType" id="fileSelect">
+      <option value="css">css</option>
+      <option value="js">js</option>
+      <option value="html">html</option>
+      <option value="json">json</option>
+    </select>
+    <button type="submit">create file</button>
+    <button type="button">cancel</button>
+  </form>
+</div>
+<div class="container">
 
-  <div class="content-grid">
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title">📁 Foldery</span>
+  <div class="item-list">
+    {{#each folders}}
+      <div class="item">
+        <div class="item-content">
+          <span class="item-icon">📁</span>
+          <a href="/move?path=/{{this}}" class="item-name">{{this}}</a>
+        </div>
+        <button class="renameBtn">R</button>
+        <form class="renameForm" method="post" action="/rename">
+          <input type="hidden" name="folderName" value="{{this}}" />
+          <input
+            type="text"
+            name="newFolderName"
+            placeholder="podaj nową nazwę"
+          />
+          <button class="submit" type="submit">Rename</button>
+          <button type="button" class="cancel">cancel</button>
+        </form>
+        <a href="/downloadFolder?name={{this}}" class="download-btn">D</a>
+        <a href="/deleteFolder?name={{this}}" class="delete-btn">X</a>
       </div>
-      <div class="item-list">
-        {{#each folders}}
-          <div class="item">
-            <div class="item-content">
-              <span class="item-icon">📁</span>
-              <a href="/move?path=/{{this}}" class="item-name">{{this}}</a>
-            </div>
-            <button class="renameBtn">R</button>
-            <form class="renameForm" method="post" action="/rename">
-              <input type="hidden" name="folderName" value="{{this}}" />
-              <input
-                type="text"
-                name="newFolderName"
-                placeholder="podaj nową nazwę"
-              />
-              <button class="submit" type="submit">Rename</button>
-              <button class="cancel">cancel</button>
-            </form>
-            <a href="/deleteFolder?name={{this}}" class="delete-btn">X</a>
-          </div>
-        {{else}}
-          <div class="empty-state">
-            <div class="empty-state-icon">📂</div>
-            <div class="empty-state-text">Brak folderów</div>
-          </div>
-        {{/each}}
+    {{else}}
+      <div class="empty-state">
+        <div class="empty-state-icon">📂</div>
+        <div class="empty-state-text">Brak folderów</div>
       </div>
-    </div>
+    {{/each}}
+  </div>
 
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title">📄 Pliki</span>
+  <div class="item-list">
+    {{#each files}}
+      <div class="item">
+        <div class="item-content">
+          <span class="item-icon">📄</span>
+          <a class="item-name" href="/editor?name={{this}}">{{this}}</a>
+        </div>
+        <button class="renameBtn">R</button>
+        <form class="renameForm" method="post" action="/rename">
+          <input type="hidden" name="folderName" value="{{this}}" />
+          <input
+            type="text"
+            name="newFolderName"
+            placeholder="podaj nową nazwę"
+          />
+          <button class="submit" type="submit">Rename</button>
+          <button type="button" class="cancel">cancel</button>
+        </form>
+        <a href="/downloadFile?name={{this}}" class="download-btn">D</a>
+        <a href="/deleteFile?name={{this}}" class="delete-btn">X</a>
       </div>
-      <div class="item-list">
-        {{#each files}}
-          <div class="item">
-            <div class="item-content">
-              <span class="item-icon">📄</span>
-              <span class="item-name">{{this}}</span>
-            </div>
-            <a href="/deleteFile?name={{this}}" class="delete-btn">×</a>
-          </div>
-        {{else}}
-          <div class="empty-state">
-            <div class="empty-state-icon">📄</div>
-            <div class="empty-state-text">Brak plików</div>
-          </div>
-        {{/each}}
+    {{else}}
+      <div class="empty-state">
+        <div class="empty-state-icon">📄</div>
+        <div class="empty-state-text">Brak plików</div>
       </div>
-    </div>
+    {{/each}}
+
   </div>
 </div>
 
@@ -106,28 +124,15 @@
   "cancel"; cancel.addEventListener('click', () => {
   document.body.removeChild(div); isShow = false; }); form.appendChild(cancel);
   document.body.appendChild(div); }); newFileBtn.addEventListener('click', () =>
-  { if (isShow) return; isShow = true; const div =
-  document.createElement("div"); const form = document.createElement("form");
-  form.classList.add("fileForm"); form.method = "post"; form.action =
-  "/addFile"; div.appendChild(form); const input =
-  document.createElement("input"); input.type = "text"; input.placeholder =
-  "file name"; input.name = 'fileName'; form.appendChild(input); const submit =
-  document.createElement("button"); submit.type = "submit"; submit.innerText =
-  "create file"; form.appendChild(submit); const cancel =
-  document.createElement("button"); cancel.type = "button"; cancel.innerText =
-  "cancel"; cancel.addEventListener('click', () => {
-  document.body.removeChild(div); isShow = false; }); form.appendChild(cancel);
-  document.body.appendChild(div); }); const renameBtns =
+  { const container = document.getElementById('fileFormContainer');
+  container.style.display = "flex"; const cancelBtn =
+  container.querySelector(".cancel"); cancelBtn.addEventListener("click", () =>
+  { container.style.display = "none"; }); }); const renameBtns =
   document.querySelectorAll(".renameBtn"); renameBtns.forEach(renameBtn => {
-  renameBtn.addEventListener('click', (e)=> { const div =
-  document.createElement('div'); const form = document.createElement('form');
-  form.action = "/rename"; form.classList.add("renameForm"); const input =
-  document.createElement('input'); input.classList.add("renameInput") const
-  submit = document.createElement("button"); submit.type ="submit";
-  submit.classList.add("submit"); const cancel =
-  document.createElement("button"); cancel.textContent = "cancel";
-  submit.textContent = "rename"; cancel.classList.add("cancel");
-  cancel.addEventListener('click', (e) => { document.body.removeChild(div); })
-  form.append(input); form.append(cancel); form.append(submit);
-  div.append(form); document.body.append(div); }) })
+  renameBtn.addEventListener('click', (e) => { const item =
+  e.target.closest('.item'); const form = item.querySelector('.renameForm');
+  form.style.display = "flex"; }); }); const cancelBtns =
+  document.querySelectorAll('.cancel'); cancelBtns.forEach(btn => {
+  btn.addEventListener("click", (e) => { const form =
+  e.target.closest('.renameForm'); form.style.display = "none"; }); });
 </script>
