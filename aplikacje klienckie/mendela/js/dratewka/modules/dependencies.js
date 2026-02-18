@@ -84,7 +84,7 @@ export const dependencies = [
   {
     use: "SPADE",
     location: "11",
-    message: "You are digging... and digging... That's enough sulphur for you",
+    message: "You are digging... and digging... That's2 enough sulphur for you",
     removeItem: true,
     giveItem: new Item("SULPHUR", 1, "SULPHUR"),
   },
