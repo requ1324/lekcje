@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wydarzenie limit="5">
+    <nazwa>Warsztaty PHP</nazwa>
+    <miejsce>Warszawa</miejsce>
+</wydarzenie>

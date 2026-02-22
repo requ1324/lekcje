@@ -34,7 +34,7 @@ def index():
         if item['size'] not in unique:
             unique.append(item['size'])
 
-    avg = round(value / count, 2)
+    avg = round(value / count, 2) if count else 0
 
 
     ## filter
@@ -45,18 +45,18 @@ def index():
 
     if userFilter == "MAX":
         data.sort(key=sorter, reverse=True)
-        data = [data[1]]
+        data = [data[0]]
 
     if userFilter == "MIN":
         data.sort(key=sorter, reverse=False)
-        data = [data[1]]
+        data = [data[0]]
 
     def filterArray(i):
         return i['size'] == userFilter
 
     # size
     if userFilter in unique:
-        data = filter(filterArray, data)
+        data = list(filter(filterArray, data))
 
     return render_template('index.html', list=data, avg=format(avg, ','), count=count, unique=unique, filter=userFilter)
 
