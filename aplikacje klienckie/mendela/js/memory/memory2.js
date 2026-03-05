@@ -80,6 +80,8 @@ function startGame(s) {
   }
 
   const shuffledTab = shuffle([...tab]);
+  let startTime;
+  let timeInterval;
 
   shuffledTab.map((t) => {
     img = document.createElement("img");
@@ -98,6 +100,88 @@ function startGame(s) {
   let matchedPairs = 0;
   let isChecking = false;
 
+  // ===== TOP10 COOKIES =====
+  function setCookie(name, value, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie =
+      name +
+      "=" +
+      encodeURIComponent(value) +
+      ";expires=" +
+      d.toUTCString() +
+      ";path=/";
+  }
+
+  function getCookie(name) {
+    const cname = name + "=";
+    const decoded = decodeURIComponent(document.cookie);
+    const ca = decoded.split(";");
+    for (let c of ca) {
+      c = c.trim();
+      if (c.indexOf(cname) === 0) {
+        return c.substring(cname.length);
+      }
+    }
+    return "";
+  }
+
+  function getScores(mode) {
+    const data = getCookie("memory_top10_" + mode);
+    if (!data) return [];
+    try {
+      return JSON.parse(data);
+    } catch {
+      return [];
+    }
+  }
+
+  function saveScores(mode, scores) {
+    setCookie("memory_top10_" + mode, JSON.stringify(scores), 365);
+  }
+
+  function addScore(mode, time) {
+    let scores = getScores(mode);
+    scores.push(time);
+    // sortowanie malejąco czasem
+    scores.sort((a, b) => b - a);
+    scores = scores.slice(0, 10);
+    saveScores(mode, scores);
+  }
+
+  function initTop10() {
+    if (document.querySelector(".top10")) return;
+
+    const container = document.createElement("div");
+    container.classList.add("top10");
+
+    container.innerHTML = `
+      <h2>TOP 10</h2>
+      <div id="top10-30"><h3>Tryb 30s</h3><ol></ol></div>
+      <div id="top10-60"><h3>Tryb 60s</h3><ol></ol></div>
+      <div id="top10-90"><h3>Tryb 90s</h3><ol></ol></div>
+    `;
+
+    document.body.append(container);
+  }
+
+  function renderTop10() {
+    [30, 60, 90].forEach((mode) => {
+      const list = document.querySelector(`#top10-${mode} ol`);
+      if (!list) return;
+
+      const scores = getScores(mode);
+      list.innerHTML = "";
+
+      scores.forEach((score) => {
+        const li = document.createElement("li");
+        li.textContent = score + " s";
+        list.append(li);
+      });
+    });
+  }
+  // =========================
+
   function checkWin() {
     if (matchedPairs == 8) {
       clearInterval(timeInterval);
@@ -106,8 +190,9 @@ function startGame(s) {
 
       alert(`Brawo ${user}, wygrałeś w ${timeTaken} sekund!`);
 
-      document.cookie = `nick=${user}; path=/`;
-      document.cookie = `wynik=${timeTaken}; path=/`;
+      // zapis TOP10 osobno dla trybu
+      addScore(s, parseFloat(timeTaken));
+      renderTop10();
     }
   }
 
@@ -164,19 +249,21 @@ function startGame(s) {
   let start = document.querySelector(".start");
   start.style.display = "none";
   grid.style.display = "grid";
+  initTop10();
+  renderTop10();
 
   function countTime() {
     let filler = document.querySelector(".filler");
     let timeBox = document.querySelector(".timeBox");
     let duration = s * 1000;
-    let startTime = new Date().getTime();
+    startTime = new Date().getTime();
     let endTime = new Date().getTime() + duration;
 
     let timeSpan = document.createElement("span");
     timeSpan.classList.add("timeSpan");
     timeBox.append(timeSpan);
 
-    let timeInterval = setInterval(function () {
+    timeInterval = setInterval(function () {
       let now = new Date().getTime();
       let remaining = endTime - now;
 

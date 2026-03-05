@@ -32,7 +32,7 @@
 }
 
 // ===== XML + XPath =====
-$xml = simplexml_load_file(__DIR__ . '/info.xml');
+$xml = simplexml_load_file('/info.xml');
 
 if ($xml === false) {
     echo "Blad wczytywania pliku XML";

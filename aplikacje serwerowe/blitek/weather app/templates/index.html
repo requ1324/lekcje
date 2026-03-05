@@ -1,0 +1,48 @@
+{% extends "bootstrap/base.html" %} {% block title %} Pogoda {% endblock %} {%
+block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+      <h2 class="mb-4">Wybierz miasto</h2>
+      <form method="POST" class="mb-4">
+        <div class="input-group">
+          <select class="form-select" name="city" required>
+            {% for city in cities %}
+            <option value="{{ city }}">{{ city }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit" class="btn btn-success">Pobierz dane</button>
+        </div>
+      </form>
+
+      {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+      {% endif %} {% if weather %}
+      <div class="card text-center">
+        <div class="card-header">Pogoda dla {{ weather.stacja }}</div>
+        <div class="card-body">
+          <p class="card-text">
+            Temperatura: <strong>{{ weather.temperatura }} ℃</strong>
+          </p>
+          <p class="card-text">
+            Wilgotność: <strong>{{ weather.wilgotnosc_wzgledna }}%</strong>
+          </p>
+          <p class="card-text">
+            Kierunek wiatru: <strong>{{ weather.kierunek_wiatru }}</strong>
+          </p>
+          <p class="card-text">
+            Prędkość wiatru: <strong>{{ weather.predkosc_wiatru }} m/s</strong>
+          </p>
+          <p class="card-text">
+            Ciśnienie: <strong>{{ weather.cisnienie }} hPa</strong>
+          </p>
+          <p class="card-text">
+            Data pomiaru: <strong>{{ weather.data_pomiaru }}</strong>
+          </p>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
