@@ -69,7 +69,7 @@ function startGame(s) {
 
   let grid = document.querySelector(".grid");
   let title = document.querySelector(".title");
-
+  let timeBox = document.querySelector(".timeBox");
   title.textContent = `Memory - tryb ${s}s`;
   let hasStarted = false;
   let img;
@@ -104,6 +104,7 @@ function startGame(s) {
   let isChecking = false;
 
   function restartGame() {
+    timeBox.style.display = "none";
     hasStarted = false;
     click = 0;
     firstImg = null;
@@ -191,7 +192,7 @@ function startGame(s) {
 
     const container = document.createElement("div");
     container.classList.add("top10");
-
+    container.style.display = "block";
     container.innerHTML = `
       <h2>TOP 10</h2>
       <div id="top10-30"><h3>Tryb 30s</h3><ol></ol></div>
@@ -293,7 +294,7 @@ function startGame(s) {
 
   function countTime() {
     let filler = document.querySelector(".filler");
-    let timeBox = document.querySelector(".timeBox");
+    timeBox.style.display = "block";
     let duration = s * 1000;
     startTime = new Date().getTime();
     let endTime = new Date().getTime() + duration;
