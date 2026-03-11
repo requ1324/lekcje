@@ -11,7 +11,6 @@ class Pill {
   c1: string;
   c2: string;
 }
-
 class Game {
   constructor() {
     this.board = document.getElementById("board") as HTMLCanvasElement;
@@ -42,7 +41,6 @@ class Game {
       this.ctx.strokeStyle = "black";
       this.ctx.stroke();
     }
-
     for (let y = 0; y <= this.ROWS; y++) {
       this.ctx.beginPath();
       this.ctx.moveTo(0, y * this.CELL_SIZE);
@@ -79,11 +77,28 @@ class Game {
     }
   }
 
+  getBlocks(pill: Pill) {
+    if (pill.rotation === 0 || pill.rotation === 180) {
+      return [
+        { x: pill.x, y: pill.y },
+        { x: pill.x + 1, y: pill.y },
+      ];
+    } else {
+      return [
+        { x: pill.x, y: pill.y },
+        { x: pill.x, y: pill.y + 1 },
+      ];
+    }
+  }
+
   movePill(pill: Pill, dx: number, dy: number) {
     pill.x += dx;
     pill.y += dy;
-    if (pill.y > this.ROWS - 1) {
-      pill.y = this.ROWS - 1;
+    const blocks = this.getBlocks(pill);
+    let maxY = Math.max(...blocks.map((b) => b.y));
+
+    if (maxY > this.ROWS - 1) {
+      pill.y -= 1;
       this.isPillFalling = false;
       this.drawPill(this.pill);
       this.pillsArr.push(this.pill);
@@ -99,12 +114,21 @@ class Game {
   }
 
   clearPill(pill: Pill) {
-    this.ctx.clearRect(
-      pill.x * this.CELL_SIZE,
-      pill.y * this.CELL_SIZE,
-      this.CELL_SIZE * 2,
-      this.CELL_SIZE,
-    );
+    if (this.pill.rotation === 0 || this.pill.rotation === 180) {
+      this.ctx.clearRect(
+        pill.x * this.CELL_SIZE,
+        pill.y * this.CELL_SIZE,
+        this.CELL_SIZE * 2,
+        this.CELL_SIZE,
+      );
+    } else {
+      this.ctx.clearRect(
+        pill.x * this.CELL_SIZE,
+        pill.y * this.CELL_SIZE,
+        this.CELL_SIZE,
+        this.CELL_SIZE * 2,
+      );
+    }
   }
 
   handleKeyDown() {
@@ -135,20 +159,14 @@ class Game {
     for (let i = 0; i < this.pillsArr.length; i++) {
       let otherPill = this.pillsArr[i];
       if (!otherPill) continue;
-      const blocks = [
-        { x: this.pill.x, y: this.pill.y },
-        { x: this.pill.x + 1, y: this.pill.y },
-      ];
+      const blocks = this.getBlocks(this.pill);
 
       for (let block of blocks) {
-        const otherBlocks = [
-          { x: otherPill.x, y: otherPill.y },
-          { x: otherPill.x + 1, y: otherPill.y },
-        ];
+        const otherBlocks = this.getBlocks(otherPill);
 
         for (let otherBlock of otherBlocks) {
           if (block.x === otherBlock.x && block.y === otherBlock.y) {
-            this.pill.y = otherPill.y - 1;
+            this.pill.y -= 1;
             this.isPillFalling = false;
             this.drawPill(this.pill);
             this.pillsArr.push(this.pill);
@@ -166,6 +184,7 @@ class Game {
   }
 
   rotatePill(pill: Pill) {
+    this.clearPill(pill);
     pill.rotation = (pill.rotation + 90) % 360;
     this.drawPill(pill);
   }

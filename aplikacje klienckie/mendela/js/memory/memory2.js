@@ -68,6 +68,9 @@ function startGame(s) {
   ];
 
   let grid = document.querySelector(".grid");
+  let title = document.querySelector(".title");
+
+  title.textContent = `Memory - tryb ${s}s`;
   let hasStarted = false;
   let img;
   let user = prompt("Podaj nick gracza: ");
@@ -100,24 +103,58 @@ function startGame(s) {
   let matchedPairs = 0;
   let isChecking = false;
 
-  // ===== TOP10 COOKIES =====
+  function restartGame() {
+    hasStarted = false;
+    click = 0;
+    firstImg = null;
+    secondImg = null;
+    matchedPairs = 0;
+    isChecking = false;
+    clearInterval(timeInterval);
+    title.textContent = "";
+    grid.innerHTML = "";
+
+    const oldTimeSpan = document.querySelector(".timeSpan");
+    if (oldTimeSpan) oldTimeSpan.remove();
+
+    let filler = document.querySelector(".filler");
+    filler.style.width = "100%";
+
+    start.style.display = "block";
+    grid.style.display = "none";
+  }
+
+  function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    const centiseconds = Math.floor((seconds % 1) * 1000);
+
+    const mm = String(minutes).padStart(2, "0");
+    const ss = String(secs).padStart(2, "0");
+    const qq = String(centiseconds).padStart(3, "0");
+
+    return `${mm}:${ss}.${qq}`;
+  }
+
   function setCookie(name, value, days) {
-    const d = new Date();
-    d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     document.cookie =
       name +
       "=" +
       encodeURIComponent(value) +
       ";expires=" +
-      d.toUTCString() +
+      date.toUTCString() +
       ";path=/";
   }
 
   function getCookie(name) {
     const cname = name + "=";
     const decoded = decodeURIComponent(document.cookie);
-    const ca = decoded.split(";");
-    for (let c of ca) {
+    console.log("decoded cookies:", decoded);
+    const array = decoded.split(";");
+    console.log("ca:", array);
+    for (let c of array) {
       c = c.trim();
       if (c.indexOf(cname) === 0) {
         return c.substring(cname.length);
@@ -140,11 +177,11 @@ function startGame(s) {
     setCookie("memory_top10_" + mode, JSON.stringify(scores), 365);
   }
 
-  function addScore(mode, time) {
+  function addScore(mode, time, nick) {
     let scores = getScores(mode);
-    scores.push(time);
-    // sortowanie malejąco czasem
-    scores.sort((a, b) => b - a);
+    scores.push({ nick: nick, time: time });
+
+    scores.sort((a, b) => a.time - b.time);
     scores = scores.slice(0, 10);
     saveScores(mode, scores);
   }
@@ -175,12 +212,11 @@ function startGame(s) {
 
       scores.forEach((score) => {
         const li = document.createElement("li");
-        li.textContent = score + " s";
+        li.textContent = score.nick + ": " + formatTime(score.time);
         list.append(li);
       });
     });
   }
-  // =========================
 
   function checkWin() {
     if (matchedPairs == 8) {
@@ -188,11 +224,15 @@ function startGame(s) {
       let endTime = new Date().getTime();
       let timeTaken = ((endTime - startTime) / 1000).toFixed(2);
 
-      alert(`Brawo ${user}, wygrałeś w ${timeTaken} sekund!`);
-
-      // zapis TOP10 osobno dla trybu
-      addScore(s, parseFloat(timeTaken));
+      addScore(s, parseFloat(timeTaken), user);
       renderTop10();
+
+      setTimeout(() => {
+        alert(
+          `Brawo ${user}, wygrałeś w ${formatTime(parseFloat(timeTaken))}!`,
+        );
+        restartGame();
+      }, 300);
     }
   }
 
@@ -226,25 +266,24 @@ function startGame(s) {
           matchedPairs++;
           firstImg.classList.add("matched");
           secondImg.classList.add("matched");
+          click = 0;
+          isChecking = false;
+          firstImg = null;
+          secondImg = null;
           checkWin();
-          resetGame();
         } else {
           setTimeout(function () {
             firstImg.src = "img/0.jpg";
             secondImg.src = "img/0.jpg";
-            resetGame();
+            isChecking = false;
+            click = 0;
+            firstImg = null;
+            secondImg = null;
           }, 1000);
         }
       }
     });
   });
-
-  function resetGame() {
-    click = 0;
-    firstImg = null;
-    secondImg = null;
-    isChecking = false;
-  }
 
   let start = document.querySelector(".start");
   start.style.display = "none";
@@ -270,25 +309,19 @@ function startGame(s) {
       if (remaining <= 0) {
         clearInterval(timeInterval);
         filler.style.width = "0%";
-        timeSpan.textContent = `0.00 sekund`;
-        alert("Przegrałeś!");
+        timeSpan.textContent = "00:00.000";
+        setTimeout(() => {
+          alert("Przegrałeś! Czas się skończył.");
+          restartGame();
+        }, 100);
         return;
       }
 
-      let secondsLeft = (remaining / 1000).toFixed(2);
-      timeSpan.textContent = `${secondsLeft} sekund`;
+      let secondsLeft = remaining / 1000;
+      timeSpan.textContent = formatTime(secondsLeft);
 
       let percent = (remaining / duration) * 100;
       filler.style.width = percent + "%";
     }, 11);
   }
-
-  /* areas.forEach((area) => {
-    area.addEventListener("click", () => {
-      start.style.display = "none";
-      grid.style.display = "grid";
-    });
-  });
-}
-*/
 }

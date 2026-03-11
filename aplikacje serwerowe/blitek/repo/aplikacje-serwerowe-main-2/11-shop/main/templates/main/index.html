@@ -1,0 +1,22 @@
+{% extends "bootstrap/base.html" %}
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
+{% block title %} {{ title }} {% endblock %}
+{% block content %}
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand mx-5" href="{{ url_for('main.index') }}">Home</a>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="{{ url_for('auth.login') }}" class="btn btn-outline-secondary float-end">Logowanie</a>
+            </div>
+            <div class="col-lg-6">
+                <a href="{{ url_for('auth.register') }}" class="btn btn-outline-secondary float-start">Rejestracja</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -6,7 +6,6 @@ from flask_bs4 import Bootstrap
 from main.routes import main_bp
 from auth.routes import auth_bp
 from store.routes import store_bp
-from shop.routes import shop_bp
 
 from extensions import db, login_manager, bcrypt
 from models import Users
@@ -37,7 +36,6 @@ def create_app():
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(store_bp, url_prefix='/store')
-    app.register_blueprint(shop_bp, url_prefix='/shop')
 
     # --- rejestracja loadera użytkowników ---
     @login_manager.user_loader
