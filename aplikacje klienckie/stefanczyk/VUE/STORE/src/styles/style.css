@@ -13,12 +13,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
+.nav-link {
   font-weight: 500;
-  color: #646cff;
+  color: #ffffff;
   text-decoration: inherit;
 }
-a:hover {
+.nav-link:hover {
+  text-shadow: 4px 6px 5px #535bf2;
   color: #535bf2;
 }
 
@@ -60,10 +61,26 @@ h1 {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #242424;
+  background-color: #24242468;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   padding: 1rem;
   display: flex;
   gap: 1rem;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+}
+
+.sale-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.sale-container a {
+  text-decoration: none;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

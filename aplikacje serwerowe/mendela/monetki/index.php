@@ -71,8 +71,8 @@ try {
         </tr>
         <?php endforeach;?>
     </table>
-    <form action="" method="post">
+    <form action="" method="post">  
 
-    </form>1
+    </form>
 </body>
 </html>

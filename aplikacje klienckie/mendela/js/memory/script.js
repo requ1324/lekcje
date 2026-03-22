@@ -323,6 +323,6 @@ function startGame(s) {
 
       let percent = (remaining / duration) * 100;
       filler.style.width = percent + "%";
-    }, 11);
+    }, 10);
   }
 }

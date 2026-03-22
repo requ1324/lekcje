@@ -5,13 +5,20 @@ let ok = 0;
 let row = 3,
   col = 6;
 const $ = (s) => document.querySelector(s);
-const update = (value, oldLoc) => {
+
+const updateUI = (value, oldLoc) => {
   const loc = map[row][col];
+
+  $("#item").textContent = "";
+  $("#take").textContent = "";
+  $("#info").textContent = "";
+  $("#carrying").textContent = "";
 
   setTimeout(() => {
     $("#img").src = `Dratewka/img/${loc.img}`;
     $("#img").style.background = loc.color;
-    if (loc.items) {
+
+    if (loc.items && loc.items.length > 0) {
       let itemsText = loc.items.map((item) => item.name).join(", ");
       $("#item").textContent = `You can see: ${itemsText}`;
       $("#take").textContent = `TAKE ${itemsText} or T ${itemsText}`;
@@ -19,11 +26,16 @@ const update = (value, oldLoc) => {
       $("#item").textContent = "You can see: NOTHING";
     }
 
+    if (bag.length > 0) {
+      $("#carrying").textContent = `You are carrying: ${bag[0].name}`;
+    }
+
     $(".N").style.opacity = loc.dirs.includes("N") ? 1 : 0.2;
     $(".S").style.opacity = loc.dirs.includes("S") ? 1 : 0.2;
     $(".E").style.opacity = loc.dirs.includes("E") ? 1 : 0.2;
     $(".W").style.opacity = loc.dirs.includes("W") ? 1 : 0.2;
   }, 900);
+
   setTimeout(() => {
     $("#desc").textContent = loc.desc;
   }, 700);
@@ -52,6 +64,7 @@ const update = (value, oldLoc) => {
     $("#going").textContent = "";
   }, 700);
 };
+
 const take = (item) => {
   if (!item) return false;
 
@@ -67,6 +80,7 @@ const take = (item) => {
 
   bag.push(item);
   $("#info").textContent = `You have taken ${item.name}`;
+  updateUI();
   return true;
 };
 
@@ -106,16 +120,20 @@ const handleUse = (itemName) => {
 
   if (dep.giveItem && !dep.L) {
     bag.push(dep.giveItem);
+    $("#info").textContent =
+      `${dep.message} You have received a ${dep.giveItem.name}`;
   } else {
     ok++;
     map[row][col].items.push(dep.giveItem);
+    $("#info").textContent =
+      `${dep.message} You have received a ${dep.giveItem.name}`;
   }
 
   if (dep.gameEnd) {
     alert("You won the game!");
   }
 
-  update();
+  updateUI();
 };
 
 if (ok == 6) {
@@ -137,28 +155,50 @@ const drop = (currentLoc) => {
 
   if (currentLoc.items.length >= 3) {
     $("#info").textContent = "You can't store more items here!";
+    return;
   }
 
   currentLoc.items.push(bag[0]);
   $("#info").textContent = `You dropped ${bag[0].name}`;
-  setTimeout(() => {
-    $("#info").textContent = "";
-  }, 1300);
   bag.pop();
+  updateUI();
 };
 
 let vocMode = false;
 
-update();
-$("#inp").onkeydown = (e) => {
+const inp = $("#inp");
+
+updateUI();
+inp.focus();
+const forceFocus = (event) => {
+  if (event && event.target !== inp) {
+    event.preventDefault();
+  }
+  inp.focus();
+};
+
+document.addEventListener("mousedown", forceFocus, true);
+document.addEventListener("touchstart", forceFocus, true);
+document.addEventListener("click", forceFocus, true);
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Tab") {
+    event.preventDefault();
+    inp.focus();
+  }
+});
+inp.addEventListener("blur", forceFocus);
+
+inp.onkeydown = (e) => {
   if (vocMode) {
     console.log(vocMode);
     $("#voc").textContent = "";
     vocMode = false;
+    e.target.value = "";
     return;
   } else {
     if (e.key !== "Enter") return;
     const value = e.target.value.toUpperCase().trim();
+    e.target.value = "";
     let currentLoc = map[row][col];
     if (value[0] == "T") {
       let itemName = value.startsWith("TAKE ")
@@ -173,7 +213,7 @@ $("#inp").onkeydown = (e) => {
 
       if (itemIndex === -1) {
         $("#info").textContent = "There is no such item here";
-        return (e.target.value = "");
+        return;
       }
 
       let item = currentLoc.items[itemIndex];
@@ -182,10 +222,10 @@ $("#inp").onkeydown = (e) => {
 
       if (taken) {
         currentLoc.items.splice(itemIndex, 1);
-        update();
+        updateUI();
       }
 
-      return (e.target.value = "");
+      return;
     }
     if (value.startsWith("U")) {
       const itemName = value.startsWith("USE ")
@@ -193,14 +233,15 @@ $("#inp").onkeydown = (e) => {
         : bag[0]?.name;
 
       handleUse(itemName);
-      return (e.target.value = "");
+      return;
     }
 
     if (value[0] == "D") {
       drop(currentLoc);
+      return;
     }
 
-    if (value[0] == "v" || value[0] == "V") {
+    if (value[0] == "V") {
       vocMode = true;
       console.log(vocMode);
       $("#voc").textContent = `NORTH or N, SOUTH or S \n 
@@ -210,8 +251,9 @@ $("#inp").onkeydown = (e) => {
       \n USE (object) or U (object) 
       \n GOSSIPS or G, VOCABULARY or V 
       \n Press any key`;
+      return;
     }
-    if (value[0] == "g" || value[0] == "G") {
+    if (value[0] == "G") {
       vocMode = true;
       console.log(vocMode);
       $("#voc").textContent = `"The  woodcutter lost  his home key...\n
@@ -219,13 +261,14 @@ $("#inp").onkeydown = (e) => {
 		is greedy... Dratewka plans to make a\n
 		poisoned  bait for the dragon...  The\n
 		tavern owner is buying food  from the\n
-		pickers... Making a rag from a bag..."\n
+		pickers... Making a rag from a bag..."
 		Press any key`;
+      return;
     }
 
     if (!currentLoc.dirs.includes(value)) {
-      update(value, currentLoc);
-      return (e.target.value = "");
+      updateUI(value, currentLoc);
+      return;
     }
 
     const [newR, newC] =
@@ -237,10 +280,9 @@ $("#inp").onkeydown = (e) => {
             ? [row, col + 1]
             : [row, col - 1];
     if (newR < 0 || newR > 5 || newC < 0 || newC > 6 || !map[newR][newC])
-      return (e.target.value = "");
+      return;
     row = newR;
     col = newC;
-    update(value, currentLoc);
-    e.target.value = "";
+    updateUI(value, currentLoc);
   }
 };

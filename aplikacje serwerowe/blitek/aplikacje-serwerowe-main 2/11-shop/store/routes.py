@@ -1,0 +1,148 @@
+from flask import request, render_template, redirect, url_for, flash, Response, current_app
+from flask_login import login_required
+
+from . import store_bp
+from . forms import AddProductForm
+import pandas as pd
+from io import StringIO
+from models import Inventory
+from extensions import db
+
+@store_bp.route('/', methods=['GET'])
+@login_required
+def index():
+    add_product_form = AddProductForm()
+    edit_product_form = AddProductForm()
+    page = request.args.get('page', 1, type=int)
+    per_page = 20
+    search = request.args.get('search', '').strip()
+    query = Inventory.query
+    if search:
+        query = query.filter(
+            Inventory.name.ilike(f'%{search}%') |
+            Inventory.symbol.ilike(f'%{search}%') |
+            Inventory.category.ilike(f'%{search}%') |
+            Inventory.brand.ilike(f'%{search}%') |
+            Inventory.model.ilike(f'%{search}%')
+        )
+    pagination = query.order_by(Inventory.id).paginate(page=page, per_page=per_page)
+    records = pagination.items
+    return render_template('store/index.html', title='Magazyn', records=records, pagination=pagination, add_product_form=add_product_form, search=search, edit_product_form=edit_product_form)
+
+@store_bp.route('/import-data', methods=['POST'])
+@login_required
+def import_data():
+    # pobieranie pliku z formularza
+    file = request.files.get('file')
+    if not file:
+        flash('Nie wybrano pliku', 'danger')
+        return redirect(url_for('store.index'))
+
+    # wczytywanie pliku csv do DataFrame
+    try:
+        df = pd.read_csv(file)
+    except Exception as e:
+        flash(f'Błąd wczytywania pliku: {e}', 'danger')
+        return redirect(url_for('store.index'))
+
+    # usuwanie zawartości bazy podczas importowania danych
+    db.session.query(Inventory).delete()
+
+    # dodanie rekordów do bazy
+    for _, row in df.iterrows():
+        item = Inventory(
+            id=int(row['id']),
+            symbol=row['symbol'],
+            name=row['name'],
+            category=row['category'],
+            brand=row['brand'],
+            model=row['model'],
+            quantity=int(row['quantity']),
+            weight_kg=float(row['weight_kg']),
+            price_pln=float(row['price_pln']),
+            inventory_value_pln=float(row['inventory_value_pln'])
+        )
+        db.session.add(item)
+    db.session.commit()
+
+    flash('Dane zostały zaimportowane pomyślnie!', 'success')
+    return redirect(url_for('store.index'))
+
+@store_bp.route('/export-data', methods=['GET'])
+@login_required
+def export_data():
+    query = "SELECT * FROM inventory"
+
+    engine = db.get_engine(current_app, bind='inventory')
+    df = pd.read_sql(query, engine)
+
+    output = StringIO()
+    df.to_csv(output, index=False)
+
+    response = Response(output.getvalue(), mimetype='text/csv')
+    response.headers["Content-Disposition"] = f"attachment; filename=inventory_export.csv"
+    return response
+
+@store_bp.route('/add-product', methods=['POST'])
+@login_required
+def add_product():
+    if request.method == 'POST':
+        symbol = request.form.get('symbol')
+        name = request.form.get('name')
+        category = request.form.get('category')
+        brand = request.form.get('brand')
+        model = request.form.get('model')
+        quantity = request.form.get('quantity', type=int)
+        weight_kg = request.form.get('weight_kg', type=float)
+        price_pln = request.form.get('price_pln', type=float)
+
+        inventory_value_pln = quantity * price_pln
+
+        new_item = Inventory(
+            symbol=symbol,
+            name=name,
+            category=category,
+            brand=brand,
+            model=model,
+            quantity=quantity,
+            weight_kg=weight_kg,
+            price_pln=price_pln,
+            inventory_value_pln=inventory_value_pln
+        )
+        db.session.add(new_item)
+        db.session.commit()
+
+        flash('Produkt został dodany pomyślnie!', 'success')
+        return redirect(url_for('store.index'))
+
+@store_bp.route('/edit-product/<int:id>', methods=['POST'])
+@login_required
+def edit_product(id):
+    product = db.session.get(Inventory, id)
+    if not product:
+        flash('Nie znaleziono produktu.', 'danger')
+        return redirect(url_for('store.index'))
+
+    if request.method == 'POST':
+        product.symbol = request.form.get('symbol')
+        product.name = request.form.get('name')
+        product.category = request.form.get('category')
+        product.brand = request.form.get('brand')
+        product.model = request.form.get('model')
+        product.quantity = request.form.get('quantity', type=int)
+        product.weight_kg = request.form.get('weight_kg', type=float)
+        product.price_pln = request.form.get('price_pln', type=float)
+        product.inventory_value_pln = product.quantity * product.price_pln if product.quantity and product.price_pln else 0.0
+
+        db.session.commit()
+        flash(f'Produkt {product.name} został zaktualizowany', 'success')
+        return redirect(url_for('store.index'))
+
+@store_bp.route('/delete-product/<int:id>', methods=['POST'])
+@login_required
+def delete_product(id):
+    product = Inventory.query.get_or_404(id)
+    db.session.delete(product)
+    db.session.commit()
+    flash(f'Produkt {product.name} został usunięty.', 'success')
+    return redirect(url_for('store.index'))

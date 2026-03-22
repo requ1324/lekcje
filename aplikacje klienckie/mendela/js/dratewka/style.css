@@ -41,6 +41,7 @@ input {
   color: rgb(219, 219, 219);
   font-size: 1.2rem;
   font-family: inherit;
+  text-transform: uppercase;
 }
 span {
   margin-top: 10px;

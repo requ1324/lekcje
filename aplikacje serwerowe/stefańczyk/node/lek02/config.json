@@ -1,0 +1,9 @@
+{
+  "serverName": "Moja Aplikacja",
+  "port": 3000,
+  "version": "1.0.0",
+  "features": {
+    "login": true,
+    "darkMode": false
+  }
+}

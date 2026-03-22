@@ -63,4 +63,9 @@ export default {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+svg {
+  width: 100px;
+  height: 100px;
+}
+</style>

@@ -30,17 +30,19 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h1>this is home page</h1>
-    <RouterLink
-      v-for="promotion in promotionsList"
-      :to="`/promotion/${promotion.id}`"
-      :key="promotion.id"
-    >
-      <PromotionTile v-bind:promotion="promotion" />
-    </RouterLink>
+  <section class="home-view">
+    <div class="sale-container">
+      <RouterLink
+        v-for="promotion in promotionsList"
+        :to="`/promotion/${promotion.id}`"
+        :key="promotion.id"
+        class="promotion-link"
+      >
+        <PromotionTile v-bind:promotion="promotion" />
+      </RouterLink>
+    </div>
     <AppLoader v-show="promotionsLoading" />
-  </div>
+  </section>
 </template>
 
 <style scoped></style>

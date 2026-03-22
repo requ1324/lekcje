@@ -6,6 +6,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AboutView from "../views/AboutView.vue";
 import PromotionView from "../views/PromotionView.vue";
+import RegisterView from "../views/RegisterView.vue";
 
 //lazy load - renderuje się tylko gdy jest potrzebny a nie z góry
 
@@ -28,6 +29,11 @@ const router = createRouter({
       path: "/about",
       name: "about",
       component: AboutView,
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: RegisterView,
     },
     {
       path: "/:pathMatch(.*)*",
