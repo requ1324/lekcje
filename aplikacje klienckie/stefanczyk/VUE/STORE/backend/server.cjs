@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const session = require("express-session");
 const app = express();
 const PORT = 3000;
 const fs = require("fs").promises;
@@ -16,6 +17,20 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  session({
+    secret: "haslo",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 24 godziny
+      secure: false,
+      httpOnly: true,
+      sameSite: "lax",
+    },
+  }),
+);
 
 const data = require("./data.json");
 
@@ -67,6 +82,34 @@ app.post("/createUser", async (req, res) => {
   }
 });
 
+app.post("/loginUser", async (req, res) => {
+  const { email, password } = req.body;
+  const data = await fs.readFile(usersFilePath, "utf8");
+  const usersArray = JSON.parse(data);
+
+  const user = usersArray.find(
+    (u) => u.email === email && u.password === password,
+  );
+  if (user) {
+    req.session.username = user.email.split("@")[0];
+    res.json({ status: "logged in", email: user.email });
+  } else {
+    res.status(401).json({ status: "invalid credentials" });
+  }
+});
+
+app.post("/logoutUser", async (req, res) => {
+  req.session.destroy();
+  res.json({ status: "logged out" });
+});
+
+app.get("/getCurrentUser", async (req, res) => {
+  if (req.session.username) {
+    res.json({ username: req.session.username });
+  } else {
+    res.status(401).json({ status: "not authenticated" });
+  }
+});
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

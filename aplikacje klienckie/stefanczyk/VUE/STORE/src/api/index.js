@@ -5,7 +5,7 @@ const get = (url) =>
     setTimeout(
       () => {
         axios
-          .get(url)
+          .get(url, { withCredentials: true })
           .then((response) => {
             console.log("data", response.data);
             resolve(response.data);
@@ -38,4 +38,16 @@ const getPromotion = (id) => get(`http://localhost:3000/promotion/${id}`);
 const getProduct = (id) => get(`http://localhost:3000/product/${id}`);
 const registerUser = (userObject) =>
   post(`http://localhost:3000/createUser`, userObject);
-export { getPromotions, getPromotion, getProduct, registerUser };
+const loginUser = (userObject) =>
+  post(`http://localhost:3000/loginUser`, userObject);
+const logoutUser = () => post(`http://localhost:3000/logoutUser`);
+const getCurrentUser = () => get(`http://localhost:3000/getCurrentUser`);
+export {
+  getPromotions,
+  getPromotion,
+  getProduct,
+  registerUser,
+  loginUser,
+  logoutUser,
+  getCurrentUser,
+};

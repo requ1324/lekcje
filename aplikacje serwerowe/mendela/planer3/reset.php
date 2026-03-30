@@ -6,30 +6,52 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 
+$token = $_GET['token'] ?? '';
 $error = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
+$success = '';
+$validToken = false;
 
-    $stmt = $pdo->prepare('SELECT id, password FROM users WHERE email = ?');
-    $stmt->execute([$email]);
+if (!$token) {
+    $error = 'Brak tokenu.';
+} else {
+    $stmt = $pdo->prepare('SELECT id FROM users WHERE reset_token = ? AND reset_expires > NOW()');
+    $stmt->execute([$token]);
     $user = $stmt->fetch();
 
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION['user_id'] = $user['id'];
-        header('Location: index.php');
-        exit;
+    if (!$user) {
+        $error = 'Token jest nieprawidłowy lub wygasł.';
     } else {
-        $error = 'Nieprawidłowy adres email lub hasło.';
+        $validToken = true;
+    }
+}
+
+if ($validToken && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $pass1 = $_POST['password'] ?? '';
+    $pass2 = $_POST['password_confirm'] ?? '';
+
+    if ($pass1 !== $pass2) {
+        $error = 'Hasła nie pasują do siebie.';
+    } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $pass1)) {
+        $error = 'Hasło musi mieć min. 8 znaków, w tym małą i dużą literę oraz cyfrę.';
+    } else {
+        $hash = password_hash($pass1, PASSWORD_DEFAULT);
+        
+        $stmt = $pdo->prepare('UPDATE users SET password = ?, reset_token = NULL, reset_expires = NULL WHERE id = ?');
+        if ($stmt->execute([$hash, $user['id']])) {
+            $success = 'Twoje hasło zostało zmienione. Możesz się zalogować.';
+            $validToken = false; // By ukryc formularz
+        } else {
+            $error = 'Wystąpił błąd podczas zmiany hasła.';
+        }
     }
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Ustaw nowe hasło</title>
     <style>
         body{
             display:flex;
@@ -53,12 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         input{
-            margin:10px;
+            margin:10px 0;
             border-radius:0px;
             border:none;
             outline:none;
             padding:10px;
-            font-size:1.1rem;
+            font-size:1rem;
             width: 100%;
             box-sizing: border-box;
         }
@@ -90,25 +112,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             width: 100%;
         }
         .error { color: #800; font-weight: bold; margin-bottom: 10px; text-align: center; }
+        .success { color: #060; font-weight: bold; margin-bottom: 10px; text-align: center; background: #cfc; padding: 10px; border-radius: 5px; width:100%; box-sizing:border-box;}
         .links { margin-top: 15px; text-align: center; font-size: 0.9rem; }
         .links a { color: #fff; text-decoration: none; display: block; margin: 5px 0; }
         .links a:hover { text-decoration: underline; }
+        .info { font-size: 0.8rem; color: #333; margin: 5px 0; text-align: center; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Login</h1>
+        <h1>Nowe hasło</h1>
         <?php if ($error): ?>
             <div class="error"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
+        <?php if ($success): ?>
+            <div class="success"><?= htmlspecialchars($success) ?></div>
+        <?php endif; ?>
+        
+        <?php if ($validToken): ?>
         <form action="" method="POST">
-            <input type="email" name="email" placeholder="email" required>
-            <input type="password" name="password" placeholder="password" required>
-            <button type="submit">Login</button>
+            <div class="info">Min. 8 znaków, 1 mała i duża litera, 1 cyfra</div>
+            <input type="password" name="password" placeholder="Nowe hasło" required>
+            <input type="password" name="password_confirm" placeholder="Powtórz hasło" required>
+            <button type="submit">Zmień hasło</button>
         </form>
+        <?php endif; ?>
         <div class="links">
-            <a href="register.php">Nie masz konta? Zarejestruj się</a>
-            <a href="forgot.php">Zapomniałeś hasła?</a>
+            <a href="login.php">Wróć do logowania</a>
         </div>
     </div>
 </body>

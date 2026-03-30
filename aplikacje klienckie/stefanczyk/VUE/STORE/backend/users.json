@@ -14,5 +14,29 @@
   {
     "email": "test4@gmail.com",
     "password": "123"
+  },
+  {
+    "email": "111@gmail.com",
+    "password": "111"
+  },
+  {
+    "email": "222@gmail.com",
+    "password": "222"
+  },
+  {
+    "email": "333@gmail.com",
+    "password": "333"
+  },
+  {
+    "email": "444@gmail.com",
+    "password": "444"
+  },
+  {
+    "email": "222@gmail.co",
+    "password": "222"
+  },
+  {
+    "email": "test",
+    "password": "123"
   }
 ]

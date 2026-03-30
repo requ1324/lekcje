@@ -9,7 +9,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="loader-wrap">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
       <radialGradient
         id="a12"
@@ -65,7 +65,7 @@ export default {
 
 <style scoped>
 svg {
-  width: 100px;
-  height: 100px;
+  width: 72px;
+  height: 72px;
 }
 </style>

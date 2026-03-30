@@ -47,6 +47,7 @@
     <thead>
       <tr>
         <th>Product</th>
+        <th>Ilość w magazynie</th>
         <th>Ilość</th>
         <th>Cena</th>
         <th>Wartość</th>
@@ -57,7 +58,31 @@
       {% for item in items %}
       <tr>
         <td>{{ item.product.name }}</td>
-        <td>{{ item.quantity }}</td>
+        <td>{{ item.product.quantity or 0 }}</td>
+        <td>
+          {% if (item.product.quantity or 0) > 0 %}
+          <form
+            action="{{ url_for('shop.update_cart_quantity', product_id=item.product.id) }}"
+            method="post"
+            class="m-0"
+          >
+            <select
+              name="quantity"
+              class="form-select form-select-sm"
+              onchange="this.form.submit()"
+            >
+              {% for qty in range(1, (item.product.quantity or 0) + 1) %} {% if
+              qty is equalto(item.quantity) %}
+              <option value="{{ qty }}" selected>{{ qty }}</option>
+              {% else %}
+              <option value="{{ qty }}">{{ qty }}</option>
+              {% endif %} {% endfor %}
+            </select>
+          </form>
+          {% else %}
+          <span class="text-danger">Brak</span>
+          {% endif %}
+        </td>
         <td>{{ '%.2f' | format(item.product.price_pln or 0) }}</td>
         <td>
           {{ '%.2f' | format((item.product.price_pln or 0) * (item.quantity or

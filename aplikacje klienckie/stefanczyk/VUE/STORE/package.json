@@ -12,6 +12,7 @@
     "axios": "^1.13.5",
     "cors": "^2.8.6",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "vite-svg-loader": "^5.1.0",
     "vue": "^3.5.25",
     "vue-router": "^4.6.4",

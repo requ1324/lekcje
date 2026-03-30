@@ -1,10 +1,11 @@
 <template>
-  <article :style="contStyle" class="promotion-card" :class="badgeClass">
-    <div class="promotion-overlay"></div>
+  <article class="promotion-card" :class="badgeClass">
+    <div class="promotion-media" :style="mediaStyle"></div>
     <div class="promotion-content">
       <span class="promotion-badge">{{ badgeText }}</span>
       <h3>{{ this.promotion.header }}</h3>
       <p>{{ this.promotion.description }}</p>
+      <span class="promotion-cta">Zobacz promocję</span>
     </div>
   </article>
 </template>
@@ -14,18 +15,12 @@ export default {
   name: "PromotionTile",
   props: { promotion: { type: Object, required: true } },
   computed: {
-    contStyle() {
+    mediaStyle() {
       const { image, color } = this.promotion;
-      let imageUrl;
-
-      try {
-        imageUrl = `/src/assets/${image}`;
-      } catch (e) {
-        console.log(e);
-      }
+      const imageUrl = image ? `/src/assets/${image}` : "";
 
       return {
-        backgroundImage: `linear-gradient(135deg, ${color || "#ffffff"}CC, #535bf2), url(${imageUrl})`,
+        backgroundImage: `linear-gradient(135deg, ${color || "#e0e7ff"}44, rgba(99, 102, 241, 0.06)), url(${imageUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       };
@@ -47,83 +42,81 @@ export default {
 
 <style scoped>
 .promotion-card {
-  position: relative;
   overflow: hidden;
-  min-height: 150px;
-  border-radius: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.22);
+  min-height: 260px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1);
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  isolation: isolate;
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .promotion-card:hover {
-  transform: translateY(-8px) scale(1.01);
-  box-shadow: 0 28px 60px rgba(15, 23, 42, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 38px rgba(15, 23, 42, 0.14);
 }
 
-.promotion-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(15, 23, 42, 0.08),
-    rgba(15, 23, 42, 0.72)
-  );
-  z-index: -1;
+.promotion-media {
+  height: 140px;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .promotion-content {
-  color: #fff;
+  color: #0f172a;
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  max-width: 85%;
+  gap: 0.65rem;
+  padding: 1rem;
 }
 
 .promotion-content h3 {
-  margin: 0;
-  font-size: 0.95rem;
-  letter-spacing: 0.18em;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  opacity: 0.88;
+  color: #0f172a;
 }
 
 .promotion-content p {
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #64748b;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .promotion-badge {
   align-self: flex-start;
-  padding: 0.45rem 0.9rem;
+  padding: 0.34rem 0.72rem;
   border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  backdrop-filter: blur(8px);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
 }
 
 .is-winter .promotion-badge {
-  background: linear-gradient(135deg, #ffffff, #535bf2);
-  color: #1d4ed8;
+  background: #dbeafe;
+  color: #1e40af;
 }
 
 .is-hot .promotion-badge {
-  background: linear-gradient(135deg, #fff7ed, #fdba74);
+  background: #ffedd5;
   color: #c2410c;
 }
 
 .is-sale .promotion-badge {
-  background: linear-gradient(135deg, #ffffff, #535bf2);
-  color: #1d4ed8;
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.promotion-cta {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #4f46e5;
 }
 </style>

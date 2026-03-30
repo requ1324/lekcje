@@ -1,5 +1,7 @@
 <script>
 import { registerUser } from "../api/index.js";
+import AppLoader from "../components/AppLoader.vue";
+
 export default {
   data() {
     return {
@@ -13,31 +15,30 @@ export default {
   methods: {
     onSubmit(e) {
       e.preventDefault();
-
+      this.loading = true;
       if (this.password.length < 3) {
         this.error = "hasło musi mieć min 3 znaki";
       } else {
         this.error = "";
-
+        /* const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        if (!this.email.match(regex)) {
+          this.error = "Niepoprawny format emaila";
+          return;
+        } else {
+          this.error = "";
+        } */
         // do funkcji przekazujemy obiekt z danymi usera
 
         registerUser({ email: this.email, password: this.password })
           .then((data) => {
-            /* tu kluczowa sprawa, do zsynchronizowania z odpowiedzią serwera:
- na jej podstawie decydujemy czy formularz ma pozostać czy zniknąć
- bo user istnieje już lub nie
- this.exists = true;
- this.registered = true;
-          
- */ console.log(data);
+            console.log(data);
             if (data.status == "registered") {
               console.log("Zarejestrowano");
+              this.error = "Użytkownik zarejestrowany!";
             }
           })
           .catch((err) => {
             console.error("Błąd zapytania:", err);
-            // Jeżeli korzystasz z Axios, dane serwera znajdują się w err.response.data
-            // w wypadku błędu zakładamy, że user się nie zarejestrował
             this.registered = false;
             this.exists = false;
             this.error =
@@ -46,27 +47,38 @@ export default {
                 : "user nie zarejestrowany";
           })
           .finally(() => {
-            // w obu wypadkach zatrzymujemy loader
             this.loading = false;
           });
       }
     },
-    computed: {},
-    mounted() {},
-    components: {},
+  },
+  computed: {},
+  mounted() {},
+  components: {
+    AppLoader,
   },
 };
 </script>
 
 <template>
-  <div class="register-view">
-    <form @submit="onSubmit">
-      <div v-show="error" class="error">{{ error }}</div>
-      <div class="box">
-        <label for="email">Email:</label>
-        <input v-model="email" type="email" id="email" name="email" />
+  <section class="auth-page">
+    <AppLoader v-show="loading" />
+    <form v-show="!loading" class="card auth-card" @submit="onSubmit">
+      <h1 class="auth-title">Utwórz konto</h1>
+      <div
+        v-show="error"
+        class="error"
+        :class="{ 'status-success': error === 'Użytkownik zarejestrowany!' }"
+      >
+        {{ error }}
       </div>
-      <div class="box">
+
+      <div class="field">
+        <label for="email">Email:</label>
+        <input v-model="email" type="text" id="email" name="email" />
+      </div>
+
+      <div class="field">
         <label for="password">Password:</label>
         <input
           v-model="password"
@@ -75,73 +87,15 @@ export default {
           name="password"
         />
       </div>
-      <div class="box">
+
+      <div class="field">
         <label for="confirmPass">Confirm Password: </label>
         <input type="password" id="confirmPass" name="confirmPass" />
       </div>
 
-      <button class="register-btn" type="submit">Register</button>
+      <button class="btn" type="submit">Register</button>
     </form>
-  </div>
+  </section>
 </template>
 
-<style scoped>
-.register-view {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vh;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #535bf2;
-  padding: 2rem;
-  border-radius: 10px;
-  gap: 1rem;
-  box-shadow: 0 0 10px 2px #535bf2;
-}
-
-.box {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-}
-
-input {
-  background: white;
-  outline: none;
-  border: none;
-  border-radius: 5px;
-  color: black;
-  padding: 0.5rem;
-  width: 200px;
-}
-
-label {
-  font-weight: 700;
-}
-
-.register-btn {
-  background: #ffffff;
-  color: black;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 700;
-  border: 2px solid transparent;
-  transition: 0.3s;
-}
-
-.register-btn:hover {
-  background: #535bf2;
-  color: white;
-  border: 2px solid #ffffff;
-  transition: 0.3s;
-}
-</style>
+<style scoped></style>

@@ -50,6 +50,31 @@ def remove_from_cart(product_id):
         db.session.commit()
     return redirect(url_for('shop.cart'))
 
+
+# aktualizacja ilości w koszyku
+@shop_bp.route('/update-cart/<int:product_id>', methods=['POST'])
+@login_required
+def update_cart_quantity(product_id):
+    item = CartItems.query.filter_by(user_id=current_user.id, product_id=product_id).first()
+    if not item:
+        return redirect(url_for('shop.cart'))
+
+    max_quantity = item.product.quantity or 0
+    if max_quantity <= 0:
+        db.session.delete(item)
+        db.session.commit()
+        return redirect(url_for('shop.cart'))
+
+    try:
+        quantity = int(request.form.get('quantity', item.quantity))
+    except (TypeError, ValueError):
+        quantity = item.quantity
+
+    item.quantity = max(1, min(quantity, max_quantity))
+    db.session.commit()
+
+    return redirect(url_for('shop.cart'))
+
 # złóż zamówienie
 @shop_bp.route('/checkout')
 @login_required

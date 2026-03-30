@@ -1,35 +1,16 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+require_once 'db.php';
 
-require 'vendor/autoload.php';
-$mail = new PHPMailer(true);
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+$user_id = (int)$_SESSION['user_id'];
 
-try {
-    //Server settings
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'siwieckimiki@gmail.com';                     //SMTP username
-    $mail->Password   = '';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;           //Enable implicit TLS encryption
-    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-    //Recipients
-    $mail->setFrom('siwieckimiki@gmail.com', 'Mailer');
-    $mail->addAddress('siwieckimiki@gmail.com');     //Add a recipient
-
-    //Content
-    $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Here is the subject';
-    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-
-    $mail->send();
-    echo 'Message has been sent';
-} catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    session_destroy();
+    header('Location: login.php');
+    exit;
 }
 
 ini_set('display_errors', 1);
@@ -47,31 +28,6 @@ setlocale(LC_ALL, $lang);
 bindtextdomain('sport', './locale');
 bind_textdomain_codeset('sport', 'UTF-8');
 textdomain('sport');
-
-
-$dsn  = 'mysql:host=localhost;dbname=planer;charset=utf8';
-$user = 'root';
-$pass = '';
-
-try {
-		$pdo = new PDO($dsn, $user, $pass, [
-				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-				PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-		]);
-} catch (PDOException $e) {
-		die('Błąd połączenia: ' . $e->getMessage());
-}
-	
-$pdo->exec(
-		'CREATE TABLE IF NOT EXISTS tasks3 (
-				id INT AUTO_INCREMENT PRIMARY KEY,
-				title VARCHAR(255) NOT NULL,
-				description TEXT NULL,
-				deadline DATETIME NULL,
-				is_done TINYINT(1) NOT NULL DEFAULT 0,
-				created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-		) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4'
-);
 
 function dt_to_sql(string $date, string $time): string
 {
@@ -117,8 +73,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 				$deadline = dt_to_sql($date, $time);
 		}
 
-		$stmt = $pdo->prepare('INSERT INTO tasks3(title, description, deadline) VALUES(?,?,?)');
-		$stmt->execute([$title, $desc, $deadline]);
+		$stmt = $pdo->prepare('INSERT INTO tasks3(user_id, title, description, deadline) VALUES(?,?,?,?)');
+		$stmt->execute([$user_id, $title, $desc, $deadline]);
 
 		if ($date) {
 			$ry = (int)substr($date,0,4);
@@ -132,21 +88,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 if (($_GET['action'] ?? '') === 'complete' && isset($_GET['id'])) {
 		$id = (int) $_GET['id'];
-		$stmt = $pdo->prepare('UPDATE tasks3 SET is_done = 1 WHERE id = ?');
-		$stmt->execute([$id]);
+		$stmt = $pdo->prepare('UPDATE tasks3 SET is_done = 1 WHERE id = ? AND user_id = ?');
+		$stmt->execute([$id, $user_id]);
 		header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
 		exit;
 }
 
 if (($_GET['action'] ?? '') === 'delete' && isset($_GET['id'])) {
 		$id = (int) $_GET['id'];
-		$stmt = $pdo->prepare('DELETE FROM tasks3 WHERE id = ?');
-		$stmt->execute([$id]);
+		$stmt = $pdo->prepare('DELETE FROM tasks3 WHERE id = ? AND user_id = ?');
+		$stmt->execute([$id, $user_id]);
 		header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
 		exit;
 }
 
-$tasks = $pdo->query('SELECT * FROM tasks3 ORDER BY COALESCE(deadline, "9999-12-31 23:59:59"), id DESC')->fetchAll();
+$stmt = $pdo->prepare('SELECT * FROM tasks3 WHERE user_id = ? ORDER BY COALESCE(deadline, "9999-12-31 23:59:59"), id DESC');
+$stmt->execute([$user_id]);
+$tasks = $stmt->fetchAll();
 
 
 $pdo->exec('SET NAMES utf8mb4');
@@ -179,8 +137,8 @@ $selectedDateSql = sprintf('%04d-%02d-%02d', $y, $m, min(max($d,1), $daysInMonth
 $showForm = isset($_GET['d']);
 
 
-$q = $pdo->prepare('SELECT id,title,description,deadline,is_done FROM tasks3 WHERE DATE(deadline)=? ORDER BY deadline');
-$q->execute([$selectedDateSql]);
+$q = $pdo->prepare('SELECT id,title,description,deadline,is_done FROM tasks3 WHERE DATE(deadline)=? AND user_id=? ORDER BY deadline');
+$q->execute([$selectedDateSql, $user_id]);
 $plans = $q->fetchAll();
 ?>
 <!doctype html>
@@ -216,6 +174,7 @@ $plans = $q->fetchAll();
 <body>
 	<div style="text-align:right; margin-bottom:10px;">
 		<a href="?lang=pl_PL"><?=_('polski')?></a> | <a href="?lang=en_GB"><?=_('angielski')?></a> | <a href="?lang=de_DE"><?=_('niemiecki')?></a> | <a href="?lang=es_ES"><?=_('hiszpański')?></a>
+		&nbsp;|&nbsp; <strong><a href="?action=logout" style="color:#c00; text-decoration:none;">Wyloguj się</a></strong>
 	</div>
 
 	<?php if (!$showForm): ?>

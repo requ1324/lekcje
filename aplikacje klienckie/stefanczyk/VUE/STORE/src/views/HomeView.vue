@@ -31,6 +31,13 @@ export default {
 
 <template>
   <section class="home-view">
+    <div class="page-hero">
+      <h1 class="page-title">Najnowsze promocje</h1>
+      <p class="page-subtitle">
+        Sprawdź aktualne okazje i wybierz coś dla siebie.
+      </p>
+    </div>
+
     <div class="sale-container">
       <RouterLink
         v-for="promotion in promotionsList"
@@ -41,6 +48,14 @@ export default {
         <PromotionTile v-bind:promotion="promotion" />
       </RouterLink>
     </div>
+
+    <div
+      v-if="!promotionsLoading && !promotionsList.length"
+      class="card empty-state"
+    >
+      Brak aktywnych promocji.
+    </div>
+
     <AppLoader v-show="promotionsLoading" />
   </section>
 </template>
