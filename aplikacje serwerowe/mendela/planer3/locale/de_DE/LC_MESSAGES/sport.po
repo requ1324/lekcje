@@ -18,26 +18,20 @@ msgstr "Spanisch"
 msgid "Dodaj plan"
 msgstr "Plan hinzufügen"
 
-msgid "Tytuł"
-msgstr "Titel"
-
-msgid "Opis"
-msgstr "Beschreibung"
-
-msgid "Godzina"
-msgstr "Uhrzeit"
+msgid "Treść zadania"
+msgstr "Aufgabeninhalt"
 
 msgid "Dodaj"
 msgstr "Hinzufügen"
 
-msgid "Anuluj i wróć do kalendarza"
-msgstr "Abbrechen und zum Kalender zurückkehren"
+msgid "Pokaż"
+msgstr "Anzeigen"
 
 msgid "Plany na dzień"
 msgstr "Pläne für den Tag"
 
-msgid "Nie masz planów na dziś"
-msgstr "Sie haben heute keine Pläne"
-
 msgid "Brak planów na ten dzień"
 msgstr "Keine Pläne für diesen Tag"
+
+msgid "Usuń"
+msgstr "Löschen"

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/" method="GET">
+      <input type="number" name="liczba" value="5" />
+      <button type="submit">Wyślij przez URL</button>
+    </form>
+
+    <script>
+      /*  document.querySelector("form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const n1 = parseInt(document.querySelector('input[name="n1"]').value);
+        const n2 = parseInt(document.querySelector('input[name="n2"]').value);
+
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify([n1, n2]),
+        })
+          .then((res) => res.text())
+          .then((txt) => alert(txt));
+      }); */
+    </script>
+  </body>
+</html>

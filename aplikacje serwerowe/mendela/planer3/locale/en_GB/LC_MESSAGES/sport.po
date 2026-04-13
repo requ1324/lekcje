@@ -18,26 +18,20 @@ msgstr "Spanish"
 msgid "Dodaj plan"
 msgstr "Add plan"
 
-msgid "Tytuł"
-msgstr "Title"
-
-msgid "Opis"
-msgstr "Description"
-
-msgid "Godzina"
-msgstr "Time"
+msgid "Treść zadania"
+msgstr "Task content"
 
 msgid "Dodaj"
 msgstr "Add"
 
-msgid "Anuluj i wróć do kalendarza"
-msgstr "Cancel and return to calendar"
+msgid "Pokaż"
+msgstr "Show"
 
 msgid "Plany na dzień"
 msgstr "Plans for day"
 
-msgid "Nie masz planów na dziś"
-msgstr "You have no plans for today"
-
 msgid "Brak planów na ten dzień"
 msgstr "No plans for this day"
+
+msgid "Usuń"
+msgstr "Delete"

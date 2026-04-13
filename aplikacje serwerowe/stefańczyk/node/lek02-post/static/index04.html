@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="send-form">
+      <input
+        id="input"
+        name="message"
+        type="text"
+        value="To są dane z przeglądarki!"
+      />
+      <button type="submit">Wyślij</button>
+    </form>
+
+    <script>
+      const form = document.getElementById("send-form");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = document.getElementById("input").value;
+
+        fetch("/", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.text())
+          .then((txt) => alert(txt));
+      });
+    </script>
+  </body>
+</html>

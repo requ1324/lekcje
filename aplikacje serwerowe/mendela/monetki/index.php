@@ -23,7 +23,7 @@ try {
         header("Location: index.php?deleted=1");
         exit;
     }
-
+    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $flagaId = (int)($_POST['flaga_id'] ?? 0);
         $nrKat = trim($_POST['nr_kat'] ?? '');
