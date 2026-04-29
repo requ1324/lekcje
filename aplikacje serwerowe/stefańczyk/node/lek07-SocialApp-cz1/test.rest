@@ -14,7 +14,7 @@ Content-Type: text/plain
 user_album
 ------FormBoundary1234
 
-### GET - pobierz wszystkie dane
+### GET - pobierz wszystkie dane    
 GET http://localhost:3000/api/photos HTTP/1.1
 
 ### GET - pobierz jeden element wg id
@@ -22,3 +22,14 @@ GET http://localhost:3000/api/photos/1776857688374 HTTP/1.1
 
 ### DELETE - usuń wg id
 DELETE http://localhost:3000/api/photos/1776857688374 HTTP/1.1
+
+### PATCH - updatuj wg id
+PATCH http://localhost:3000/api/photos HTTP/1.1
+content-type: application/json
+
+{
+ "id": 1776857475416,
+ "status": "zmienione",
+ "filename": "input3.jpg",
+ "fields": {}
+}

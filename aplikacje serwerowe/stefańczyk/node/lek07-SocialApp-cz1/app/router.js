@@ -29,8 +29,13 @@ const router = async (request, response) => {
       const originalName =
         uploadedFile.originalFilename || uploadedFile.newFilename;
       const uploadDir = path.join(process.cwd(), "uploads");
-      fs.mkdirSync(uploadDir, { recursive: true });
-      const newPath = path.join(uploadDir, originalName);
+      const albumName =
+        fields && fields.album ? path.basename(String(fields.album)) : "album";
+      const albumDir = path.join(uploadDir, albumName);
+      fs.mkdirSync(albumDir, { recursive: true });
+
+      const uniqueName = `${Date.now()}-${originalName}`;
+      const newPath = path.join(albumDir, uniqueName);
 
       fs.copyFile(oldPath, newPath, function (copyError) {
         if (copyError) {
@@ -48,9 +53,11 @@ const router = async (request, response) => {
         });
         const data = JSON.stringify({
           id: Date.now(),
+          album: albumName,
           status: "ok",
           filename: path.basename(newPath),
-          url: `/uploads/${path.basename(newPath)}`,
+          url: `/uploads/${albumName}/${path.basename(newPath)}`,
+          lastChange: "original",
         });
         fileController.add(data);
         response.end(data);
