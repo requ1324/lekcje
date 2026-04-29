@@ -1,6 +1,6 @@
 <script>
 import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
+
 import HomeView from "./views/HomeView.vue";
 
 export default {
@@ -14,7 +14,6 @@ export default {
   components: {
     HomeView,
     Header,
-    Footer,
   },
 };
 </script>
@@ -24,7 +23,6 @@ export default {
     <Header />
     <main class="app-main">
       <RouterView />
-      <Footer />
     </main>
   </div>
 </template>

@@ -1,0 +1,1 @@
+export let photos = [{"id":1776857475416,"status":"ok","filename":"input2.jpg","fields":{}}]

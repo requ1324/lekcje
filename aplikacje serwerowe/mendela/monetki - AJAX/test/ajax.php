@@ -18,8 +18,8 @@ if(isset($_POST['acc']) && $_POST['acc']=='add'){
     $result = $mysqli->query($sql);
     $all = $result->fetch_all();
     echo json_encode($all);
-}
 
+}
 // select count(*) from users where login='".$_POST['user']"' and passwd='".$_POST['passwd']."'
 // select count(*) from users where login='    ' or 1=1 --     ' and passwd='".$_POST['passwd']."'
 // binduj!!!

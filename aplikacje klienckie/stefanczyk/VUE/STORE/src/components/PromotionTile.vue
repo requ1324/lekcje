@@ -1,6 +1,6 @@
 <template>
   <article class="promotion-card" :class="badgeClass">
-    <div class="promotion-media" :style="mediaStyle"></div>
+    <div class="promotion-media" :style="style"></div>
     <div class="promotion-content">
       <span class="promotion-badge">{{ badgeText }}</span>
       <h3>{{ this.promotion.header }}</h3>
@@ -15,7 +15,7 @@ export default {
   name: "PromotionTile",
   props: { promotion: { type: Object, required: true } },
   computed: {
-    mediaStyle() {
+    style() {
       const { image, color } = this.promotion;
       const imageUrl = image ? `/src/assets/${image}` : "";
 
@@ -44,6 +44,7 @@ export default {
 .promotion-card {
   overflow: hidden;
   min-height: 260px;
+  height: 320px;
   border-radius: 16px;
   border: 1px solid #e2e8f0;
   background: #ffffff;
@@ -84,7 +85,7 @@ export default {
   line-height: 1.5;
   color: #64748b;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

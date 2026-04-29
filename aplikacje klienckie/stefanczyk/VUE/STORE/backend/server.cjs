@@ -24,7 +24,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24, // 24 godziny
+      maxAge: 1000 * 60 * 60 * 24,
       secure: false,
       httpOnly: true,
       sameSite: "lax",
@@ -55,6 +55,38 @@ app.get("/product/:id", (req, res) => {
     res.json(product);
   } else {
     res.status(404).json({ message: "Product not found" });
+  }
+});
+
+app.get("/products", (req, res) => {
+  console.log(req.query);
+  if (
+    req.query.name ||
+    req.query.category ||
+    req.query._sort ||
+    req.query._order
+  ) {
+    const name = req.query.name ? req.query.name.toLowerCase() : null;
+    const category = req.query.category ? req.query.category : null;
+    const sort = req.query._sort ? req.query._sort : null;
+    const order = req.query._order ? req.query._order : null;
+    let filteredProducts = data.products;
+
+    if (name) {
+      filteredProducts = filteredProducts.filter((p) =>
+        p.name.toLowerCase().includes(name),
+      );
+    }
+
+    if (category) {
+      filteredProducts = filteredProducts.filter(
+        (p) => p.category === category,
+      );
+    }
+
+    res.json(filteredProducts);
+  } else {
+    res.json(data.products);
   }
 });
 
@@ -92,6 +124,7 @@ app.post("/loginUser", async (req, res) => {
   );
   if (user) {
     req.session.username = user.email.split("@")[0];
+    console.log(req.session.username);
     res.json({ status: "logged in", email: user.email });
   } else {
     res.status(401).json({ status: "invalid credentials" });
@@ -110,6 +143,13 @@ app.get("/getCurrentUser", async (req, res) => {
     res.status(401).json({ status: "not authenticated" });
   }
 });
+
+app.get("/categories", (req, res) => {
+  const categories = data.categories;
+  console.log(categories);
+  res.json(categories);
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

@@ -1,4 +1,5 @@
 {
+  "categories": ["PHONE", "TABLET", "LAPTOP", "DESKTOP"],
   "promotions": [
     {
       "id": "1",
@@ -45,10 +46,7 @@
         "size": "1311.78 x 606.19 x 6.25",
         "weight": "4408.6 g",
         "battery": "3798 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -74,10 +72,7 @@
         "size": "1358.19 x 901.35 x 37.14",
         "weight": "2448.7 g",
         "battery": "5223 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -103,10 +98,7 @@
         "size": "1534 x 889.84 x 7.98",
         "weight": "1618.7 g",
         "battery": "6250 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -148,10 +140,7 @@
         "size": "1406.7 x 776.72 x 10.71",
         "weight": "1982.4 g",
         "battery": "4344 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -193,10 +182,7 @@
         "size": "1359.39 x 546.45 x 27.94",
         "weight": "2940.7 g",
         "battery": "3078 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -243,10 +229,7 @@
         "size": "1596.57 x 666.44 x 30.72",
         "weight": "1583.3 g",
         "battery": "4667 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -293,10 +276,7 @@
         "size": "1698.18 x 573.78 x 34.99",
         "weight": "2678.7 g",
         "battery": "2750 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -333,10 +313,7 @@
         "size": "1458.09 x 978.01 x 22.68",
         "weight": "1396.6 g",
         "battery": "2747 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -368,10 +345,7 @@
         "size": "1754.76 x 655.96 x 33.6",
         "weight": "3881.2 g",
         "battery": "3465 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -418,10 +392,7 @@
         "size": "1338.6 x 709.86 x 32.9",
         "weight": "1966.8 g",
         "battery": "5211 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -458,10 +429,7 @@
         "size": "1602.28 x 562.68 x 10.24",
         "weight": "1304.7 g",
         "battery": "4295 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -513,10 +481,7 @@
         "size": "1596.99 x 634.44 x 26.43",
         "weight": "3042.2 g",
         "battery": "6000 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -568,10 +533,7 @@
         "size": "1732.52 x 534.11 x 22.52",
         "weight": "1348.3 g",
         "battery": "3986 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -612,10 +574,7 @@
         "size": "1515.36 x 610.24 x 11.3",
         "weight": "2952.5 g",
         "battery": "3312 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -640,10 +599,7 @@
         "size": "1381.51 x 873.69 x 13.93",
         "weight": "4328.1 g",
         "battery": "5173 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -674,10 +630,7 @@
         "size": "1384.48 x 789.52 x 41.71",
         "weight": "2257.9 g",
         "battery": "5214 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -702,10 +655,7 @@
         "size": "1592.85 x 542.34 x 37.39",
         "weight": "2602.4 g",
         "battery": "3684 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -741,10 +691,7 @@
         "size": "1691.46 x 818.1 x 19.18",
         "weight": "2902.3 g",
         "battery": "5226 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -775,10 +722,7 @@
         "size": "1360.59 x 634.79 x 20.51",
         "weight": "3611.6 g",
         "battery": "5245 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -824,10 +768,7 @@
         "size": "1510.94 x 771.58 x 3.86",
         "weight": "3285 g",
         "battery": "2751 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -873,10 +814,7 @@
         "size": "1847.79 x 699.86 x 36.38",
         "weight": "3353.5 g",
         "battery": "5182 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -907,10 +845,7 @@
         "size": "1562.46 x 665.61 x 40.34",
         "weight": "2232.2 g",
         "battery": "6280 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -941,10 +876,7 @@
         "size": "1639.64 x 542.83 x 4.51",
         "weight": "3581.9 g",
         "battery": "4419 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -995,10 +927,7 @@
         "size": "1511 x 817.36 x 10.39",
         "weight": "3545.9 g",
         "battery": "5968 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1023,10 +952,7 @@
         "size": "1379.25 x 530.9 x 5.25",
         "weight": "3466.5 g",
         "battery": "4484 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1057,10 +983,7 @@
         "size": "1625.28 x 673.68 x 11.24",
         "weight": "4429.8 g",
         "battery": "6034 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1085,10 +1008,7 @@
         "size": "1845.54 x 731.56 x 11.74",
         "weight": "1359.6 g",
         "battery": "4515 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1124,10 +1044,7 @@
         "size": "1699.93 x 936.61 x 5.03",
         "weight": "4499.6 g",
         "battery": "3495 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1173,10 +1090,7 @@
         "size": "1506.56 x 993.28 x 9.33",
         "weight": "2612.8 g",
         "battery": "3349 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1201,10 +1115,7 @@
         "size": "1734.34 x 535.62 x 33.89",
         "weight": "2459.6 g",
         "battery": "5994 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1240,10 +1151,7 @@
         "size": "1457.29 x 905.01 x 16.52",
         "weight": "1761.5 g",
         "battery": "5556 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1289,10 +1197,7 @@
         "size": "1606.65 x 895.77 x 32.99",
         "weight": "3562.3 g",
         "battery": "4443 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1338,10 +1243,7 @@
         "size": "1625.79 x 769.92 x 36.31",
         "weight": "3345.5 g",
         "battery": "3781 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1387,10 +1289,7 @@
         "size": "1455.08 x 541.15 x 12.43",
         "weight": "3896.6 g",
         "battery": "6095 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1415,10 +1314,7 @@
         "size": "1345.7 x 595.14 x 30.88",
         "weight": "3750.2 g",
         "battery": "6174 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1449,10 +1345,7 @@
         "size": "1756.65 x 590.49 x 4.32",
         "weight": "4396.5 g",
         "battery": "5371 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1498,10 +1391,7 @@
         "size": "1635.58 x 939.06 x 35.74",
         "weight": "1706.8 g",
         "battery": "4755 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1532,10 +1422,7 @@
         "size": "1559.32 x 875.32 x 6.21",
         "weight": "4482.1 g",
         "battery": "3616 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1560,10 +1447,7 @@
         "size": "1661.3 x 637.92 x 22.69",
         "weight": "3009.5 g",
         "battery": "5920 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1588,10 +1472,7 @@
         "size": "1586.14 x 642.46 x 4.4",
         "weight": "4336.5 g",
         "battery": "4696 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1642,10 +1523,7 @@
         "size": "1678.45 x 823.68 x 23.58",
         "weight": "4240.8 g",
         "battery": "2676 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1691,10 +1569,7 @@
         "size": "1626.32 x 752.16 x 37.23",
         "weight": "3610.3 g",
         "battery": "4806 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1740,10 +1615,7 @@
         "size": "1773.02 x 672.26 x 15.48",
         "weight": "3941.1 g",
         "battery": "3161 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1774,10 +1646,7 @@
         "size": "1720.53 x 732.84 x 12.47",
         "weight": "3763.8 g",
         "battery": "3349 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1808,10 +1677,7 @@
         "size": "1540.37 x 896.05 x 36.48",
         "weight": "2049.8 g",
         "battery": "3763 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1842,10 +1708,7 @@
         "size": "1541.63 x 501.99 x 33.36",
         "weight": "2431.9 g",
         "battery": "2896 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1876,10 +1739,7 @@
         "size": "1840.07 x 876.38 x 18.82",
         "weight": "2011.6 g",
         "battery": "6094 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1920,10 +1780,7 @@
         "size": "1830.94 x 977.54 x 11.14",
         "weight": "2987.8 g",
         "battery": "3608 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {
@@ -1954,10 +1811,7 @@
         "size": "1307.94 x 504 x 5.68",
         "weight": "2029.8 g",
         "battery": "3407 mAh",
-        "colors": [
-          "white",
-          "black"
-        ]
+        "colors": ["white", "black"]
       },
       "features": [
         {

@@ -66,7 +66,7 @@ const user = {
             // jeśli serwer mówi że zalogowany to wstawiam go do store
             // Backend w /getCurrentUser zwraca { username: ... } a nie { email: ... }
             if (userObject.username) {
-              commit("SET_CURRENT_USER", { email: userObject.username + "@" });
+              commit("SET_CURRENT_USER", { email: userObject.username });
             }
           })
           .catch((err) => {

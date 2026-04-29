@@ -38,5 +38,29 @@
   {
     "email": "test",
     "password": "123"
+  },
+  {
+    "email": "test123@gmail.com",
+    "password": "test123"
+  },
+  {
+    "email": "test123",
+    "password": "test123"
+  },
+  {
+    "email": "test12@gmail.com",
+    "password": "123"
+  },
+  {
+    "email": "test123123@gmail.co",
+    "password": "123"
+  },
+  {
+    "email": "aaa@gmail.com",
+    "password": "aaa"
+  },
+  {
+    "email": "ssss@gmail.com",
+    "password": "123"
   }
 ]

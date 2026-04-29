@@ -15,18 +15,18 @@ export default {
   methods: {
     onSubmit(e) {
       e.preventDefault();
+      const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
       this.loading = true;
       if (this.password.length < 3) {
         this.error = "hasło musi mieć min 3 znaki";
+        this.loading = false;
+      } else if (!this.email.match(regex)) {
+        this.error = "Niepoprawny format emaila";
+        this.loading = false;
+        return;
       } else {
         this.error = "";
-        /* const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-        if (!this.email.match(regex)) {
-          this.error = "Niepoprawny format emaila";
-          return;
-        } else {
-          this.error = "";
-        } */
+
         // do funkcji przekazujemy obiekt z danymi usera
 
         registerUser({ email: this.email, password: this.password })

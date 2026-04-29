@@ -19,11 +19,11 @@ export default {
         fy=".3125"
         gradientTransform="scale(1.5)"
       >
-        <stop offset="0" stop-color="#FF156D"></stop>
-        <stop offset=".3" stop-color="#FF156D" stop-opacity=".9"></stop>
-        <stop offset=".6" stop-color="#FF156D" stop-opacity=".6"></stop>
-        <stop offset=".8" stop-color="#FF156D" stop-opacity=".3"></stop>
-        <stop offset="1" stop-color="#FF156D" stop-opacity="0"></stop>
+        <stop offset="0" stop-color="#4338CA"></stop>
+        <stop offset=".3" stop-color="#4338CA" stop-opacity=".9"></stop>
+        <stop offset=".6" stop-color="#4338CA" stop-opacity=".6"></stop>
+        <stop offset=".8" stop-color="#4338CA" stop-opacity=".3"></stop>
+        <stop offset="1" stop-color="#4338CA" stop-opacity="0"></stop>
       </radialGradient>
       <circle
         transform-origin="center"
@@ -52,7 +52,7 @@ export default {
         transform-origin="center"
         fill="none"
         opacity=".2"
-        stroke="#FF156D"
+        stroke="#4338CA"
         stroke-width="15"
         stroke-linecap="round"
         cx="100"
@@ -65,7 +65,7 @@ export default {
 
 <style scoped>
 svg {
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
 }
 </style>

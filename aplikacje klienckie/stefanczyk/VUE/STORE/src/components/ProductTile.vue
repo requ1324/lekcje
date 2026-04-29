@@ -1,24 +1,63 @@
 <template>
   <article class="card product-tile">
-    <img class="product-image" :src="'/' + product.image" :alt="product.name" />
+    <div>
+      <img
+        v-if="imageLoaded"
+        class="product-image"
+        :src="productImageUrl"
+        :alt="product.name"
+      />
+      <AppLoader v-if="loading" />
+    </div>
     <div class="product-body">
       <h3 class="product-name">{{ product.name }}</h3>
-      <p class="product-price">{{ product.price }}</p>
+      <Rating :rate="product.rate" :ratesNumber="product.ratesNumber" />
+      <p class="product-price">{{ product.price }}$</p>
     </div>
   </article>
 </template>
 
 <script>
+import AppLoader from "./AppLoader.vue";
+import Rating from "./Rating.vue";
 export default {
+  data() {
+    return {
+      loading: true,
+      imageLoaded: false,
+    };
+  },
   name: "ProductTile",
   props: { product: { type: Object, required: true } },
-  computed: {},
+  methods: {
+    getRandomTime() {
+      return Math.floor(Math.random() * 1000) + 500;
+    },
+  },
+  computed: {
+    productImageUrl() {
+      return new URL(`../assets/${this.product.image}`, import.meta.url).href;
+    },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.loading = false;
+      this.imageLoaded = true;
+    }, this.getRandomTime());
+  },
+  components: {
+    AppLoader,
+    Rating,
+  },
 };
 </script>
 
 <style scoped>
 .product-tile {
+  margin: 10px;
   overflow: hidden;
+  width: 250px;
+  height: 240px;
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
@@ -30,8 +69,8 @@ export default {
 }
 
 .product-image {
-  width: 100%;
-  height: 180px;
+  width: 250px;
+  height: 140px;
   object-fit: cover;
   display: block;
   border-bottom: 1px solid #e2e8f0;
@@ -51,5 +90,6 @@ export default {
   font-size: 1.02rem;
   font-weight: 700;
   color: #4338ca;
+  margin-bottom: 10px;
 }
 </style>

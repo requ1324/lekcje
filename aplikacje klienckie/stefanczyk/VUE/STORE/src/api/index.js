@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const get = (url) =>
+const get = (url, config = {}) =>
   new Promise((resolve, reject) => {
     setTimeout(
       () => {
         axios
-          .get(url, { withCredentials: true })
+          .get(url, { withCredentials: true, ...config })
           .then((response) => {
             console.log("data", response.data);
             resolve(response.data);
@@ -42,12 +42,17 @@ const loginUser = (userObject) =>
   post(`http://localhost:3000/loginUser`, userObject);
 const logoutUser = () => post(`http://localhost:3000/logoutUser`);
 const getCurrentUser = () => get(`http://localhost:3000/getCurrentUser`);
+const getProducts = (options = {}) =>
+  get(`http://localhost:3000/products`, { params: options });
+const getCategories = () => get(`http://localhost:3000/categories`);
 export {
   getPromotions,
   getPromotion,
   getProduct,
+  getProducts,
   registerUser,
   loginUser,
   logoutUser,
   getCurrentUser,
+  getCategories,
 };

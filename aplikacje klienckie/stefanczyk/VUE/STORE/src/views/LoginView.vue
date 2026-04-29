@@ -16,6 +16,8 @@ export default {
   methods: {
     onSubmit(e) {
       e.preventDefault();
+      this.loading = true;
+      this.error = "";
 
       /* po przejściu walidacji (zachowany format emaila - regex)
       uruchamiamy funkcję ze store User
@@ -28,7 +30,7 @@ export default {
       this.$store
         .dispatch("LOGIN_USER", { email: this.email, password: this.password })
         .then(() => {
-          if (email) this.logged = true;
+          if (this.email) this.logged = true;
           else this.logged = false;
 
           this.$router.push("/");
@@ -36,6 +38,9 @@ export default {
         .catch(() => {
           this.error = "niepoprawne dane logowania";
           this.logged = false;
+        })
+        .finally(() => {
+          this.loading = false;
         });
     },
   },

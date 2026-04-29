@@ -4,7 +4,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("LOGOUT_USER").then(() => {
-        this.$router.push("/login"); // redirect
+        this.$router.push("/login");
       });
     },
   },
@@ -27,6 +27,7 @@ export default {
 
       <nav class="nav-list">
         <RouterLink class="nav-link" to="/">Home</RouterLink>
+        <RouterLink class="nav-link" to="/search">Search</RouterLink>
         <RouterLink class="nav-link" to="/about">About</RouterLink>
         <RouterLink class="nav-link" to="/nnn">Not found</RouterLink>
       </nav>
