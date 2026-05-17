@@ -1,0 +1,15 @@
+HTTP/1.1 302 Found
+date: Sun, 03 May 2026 18:41:19 GMT
+x-frame-options: deny
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+cache-control: no-store, no-cache, must-revalidate
+pragma: no-cache
+set-cookie: SDZIENNIKSID=981a1036f8b37201b2ee029441b7a005; path=/; secure; HttpOnly; SameSite=Lax
+set-cookie: DZIENNIKSID=A01~43b3ab6cc3ce3b0f3d461546c51540c5; path=/; secure; HttpOnly; SameSite=None
+set-cookie: SDZIENNIKSID=43b3ab6cc3ce3b0f3d461546c51540c5; path=/; secure; HttpOnly; SameSite=Lax
+set-cookie: personalizedLoginPage=deleted; expires=Thu, 01 Jan 1970 00:00:01 GMT; Max-Age=0; path=/
+location: https://portal.librus.pl
+x-apache: dziennik01
+content-length: 0
+content-type: text/html; charset=UTF-8
+

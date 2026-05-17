@@ -1,0 +1,6 @@
+< ./input.jpg
+
+Content-Disposition: form-data; name="album"
+Content-Type: text/plain
+
+album22

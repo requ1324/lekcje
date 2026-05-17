@@ -1,54 +1,54 @@
 <?php
 include("passwd.php");
-$cookie_file_path = "";
+
+$cookie_file_path = __DIR__ . "/cookie.txt";
+
+
+
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_file_path);
 curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie_file_path);
-curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-$res = sendGET("https://synergia.librus.pl/loguj");
-// Librus sprawdza po stronie portalu skąd przychodzimy
-curl_setopt($ch, CURLOPT_REFERER, "https://synergia.librus.pl/loguj");
+curl_setopt($ch, CURLOPT_HEADER, 0);
+curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0");
+curl_setopt($ch, CURLOPT_ENCODING, "");
+
+
+//1 https://api.librus.pl/OAuth/Authorization?client_id=46
+//2 https://api.librus.pl/OAuth/Authorization/2FA?client_id=46
+//3 https://synergia.librus.pl/loguj/portalRodzina?code=4vhhXUyRZIXPNwG431CxaYeebkOk3U/xND6MuAj5HxtoRZ/D/maX/OtKCjz5m0CPwv4TWC757PR2+GbesNdl+6HmUlx/nv+UqUfPDyfcHESqnCXBgdOi/ZwWagrt8p4JPXn37wPk=#o+9er1Se3X0=&state=cbe90a23051a03b9a08b401a1c17dd3362e03a828038329f3589f572dac21979
+
 
 $arr = array(
-    "login" => $user,
-    "pass" => $passwd
+    'login' => $user,
+    'pass' => $passwd
 );
-$res = sendPOST("https://synergia.librus.pl/loguj", $arr);
 
-// Po poprawnym zalogowaniu, sesja w Synergii jest już najprawdopodobniej uwierzytelniona
-// Pobieramy podgląd ocen, by odczytać to, na czym Ci zależało na początku
-$res = sendGET("https://synergia.librus.pl/przegladaj_oceny/uczen");
-$res = str_replace('href="', 'href="https://synergia.librus.pl/', $res);
-$res = str_replace('href="https://synergia.librus.pl//', 'href="https://synergia.librus.pl/', $res); // zapobieganie //
-$res = str_replace('src="', 'src="https://synergia.librus.pl/', $res);
-$res = str_replace('src="https://synergia.librus.pl//', 'src="https://synergia.librus.pl/', $res);
 
-echo $res;
-
-echo "<script>console.log(document.getElementsByTagName('div'));</script>";
-
-// XPath + RegExp - HARD
-// EASY - JS
-
-function sendGET($url)
+function sendGET($url, $headers = null)
 {
     global $ch;
     curl_setopt($ch, CURLOPT_POST, 0);
     curl_setopt($ch, CURLOPT_HTTPGET, 1);
     curl_setopt($ch, CURLOPT_URL, $url);
-    $res = curl_exec($ch);
-    return $res;
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    if ($headers) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    }
+    return curl_exec($ch);
 }
 
-function sendPOST($url, $fields)
+function sendPOST($url, $fields, $headers = null)
 {
     global $ch;
-    $POSTFIELDS = http_build_query($fields);
+    $postFields = http_build_query($fields);
     curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $POSTFIELDS);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
     curl_setopt($ch, CURLOPT_URL, $url);
-    $res = curl_exec($ch);
-    return $res;
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    if ($headers) {
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    }
+    return curl_exec($ch);
 }

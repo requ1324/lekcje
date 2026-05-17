@@ -1,1 +1,0 @@
-export let photos = [{"id":1776857475416,"status":"zmienione","filename":"input3.jpg","fields":{}},{"id":1777460157731,"status":"ok","filename":"input.jpg","url":"/uploads/input.jpg"},{"id":1777460620284,"album":"album","status":"ok","filename":"1777460620282-input.jpg","url":"/uploads/album/1777460620282-input.jpg","lastChange":"original"}]

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Synergia - Centrum Autoryzacji</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Reply-to" content="administrator@dziennik.librus.pl" />
+        <meta http-equiv="Content-Language" content="pl" />
+        <meta name="Description" content="Librus OAuth Authorizaion endpoint" />
+        <meta name="viewport" content="initial-scale=1, width=device-width, height=device-height" />
+        <meta name="robots" content="noindex">
+        <link rel="shortcut icon" href="https://synergia.librus.pl/images/synergia.ico">
+        <link rel="stylesheet" media="screen" href="/OAuth/css/app.min.css?v1.6" />
+        <script src="/OAuth/js/app.min.js?v1.7"></script>
+        
+        <style id="antiClickjack">
+            body { display: none !important; }
+        </style>
+        
+        <script>
+            let oauthAllowOrigin = ["https:\/\/portal.librus.pl","https:\/\/gateway.librus.pl","http:\/\/localhost","file:\/\/","https:\/\/localhost","ionic:\/\/localhost","app:\/\/librus","https:\/\/konto.um.gdynia.pl","https:\/\/synergia.librus.pl","https:\/\/api.librus.pl"];
+        </script>
+
+
+    <script type="text/javascript">
+        var redirectUrl = "https://synergia.librus.pl/loguj/portalRodzina";
+    </script>
+    <script type="text/javascript" src="/OAuth/js/ResizeObserverPolyfill.js"></script>
+    <script type="text/javascript" src="/OAuth/js/Authorization.js?0.28"></script>
+            </head>
+<body class="synergia.rodzina">
+
+<script type="text/javascript">
+    var parentUrlToNotify = "https://portal.librus.pl/rodzina";
+</script>
+<div class="ajax_loader">
+    <div id="spinner"></div>
+</div>
+<div class="container-fluid">
+    <header class="row">
+        <div class="col-12 order-2 order-md-1 logo">
+            <img src="/OAuth/images/synergia-logo.png" id="synergiaLogo" alt="Logo Synergia">
+        </div>
+        <div class="col-12 order-1 order-md-2 title">
+            <h2 id="viewTitle" class="text-center">Zaloguj się do systemu Synergia</h2>
+        </div>
+    </header>
+</div>
+<script type="text/javascript">
+
+var layoutMessages = {};
+var popupMessages = function (messageArray)
+{
+    var codes = {};
+    for (var i = 0; i < messageArray.length; ++i) {
+        codes[messageArray[i].code] = true;
+    }
+
+    if(codes['invalidUserType']) {
+        showSpecialMessagePopup('invalidUserType');
+        return {
+            invalidUserType: true
+        };
+    }
+
+    return {};
+};
+$(function() {
+    redirectToPortalIfNotInIframe(parentUrlToNotify);
+});
+
+</script>
+<div class="modal synergiaPopup" id="showProblemsPopup">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal" data-target="#getAppPopup">&times;</a>
+            </div>
+            <h4 class="modal-title text-center my-2">Uwaga</h4>
+            <div class="messageContainer">
+                <div id="invalidUserType">
+                    <p>Nieprawidłowy login lub hasło lub logujesz się do systemu jako pracownik szkoły. Ten formularz logowania przeznaczony jest dla rodziców lub uczniów. Przejdź na portal Librus Szkoła, aby zalogować się do systemu Synergia jako pracownik szkoły.</p>
+                    <div id="getAndroid" class="my-2">
+                        <a href="https://portal.librus.pl/szkola/synergia/loguj" target="_top" class="no-underline">
+                            <button class="btn btn-full btn-primary">Loguj jako pracownik szkoły</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><main>
+    <div class="container" id="form-body">
+        <div class="form" id="AuthorizationForm">
+            <div class="fullHeight d-flex flex-column" id="formContent">
+                <span class="backButton">
+                    <a href="#">
+                    <i class="ca ca-back"></i>
+                        Powrót
+                    </a>
+                </span>
+                <div class="LoginBox">
+                                        <!-- The Modal -->
+                    <div class="selectSystemPopup modal synergiaPopup" id="selectSystemBoxButtonsBox">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <a href="#" class="close" data-dismiss="modal" data-target="#selectSystemBoxButtonsBox">&times;</a>
+                                </div>
+                                <h4 class="modal-title text-center my-2">Wybierz rozwiązanie, z którego korzystasz </h4>
+                                <div id="dziennikButton" class="my-2">
+                                    <button class="btn btn-full edziennik" onclick="selectSystem('dziennik');">eDziennik</button>
+                                </div>
+                                <div id="synergiaButton" class="my-2">
+                                    <button class="btn btn-full synergia" onclick="selectSystem('synergia');">Synergia</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="mainError" class="d-block">
+                        <div class="collapse hide errorContainer" role="alert"></div>
+                    </div>
+
+                    <div class="d-block">
+                        <label id="loginLabel" class="form-control-label d-inline-block" for="Login">Login</label>
+                        <div id="loginRow" class="mb-3 d-block">
+                            <div class="input-group style-row">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i role="presentation" class="ca-user"></i>
+                                    </span>
+                                </div>
+                                <input aria-invalid="false" type="text" value="" class="form-control" name="Login" id="Login" required="">
+                            </div>
+                            <div class="collapse hide errorContainer d-box"></div>
+                        </div>
+                        <label id="passwordLabel" class="form-control-label d-inline-block" for="Pass">Hasło</label>
+                        <div id="passwordRow" class="mb-3 d-block">
+                            <div class="input-group style-row empty">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i role="presentation" class="ca-locked"></i>
+                                    </span>
+                                </div>
+                                <input aria-invalid="false" type="password" class="form-control" name="Pass" id="Pass" required="" autocomplete="off">
+                            </div>
+                            <div class="collapse hide errorContainer"></div>
+                            <a href="https://synergia.librus.pl/zapomnialem_hasla_ca/46/synergia.rodzina" class="right-link pull-right remindme">przypomnij hasło</a>
+                        </div>
+
+                        <div id="login-limit-exceeded-recaptcha-view" class="d-none"></div>
+                    </div>
+                                                                <div id="login-limit-exceeded-choice-view"
+                             class="d-none"
+                             role="dialog"
+                             aria-labelledby="viewTitle"
+                             aria-describedby="login-limit-exceeded-choice-paragraph-1 login-limit-exceeded-choice-paragraph-2"
+                        >
+                            <p id="login-limit-exceeded-choice-paragraph-1">
+                                Zarejestrowano zbyt wiele prób błędnego logowania.
+                                Aby kontynuować, skorzystaj z usługi Cloudflare Turnstile
+                                lub skontaktuj się ze szkolnym administratorem.
+                            </p>
+
+                            <p id="login-limit-exceeded-choice-paragraph-2">
+                                Więcej informacji o usłudze Cloudflare Turnstile,
+                                w tym przetwarzaniu danych osobowych, dostępnych jest w
+                                <a href="https://synergia.librus.pl/polityka-prywatnosci/" target="_blank">Polityce prywatności</a>
+                                Librus oraz w opisie usługi na stronie
+                                <a href="https://www.cloudflare.com/application-services/products/turnstile/" target="_blank">Cloudflare</a>.
+                            </p>
+
+                            <div class="d-flex justify-content-between flex-column flex-md-row">
+                                <button class="btn btn-secondary mb-1" onclick="loginLimitExceededReCaptchaView()">Cloudflare Turnstile</button>
+                                <button class="btn btn-secondary mb-1" onclick="loginLimitExceededManualView()">Kontakt z administratorem</button>
+                            </div>
+                        </div>
+                                        <div id="login-limit-exceeded-manual-view"
+                         class="d-none"
+                         role="dialog"
+                         aria-labelledby="viewTitle"
+                         aria-describedby="login-limit-exceeded-manual-paragraph-1 login-limit-exceeded-manual-paragraph-2 login-limit-exceeded-manual-paragraph-3"
+                    >
+                        <p id="login-limit-exceeded-manual-paragraph-1">
+                            W celu zalogowania do swojego konta, prosimy o kontakt ze szkolnym administratorem systemu.
+                        </p>
+
+                        <p id="login-limit-exceeded-manual-paragraph-2">
+                            W celu zalogowania do konta administratora szkoły, prosimy o kontakt z dyrektorem szkoły.
+                        </p>
+
+                        <p id="login-limit-exceeded-manual-paragraph-3">
+                            Więcej informacji znajduje się <a href="https://www.librus.pl/faq/librus-synergia/" target="_blank">tutaj</a>.
+                        </p>
+
+                        <p class="mt-5">
+                            <a id="backToLoginButton" href="#" onclick="backToDefaultView()">
+                                <i class="ca ca-back"></i>
+                                Powrót do logowania
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="buttonContainer">
+                    <button class="btn btn-full btn-primary d-block" id="LoginBtn">Zaloguj</button>
+                </div>
+                                <div class="footer">Formularz logowania do systemu Synergia na konta rodziców/opiekunów i&nbsp;uczniów.<br>
+    Kliknij
+        <a href="https://www.librus.pl/szkoly/systemy/librus-synergia/dzial-faq/" target="_blank">tutaj</a>
+    jeżeli potrzebujesz pomocy.
+</div>            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

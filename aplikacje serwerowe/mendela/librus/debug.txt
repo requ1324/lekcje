@@ -1,0 +1,36 @@
+=== Inicjalizacja OAuth ===
+  follow[0] HTTP: 302 URL: https://api.librus.pl/OAuth/Authorization?client_id=46&response_type=code&scope=mydata
+  follow[0] new cookies: SDZIENNIKSID, DZIENNIKSID
+  follow[1] HTTP: 200 URL: https://api.librus.pl/OAuth/Authorization?client_id=46
+  follow[1] new cookies: DZIENNIKSID
+=== POST logowanie ===
+  follow[0] HTTP: 200 URL: https://api.librus.pl/OAuth/Authorization/Grant?client_id=46
+  follow[0] new cookies: DZIENNIKSID
+POST body: {"status":"ok","goTo":"\/OAuth\/Authorization\/2FA?client_id=46"}
+=== 2FA flow ===
+  follow[0] HTTP: 302 URL: https://api.librus.pl/OAuth/Authorization/2FA?client_id=46
+  follow[0] new cookies: DZIENNIKSID
+  follow[1] HTTP: 302 URL: https://api.librus.pl/OAuth/Authorization/PerformLogin?client_id=46
+  follow[1] new cookies: DZIENNIKSID, DeviceCookie
+  follow[2] HTTP: 302 URL: https://api.librus.pl/OAuth/Authorization/Grant?client_id=46
+  follow[2] new cookies: DZIENNIKSID
+  follow[3] HTTP: 302 URL: https://synergia.librus.pl/loguj/portalRodzina?code=4dctfWyith3g3SzMzx55Zni7CjdM6BjWa8Ks0ScfR78rUj2T%2BdP8ukzKgrvbyYYYA3vYMDRUQGEZNxv2wO2fOk2xcokASEJreSJUnjPmnhfXc2UeS5LC2zQ2l5DqrIOmrRnMZB4M%3D%23uCMwO%2BCbLaM%3D
+  follow[3] new cookies: DZIENNIKSID, personalizedLoginPage
+  follow[3] STOP - znaleziono: synergia.librus.pl/loguj/portalRodzina
+Final URL: https://synergia.librus.pl/loguj/portalRodzina?code=4dctfWyith3g3SzMzx55Zni7CjdM6BjWa8Ks0ScfR78rUj2T%2BdP8ukzKgrvbyYYYA3vYMDRUQGEZNxv2wO2fOk2xcokASEJreSJUnjPmnhfXc2UeS5LC2zQ2l5DqrIOmrRnMZB4M%3D%23uCMwO%2BCbLaM%3D
+Synergia cookies: SDZIENNIKSID, DZIENNIKSID
+Zalogowano!
+Cookies do grades: SDZIENNIKSID, DZIENNIKSID
+Grades HTTP: 200
+Grades body length: 29288
+Pierwsze 500 znaków: <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <html lang="pl-PL">
+   <head><title>LIBRUS Synergia</title>
+   <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+   <meta http-equiv="Reply-to" content="administrator@dziennik.librus.pl">
+   <meta http-equiv="Content-Language" content="pl">
+   <meta name="Keywords" content="dziennik, elektroniczny, edukacja, oświata, programy, komputerowe, edziennik, e-dziennik, syn
+<pre>Array
+(
+)
+</pre>

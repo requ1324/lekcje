@@ -1,0 +1,51 @@
+HTTP/1.1 200 OK
+date: Sun, 03 May 2026 11:03:35 GMT
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+cache-control: no-store, no-cache, must-revalidate
+pragma: no-cache
+x-frame-options: allow-from https://portal.librus.pl
+vary: Accept-Encoding
+x-apache: dziennik03
+content-type: text/html; charset=UTF-8
+content-length: 1731
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="pl" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Synergia - Centrum Autoryzacji</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="Reply-to" content="administrator@dziennik.librus.pl" />
+        <meta http-equiv="Content-Language" content="pl" />
+        <meta name="Description" content="Librus OAuth Authorizaion endpoint" />
+        <meta name="viewport" content="initial-scale=1, width=device-width, height=device-height" />
+        <meta name="robots" content="noindex">
+        <link rel="shortcut icon" href="https://synergia.librus.pl/images/synergia.ico">
+        <link rel="stylesheet" media="screen" href="/OAuth/css/app.min.css?v1.6" />
+        <script src="/OAuth/js/app.min.js?v1.7"></script>
+        
+        <style id="antiClickjack">
+            body { display: none !important; }
+        </style>
+        
+        <script>
+            let oauthAllowOrigin = ["https:\/\/portal.librus.pl","https:\/\/gateway.librus.pl","http:\/\/localhost","file:\/\/","https:\/\/localhost","ionic:\/\/localhost","app:\/\/librus","https:\/\/konto.um.gdynia.pl","https:\/\/synergia.librus.pl"];
+        </script>
+
+
+    </head>
+<body class="">
+        
+<div class="warning-box error big">
+    <div class="warning-head">
+        <span class="warning-title">Przerwa techniczna</span>
+        <span class="warning-close">&nbsp;</span>
+    </div>
+    <div class="warning-content">
+            </div>
+    <div class="warning-buttons">
+    </div>
+</div>
+
+</body>
+</html>

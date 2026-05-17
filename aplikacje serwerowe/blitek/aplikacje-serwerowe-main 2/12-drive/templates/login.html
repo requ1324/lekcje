@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h4 mb-3">Logowanie</h1>
+<form method="post" action="{{ url_for('auth.login_post') }}" class="col-md-6">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="mb-3">
+        <label class="form-label" for="email">E-mail</label>
+        <input class="form-control" type="email" id="email" name="email" required autocomplete="username">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="password">Hasło</label>
+        <input class="form-control" type="password" id="password" name="password" required autocomplete="current-password">
+    </div>
+    <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="remember" name="remember" value="1">
+        <label class="form-check-label" for="remember">Zapamiętaj mnie</label>
+    </div>
+    <button class="btn btn-primary" type="submit">Zaloguj</button>
+</form>
+{% endblock %}

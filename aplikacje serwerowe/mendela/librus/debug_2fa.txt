@@ -1,0 +1,12 @@
+HTTP/1.1 302 Found
+date: Sun, 03 May 2026 10:51:58 GMT
+x-frame-options: allow-from https://portal.librus.pl
+expires: Thu, 19 Nov 1981 08:52:00 GMT
+pragma: no-cache
+cache-control: no-store
+set-cookie: DZIENNIKSID=A33~eb77cb30ac984a95bfb5b90ddc8e92f1; path=/; secure; HttpOnly; SameSite=None
+location: /OAuth/Authorization/PerformLogin?client_id=46
+x-apache: dziennik33
+content-length: 0
+content-type: application/json
+
