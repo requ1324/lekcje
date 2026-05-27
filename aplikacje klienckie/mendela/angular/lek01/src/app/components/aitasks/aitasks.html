@@ -1,0 +1,31 @@
+<div class="warmup">
+  <img
+    (mouseover)="mouseover()"
+    (mouseout)="mouseout()"
+    [src]="photoUrl"
+    alt=""
+    [width]="imgWidth"
+  />
+  <div class="color-div" [style.backgroundColor]="lightColor"></div>
+  <button [disabled]="isLocked">Zatwierdz</button>
+  <button (click)="changeColor()">Zmien kolor</button>
+  <span>{{ statusText }}</span>
+  <h1>{{ inputText }}</h1>
+  <input type="text" (input)="input($event)" placeholder="tutaj" />
+  <input type="text" #myField />
+  <p>{{ myField.value.length }}</p>
+  <input type="text" #source (input)="mirror = source.value" />
+  <input type="text" [value]="mirror" />
+  <button (click)="imgWidth = imgWidth + 20">powieksz</button>
+</div>
+<div class="main">
+  <input type="number" #number (input)="inputVal = number.value" />
+  <button (click)="setWidth()">ustaw postep</button>
+  <div>
+    <div
+      class="pasek"
+      [style.backgroundColor]="pasekWidth > 100 ? 'red' : 'blue'"
+      [style.width]="pasekWidth + 'px'"
+    ></div>
+  </div>
+</div>

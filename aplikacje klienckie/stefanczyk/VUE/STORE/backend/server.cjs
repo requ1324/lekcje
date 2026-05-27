@@ -6,6 +6,8 @@ const PORT = 3000;
 const fs = require("fs").promises;
 const path = require("path");
 
+const { orderBy } = require("lodash");
+
 const usersFilePath = path.join(__dirname, "users.json");
 
 const corsOptions = {
@@ -60,17 +62,13 @@ app.get("/product/:id", (req, res) => {
 
 app.get("/products", (req, res) => {
   console.log(req.query);
-  if (
-    req.query.name ||
-    req.query.category ||
-    req.query._sort ||
-    req.query._order
-  ) {
+  if (req.query.name || req.query.category || req.query._sort) {
     const name = req.query.name ? req.query.name.toLowerCase() : null;
     const category = req.query.category ? req.query.category : null;
     const sort = req.query._sort ? req.query._sort : null;
-    const order = req.query._order ? req.query._order : null;
+
     let filteredProducts = data.products;
+    let sortedProducts;
 
     if (name) {
       filteredProducts = filteredProducts.filter((p) =>
@@ -84,7 +82,19 @@ app.get("/products", (req, res) => {
       );
     }
 
-    res.json(filteredProducts);
+    if (sort) {
+      if (sort == "name_asc") {
+        sortedProducts = orderBy(filteredProducts, ["name"], ["asc"]);
+      } else if (sort == "name_desc") {
+        sortedProducts = orderBy(filteredProducts, ["name"], ["desc"]);
+      } else if (sort == "price_asc") {
+        sortedProducts = orderBy(filteredProducts, ["price"], ["asc"]);
+      } else if (sort == "price_desc") {
+        sortedProducts = orderBy(filteredProducts, ["price"], ["desc"]);
+      }
+    }
+
+    res.json(sortedProducts);
   } else {
     res.json(data.products);
   }

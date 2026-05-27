@@ -6,7 +6,7 @@ import fileController from "../controllers/fileController.js";
 
 const router = async (request, response) => {
   const { method, url } = request;
-
+  console.log();
   if (url == "/api/photos" && method == "POST") {
     const form = formidable();
     form.parse(request, function (err, fields, files) {
@@ -14,6 +14,7 @@ const router = async (request, response) => {
         response.writeHead(400, {
           "Content-Type": "application/json;charset=utf-8",
         });
+
         response.end(JSON.stringify({ status: "error", message: err.message }));
         return;
       }

@@ -54,4 +54,4 @@ const categories = {
   },
 };
 
-export default products;
+export default categories;
