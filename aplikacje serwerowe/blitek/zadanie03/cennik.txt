@@ -1,0 +1,16 @@
+odmiana	cena
+Alwa	2,9
+Antonowka	3,2
+Cortland	3,2
+Gala	3,0
+Granny Smith	3,4
+Idared	3,1
+Jonagold	3,5
+Jonagored	3,2
+McIntosh	2,8
+Pink Lady	3,6
+Red Delicious	3,3
+Fuji	3,4
+Braeburn	3,5
+Honeycrisp	3,8
+Golden Delicious	3,3

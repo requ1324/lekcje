@@ -6,6 +6,10 @@ const server = createServer(async (req, res) => {
     await router(req, res);
   } else if (req.url.startsWith("/api/tags")) {
     await tagsRouter(req, res);
+  } else if (req.url.startsWith("/api/filters")) {
+    await filtersRouter(req, res);
+  } else if (req.url.startsWith("/api/getimage")) {
+    await getImageRouter(req, res);
   }
 });
 

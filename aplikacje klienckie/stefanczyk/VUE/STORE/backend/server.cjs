@@ -6,7 +6,7 @@ const PORT = 3000;
 const fs = require("fs").promises;
 const path = require("path");
 
-const { orderBy } = require("lodash");
+const { orderBy, filter } = require("lodash");
 
 const usersFilePath = path.join(__dirname, "users.json");
 
@@ -35,6 +35,7 @@ app.use(
 );
 
 const data = require("./data.json");
+const { start } = require("repl");
 
 app.get("/promotions", (req, res) => {
   res.json(data);
@@ -62,7 +63,12 @@ app.get("/product/:id", (req, res) => {
 
 app.get("/products", (req, res) => {
   console.log(req.query);
-  if (req.query.name || req.query.category || req.query._sort) {
+  const limit = req.query._limit;
+  const page = req.query._page;
+  const numOfProductsPerPage = 10;
+  let startIndex = page * numOfProductsPerPage - numOfProductsPerPage;
+
+  if (req.query.name || req.query.category || req.query._sort || limit) {
     const name = req.query.name ? req.query.name.toLowerCase() : null;
     const category = req.query.category ? req.query.category : null;
     const sort = req.query._sort ? req.query._sort : null;
@@ -82,6 +88,8 @@ app.get("/products", (req, res) => {
       );
     }
 
+    sortedProducts = filteredProducts;
+
     if (sort) {
       if (sort == "name_asc") {
         sortedProducts = orderBy(filteredProducts, ["name"], ["asc"]);
@@ -92,6 +100,22 @@ app.get("/products", (req, res) => {
       } else if (sort == "price_desc") {
         sortedProducts = orderBy(filteredProducts, ["price"], ["desc"]);
       }
+    }
+
+    if (limit) {
+      let paginatedData;
+      let totalCount;
+      console.log(sortedProducts);
+      if (sortedProducts) {
+        paginatedData = sortedProducts.slice(startIndex, startIndex + limit);
+        totalCount = sortedProducts.length;
+      } else {
+        paginatedData = filteredProducts.slice(startIndex, startIndex + limit);
+        totalCount = filteredProducts.length;
+      }
+
+      res.json({ data: paginatedData, total: totalCount });
+      return;
     }
 
     res.json(sortedProducts);

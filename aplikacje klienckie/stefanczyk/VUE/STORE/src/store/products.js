@@ -7,6 +7,7 @@ const products = {
       productsList: [],
       productsLoading: false,
       productsError: null,
+      totalProducts: 0,
     };
   },
 
@@ -21,6 +22,9 @@ const products = {
     SET_PRODUCTS_LOADING(state, loading) {
       state.productsLoading = loading;
     },
+    SET_TOTAL_PRODUCTS(state, total) {
+      state.totalProducts = total;
+    },
   },
 
   //getters
@@ -34,6 +38,9 @@ const products = {
     GET_PRODUCTS_LOADING(state) {
       return state.productsLoading;
     },
+    GET_TOTAL_PRODUCTS(state) {
+      return state.totalProducts;
+    },
   },
 
   // tu zapytania do serwera z pomocą naszego api
@@ -43,8 +50,13 @@ const products = {
       commit("SET_PRODUCTS_ERROR", null);
 
       try {
-        const products = await getProducts(options);
+        const response = await getProducts(options);
+        const products = Array.isArray(response)
+          ? response
+          : response.data || [];
+
         commit("SET_PRODUCTS_LIST", products);
+        commit("SET_TOTAL_PRODUCTS", response.total || products.length);
       } catch (error) {
         commit("SET_PRODUCTS_ERROR", error.message);
       } finally {

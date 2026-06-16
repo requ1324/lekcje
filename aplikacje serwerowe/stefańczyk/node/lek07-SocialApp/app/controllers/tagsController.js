@@ -36,7 +36,7 @@ const normalizeTag = (data) => {
         ? Math.max(...convertedTags.map((tag) => Number(tag.id))) + 1
         : 0),
     name: parsed.name,
-    popularity: getRandomPopularity(),
+    popularity: parsed.popularity ?? getRandomPopularity(),
   };
 };
 

@@ -2,6 +2,7 @@
 import Header from "../components/Header.vue";
 import ProductTile from "../components/ProductTile.vue";
 import AppLoader from "../components/AppLoader.vue";
+import AppPagination from "../components/AppPagination.vue";
 export default {
   data() {
     return {
@@ -14,6 +15,9 @@ export default {
         { label: "Price asc", value: "price_asc" },
         { label: "Price desc", value: "price_desc" },
       ],
+      currentPage: 1,
+      limit: 5,
+      totalItems: 0,
     };
   },
   methods: {
@@ -44,6 +48,9 @@ export default {
     showLoader() {
       return this.productsLoading && !this.products.length;
     },
+    totalItems() {
+      this.totalItems = this.$store.getters.GET_TOTAL_PRODUCTS;
+    },
   },
   mounted() {
     this.$store.dispatch("FETCH_PRODUCTS");
@@ -55,6 +62,7 @@ export default {
     ProductTile,
     Header,
     AppLoader,
+    AppPagination,
   },
 };
 </script>
@@ -82,6 +90,18 @@ export default {
       :key="product.id"
     />
   </div>
+  <AppPagination
+    :currentPage="currentPage"
+    :totalItems="totalItems"
+    :limit="limit"
+    @click="
+      {
+        {
+          currentPage += 1;
+        }
+      }
+    "
+  />
 </template>
 
 <style scoped>
